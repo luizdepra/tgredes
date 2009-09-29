@@ -1,21 +1,22 @@
 \chapter{Pesquisa Multidimensional}
 
 	Em ciência da computação, algoritmo de pesquisa é aquele que toma um problema como entrada e retorna uma solução para este, depois de avaliar várias soluções possíveis. O conjunto formado por todas as soluções possíveis é chamado espaço de busca. Com o conhecimento prévio da estrutura de dados é possível restringir o espaço de busca utilizado, economizando tempo para achar a solução.
-	
-	A pesquisa multidimensional \cite{gonnet} é definida pela busca de elementos a partir de chaves compostas. Essas chaves compostas são os atributos que definem os elementos dentro do espaço de busca. 
+
+	Objetos multidimensionais ou multi-chaves como pontos, linhas, retângulos, regiões, volumes e poliedros podem ser representados por seu conjunto de atributos e por suas posições no espaço Euclidiano \cite{andreas}. Estruturas de dados multidimensionais ou espaciais indexam e dão suporte a objetos multi-atributos ou multi-chaves. Estas estruturas de dados são comumente conhecidas como métodos de acesso multidimensional \cite{gonnet, gaede}.
+
+	Com os dois conceitos anteriores é possível dizer que a procura de elementos através de chaves compostas 
+
 	Esta seção começa com uma revisão de árvores binárias (seção \ref{binarias}), a qual será necessária para o entendimento das estruturas de dados multidimensionais. Logo depois serão apresentadas em detalhes a árvore \textit{K-D} (seção \ref{kd}) e árvore \textit{K-D-B} (seção \ref{kdb}), assim como o banco de dados \textit{MySQL} (seção \ref{mysql}).
 	
 \section{Árvores Binárias}
 \label{binarias}
 	
-	As árvores binárias...
+	As árvores binárias são estruturas de dados compostas por nós que possuem no máximo dois filhos. O primeiro nó é chamado de raiz, e os nós filhos são chamados de esquerda e direita em relação ao nó em questão. Em uma árvore binária de busca cada nó possui uma chave distinta. Além disso, a sub-árvore à esquerda de um nó qualquer $n$ contém somente elementos com chave menores que a chave de $n$, e a sub-árvore à direita de $n$ contém elementos com chave maiores que a chave de $n$ \cite{gilberg}. A maior vantagem de utilizar árvores binárias está relacionada a ordenação e procura de elementos que são muito eficientes.
 
 \section{Árvores \textit{K-D}}
 \label{kd}
 
-	A árvore \textit{K-D} \cite{andreas, bentley, bentley2} é uma estrutura de dados semelhante à árvore binária, mas que difere principalmente no número de elementos por nó e na forma de organização.
-
-	Em uma árvore \textit{K-D}, cada nó tem $K$ atributos que representam as coordenadas de um ponto no espaço de $K$ dimensões. A hierarquia é feita através das relações menor que maior ou igual que, assim como na árvore binária. A diferença esta na utilização de um elemento de comparação diferente da chave em cada nível.
+	A árvore \textit{K-D} \cite{andreas, bentley, bentley2} é uma estrutura de dados semelhante à árvore binária, mas que difere principalmente no número de elementos por nó e na forma de organização. Em uma árvore \textit{K-D}, cada nó tem $K$ atributos que representam as coordenadas de um ponto no espaço de $K$ dimensões. A hierarquia é feita através das relações menor que maior ou igual que, assim como na árvore binária. A diferença esta na utilização de um elemento de comparação diferente da chave em cada nível.
 
 	Considerando pontos em um espaço de $K$ dimensões, a sua representação na árvore \textit{K-D} será feita por nós de $K$ elementos em arranjo (exemplo: $a,b,c,...$), numerados de $0 ... K-1$. Uma árvore enraizada por um nó com os valores (exemplo: $i,j,k,...$) tem como sua sub-árvore a esquerda todos os pontos com $a < i$ e a direita, pontos com $a >= i$. No próximo nível, a comparação é feita da mesma forma, mas com o próximo elemento da chave, no caso $b$. Ou seja, no nível $L$, o elemento da chave que é usado na comparação é o da posição $L\ mod (K+1)$.
 

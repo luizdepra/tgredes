@@ -2,8 +2,7 @@
 
 	Em ciência da computação, algoritmo de pesquisa é aquele que toma um problema como entrada e retorna uma solução para este, depois de avaliar várias soluções possíveis. O conjunto formado por todas as soluções possíveis é chamado espaço de busca. Com o conhecimento prévio da estrutura de dados é possível restringir o espaço de busca utilizado, economizando tempo para achar a solução.
 	
-	A pesquisa multidimensional é definida pela busca de elementos a partir de chaves compostas. Essas chaves compostas são os atributos que definem os elementos dentro do espaço de busca. 
-	
+	A pesquisa multidimensional \cite{gonnet} é definida pela busca de elementos a partir de chaves compostas. Essas chaves compostas são os atributos que definem os elementos dentro do espaço de busca. 
 	Esta seção começa com uma revisão de árvores binárias (seção \ref{binarias}), a qual será necessária para o entendimento das estruturas de dados multidimensionais. Logo depois serão apresentadas em detalhes a árvore \textit{K-D} (seção \ref{kd}) e árvore \textit{K-D-B} (seção \ref{kdb}), assim como o banco de dados \textit{MySQL} (seção \ref{mysql}).
 	
 \section{Árvores Binárias}
@@ -14,7 +13,7 @@
 \section{Árvores \textit{K-D}}
 \label{kd}
 
-	A árvore \textit{K-D} é uma estrutura de dados semelhante à árvore binária, mas que difere principalmente no número de elementos por nó e na forma de organização.
+	A árvore \textit{K-D} \cite{andreas, bentley, bentley2} é uma estrutura de dados semelhante à árvore binária, mas que difere principalmente no número de elementos por nó e na forma de organização.
 
 	Em uma árvore \textit{K-D}, cada nó tem $K$ atributos que representam as coordenadas de um ponto no espaço de $K$ dimensões. A hierarquia é feita através das relações menor que maior ou igual que, assim como na árvore binária. A diferença esta na utilização de um elemento de comparação diferente da chave em cada nível.
 
@@ -24,12 +23,12 @@
 \section{Árvores \textit{K-D-B}}
 \label{kdb}
 
-	A árvores \textit{K-D-B} são utilizadas principalmente para armazenamento em memória secundária, possuindo características de árvore \textit{K-D} e árvore \textit{B}. A estrutura da árvore \textit{K-D-B} segue o mesmo princípio de divisão de planos da árvore \textit{K-D}, ou seja, os planos são definidos utilizando-se da distribuição de elementos na região.
+	A árvores \textit{K-D-B} são utilizadas principalmente para armazenamento em memória secundária, possuindo características de árvore \textit{K-D} e árvore \textit{B} \cite{andreas}. A estrutura da árvore \textit{K-D-B} segue o mesmo princípio de divisão de planos da árvore \textit{K-D}, ou seja, os planos são definidos utilizando-se da distribuição de elementos na região.
 	Porém existe uma diferença fundamental nas árvores \textit{K-D-B}: os nós internos são apontadores e representam determinada região. Esses apontadores são chamados de \textit{páginas de regiões} e contém o endereço para o nó filho ou para uma folha.
-	Os pontos são armazenados somente nas \textit{páginas de pontos} (folhas), e estas sempre estão em um mesmo nível - garantindo que a árvore \textit{K-D-B} esteja sempre balanceada.
+	Os pontos são armazenados somente nas \textit{páginas de pontos} (folhas), e estas sempre estão em um mesmo nível - garantindo que a árvore \textit{K-D-B} esteja sempre balanceada \cite{comer}.
 
 \section{MySQL}
 \label{mysql}
 
-	\textit{MySQL} é um sistema de gerenciamento de banco de dados (SGBD), que utiliza a linguagem SQL (Linguagem de Consulta Estruturada, do inglês \textit{Structured Query Language}) como interface. É um banco de dados bastante popular, distribuído como software livre.
+	\textit{MySQL} \cite{sunmysql} é um sistema de gerenciamento de banco de dados (SGBD), que utiliza a linguagem SQL (Linguagem de Consulta Estruturada, do inglês \textit{Structured Query Language}) como interface. É um banco de dados bastante popular, distribuído como software livre.
 

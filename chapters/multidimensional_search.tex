@@ -8,12 +8,12 @@
 \section{Definições Preliminares}
 \label{definicoes}
 
-	Um registro é dito multidimensional quando possui múltiplas chaves, podendo ser representado como um ponto no espaço euclidiano. Estruturas de dados multidimensionais indexam e dão suporte a registros multidimensionais. Estas estruturas são comumente conhecidas como métodos de acesso multidimensional \cite{gaede}.
+	Um registro é dito multidimensional quando possui múltiplas chaves, podendo ser representado como um ponto no espaço euclidiano. Em termos geométricos, um conjunto de chaves pode ser distribuído em um espaço multidimensional, onde cada dimensão do espaço corresponde a um atributo. Portanto para $k$ chaves temos um espaço \textit{k-dimensional}. Uma consulta multidimensional retorna todos os registros (pontos) que satisfazem certas características \cite{andreas}. 
 	
-% A pesquisa multidimensional é definida como a busca através de múltiplos atributos (chaves). 
+	A operação de consulta multidimensional é muito mais eficiente se feita em uma estrutura de dados multidimensional. Estruturas de dados multidimensionais indexam e dão suporte a registros multidimensionais. Estas estruturas são comumente conhecidas como métodos de acesso multidimensional \cite{gaede}. Nesse trabalho são apresentadas as seguintes estruturas multidimensionais: árvores \textit{K-D} e \textit{K-D-B}. Ambas são baseadas na árvore binária de pesquisa, a qual será apresentada a seguir. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Árvores Binárias}
+\section{Árvores Binárias de Pesquisa}
 \label{binarias}
 
 	Uma árvore binária é definida como um conjunto finito de nós que ou está vazio ou consiste de um nó chamado raiz mais os elementos de duas árvores binárias distintas chamadas de subárvores esquerda e direita do nó raiz. Em uma árvore binária, cada nó tem no máximo duas subárvores \cite{ziviani}.
@@ -56,14 +56,14 @@
 
 	A principal desvantagem da árvore \textit{K-D} é o desbalanceamento causado pela inserção de elementos. A árvore \textit{K-D adaptativa} \cite{bentley3} é uma variação da árvore \textit{K-D}, e resolve o problema do desbalanceamento fazendo uma divisão mais igualitária possível de elementos entre cada região. Para determinar o hiperplano que divide um eixo é utilizado o algoritmo de Hoare aplicado sobre o conjunto de pontos da partição. O algoritmo encontra a mediana sobre o número de pontos na partição, garantindo dessa maneira que cada nova partição contenha o mesmo número de pontos. Os nós internos armazenam a coordenada de divisão do plano, sendo que nós folhas contém a informação.
 
-	A árvore K-D adaptativa é uma estrutura estática, sendo difícil mantê-la balanceada na presença constante de inserções e remoções. A estrutura funciona melhor se os dados são conhecidos a priori e se as atualizações forem raras, dependendo assim da ordem de inserção dos dados. 
-	
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{images/kd_adaptative.jpg}
 \caption{Árvore \textit{K-D adaptativa}. O hiperplano não é definido pela coordenada do plano.} 
 \end{center}
 \end{figure}
+
+	A árvore K-D adaptativa é uma estrutura estática, sendo difícil mantê-la balanceada na presença constante de inserções e remoções. A estrutura funciona melhor se os dados são conhecidos a priori e se as atualizações forem raras, dependendo assim da ordem de inserção dos dados. 
 
 	As árvores \textit{K-D} são estruturas de dados armazenadas em memória primária, assim sendo não possuem um bom desempenho em um ambiente com armazenamento secundário, onde a estrutura de dados precisa ser paginada para ser transferida para a memória primária . Tanto a árvore \textit{K-D} quanto a \textit{K-D adaptativa} tornam-se desbalanceadas na presença frequente de inserções e remoções, o que degrada o desempenho de busca nessas árvores \cite{andreas}. .
 
@@ -75,16 +75,16 @@
 	Porém existe uma diferença fundamental entre as árvores \textit{K-D adaptativa} e as árvores \textit{K-D-B}: os nós internos são apontadores e representam determinada região. Esses apontadores são chamados de \textit{páginas de regiões} e contém o endereço para o nó filho ou para uma folha.
 	Os pontos são armazenados somente nas \textit{páginas de pontos} (folhas), e estas sempre estão em um mesmo nível - garantindo que a árvore \textit{K-D-B} esteja sempre balanceada \cite{comer}.
 
-	Na árvore \textit{K-D-B}, subregiões de um mesmo nível são mutuamente disjuntas, isto faz com que a busca por um ponto seja uma simples busca da raiz até a folha. Desta maneira usa-se o mesmo algoritmo de busca da árvore \textit{K-D}, e a complexidade do tempo de busca é logarítima em relação ao número de elementos total \cite{andreas}.
-
-	A árvore \textit{K-D-B}, na presença de inserções e remoções pode forçar divisões dos blocos de dados. As divisões podem ser propagadas de um nó a seus descendentes, para garantir que as regiões permaneçam disjuntas. Uma divisão forçada ocorre quando há um \textit{overflow} ou \textit{underflow} de uma página, nas operações de inserções ou remoções. Este problema é resolvido utilizando a mesma técnica utilizada na árvore B, a reorganização. Existem dois tipos de reorganização possíveis: a união e a distribuição. No caso da união, as informações de duas páginas diferentes são combinadas em uma única. E no caso da distribuição, as informações são divididas entre duas páginas.
-
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.30]{images/kdb.jpg}
 \caption{Árvore \textit{K-D-B}.} 
 \end{center}
 \end{figure}
+
+	Na árvore \textit{K-D-B}, subregiões de um mesmo nível são mutuamente disjuntas, isto faz com que a busca por um ponto seja uma simples busca da raiz até a folha. Desta maneira usa-se o mesmo algoritmo de busca da árvore \textit{K-D}, e a complexidade do tempo de busca é logarítima em relação ao número de elementos total \cite{andreas}.
+
+	A árvore \textit{K-D-B}, na presença de inserções e remoções pode forçar divisões dos blocos de dados. As divisões podem ser propagadas de um nó a seus descendentes, para garantir que as regiões permaneçam disjuntas. Uma divisão forçada ocorre quando há um \textit{overflow} ou \textit{underflow} de uma página, nas operações de inserções ou remoções. Este problema é resolvido utilizando a mesma técnica utilizada na árvore B, a reorganização. Existem dois tipos de reorganização possíveis: a união e a distribuição. No caso da união, as informações de duas páginas diferentes são combinadas em uma única. E no caso da distribuição, as informações são divididas entre duas páginas \cite{andreas}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pesquisa Multidimensional em Banco de Dados}
@@ -98,4 +98,4 @@
 
 	O Sistema Gerenciador de Banco de Dados (SGBD) é um conjunto de programas de computador responsável pelo gerenciamento de uma base de dados que disponibiliza interface para incluir, alterar ou consultar dados. Em bancos de dados relacionais a interface é constituída pelas APIs ou drivers do SGBD, que executam comandos na linguagem SQL.
  
-	O \cite{sunmysql} e um SGBD bastante popular distribuído como software livre que utiliza a linguagem SQL (Linguagem de Consulta Estruturada, do inglês \textit{Structured Query Language}) como interface, apresenta diversas arquiteturas responsáveis por manter o armazenamento dos dados e tabelas (Storage Engine) como MyISAM(\textit{Storage Engine} padrão do mysql),MEMORY(HEAP),InnoDB entre outras, possibilita a criação de indices com multiplas chaves(até 15 chaves), Sem um índice o MySQL tem de iniciar com o primeiro registro e depois ler através de toda a tabela até que ele encontre os registros relevantes. Quanto maior a tabela, maior será o custo. Se a tabela possui um índice para as colunas em questão, o MySQL pode rapidamente obter uma posição para procurar no meio do arquivo de dados sem ter que varrer todos os registros.\cite{indicesMysql}
+	O \cite{sunmysql} e um SGBD bastante popular distribuído como software livre que utiliza a linguagem SQL (Linguagem de Consulta Estruturada, do inglês \textit{Structured Query Language}) como interface, apresenta diversas arquiteturas responsáveis por manter o armazenamento dos dados e tabelas (Storage Engine) como MyISAM(\textit{Storage Engine} padrão do mysql), MEMORY(HEAP), InnoDB entre outras, possibilita a criação de indices com multiplas chaves (até 15 chaves). Sem um índice o MySQL tem de iniciar com o primeiro registro e depois ler através de toda a tabela até que ele encontre os registros relevantes. Quanto maior a tabela, maior será o custo. Se a tabela possui um índice para as colunas em questão, o MySQL pode rapidamente obter uma posição para procurar no meio do arquivo de dados sem ter que varrer todos os registros.\cite{indicesMysql}

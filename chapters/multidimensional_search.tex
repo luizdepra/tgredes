@@ -10,15 +10,14 @@
 
 	Algumas definições sobre pesquisa multidimensional estão na seção \ref{definicoes}. A seção \ref{binarias} apresenta as árvores binárias de busca. Logo depois serão apresentadas em detalhes a árvore \textit{K-D} na seção \ref{kd} e a árvore \textit{K-D-B} na seção \ref{kdb}. Por fim é apresentada a utilização de um banco de dados tradicional, o \textit{MySQL} para a implementação de pesquia multidimensional na seção \ref{mysql}.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Definições Preliminares}
 \label{definicoes}
 	
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvores Binárias}
 \label{binarias}
-
-%    As árvores binárias são estruturas de dados compostas por nós que possuem no máximo dois filhos. O primeiro nó é chamado de raiz, e os nós filhos são chamados de esquerda e direita em relação ao nó em questão. Em uma árvore binária de busca cada nó possui uma chave distinta. Além disso, a sub-árvore à esquerda de um nó qualquer $n$ contém somente elementos com chave menores, e a sub-árvore à direita de $n$ contém elementos com chave maiores\cite{gilberg}. A maior vantagem de utilizar árvores binárias está relacionada a ordenação e procura de elementos que são muito eficientes.
 
 	Uma árvore binária é definida como um conjunto finito de nós que ou está vazio ou consiste de um nó chamado raiz mais os elementos de duas árvores binárias distintas chamadas de subárvores esquerda e direita do nó raiz. Em uma árvore binária, cada nó tem no máximo duas subárvores \cite{ziviani}.
 
@@ -31,6 +30,7 @@
 \end{center}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvores \textit{K-D}}
 \label{kd}
 
@@ -48,7 +48,10 @@
 \caption{Árvore \textit{K-D}.} 
 \end{center}
 \end{figure}
-	
+
+
+\subsection{Árvores \textit{K-D adaptativas}}
+
 	A principal desvantagem da árvore \textit{K-D} é o desbalanceamento causado pela inserção de elementos. A árvore \textit{K-D adaptativa} \cite{bentley3} resolve o problema do desbalanceamento fazendo uma divisão mais igualitária possível de elementos entre cada região. Os nós internos armazenam a coordenada de divisão do plano, sendo que nós folhas contém a informação.
 
 \begin{figure}[H]
@@ -58,10 +61,11 @@
 \end{center}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvores \textit{K-D-B}}
 \label{kdb}
 
-	As árvores \textit{K-D-B} são utilizadas principalmente para armazenamento em memória secundária, possuindo características de árvore \textit{K-D adaptativa} e árvore \textit{B} \cite{andreas}. A estrutura da árvore \textit{K-D-B} segue o mesmo princípio de divisão em planos da árvore \textit{K-D}, ou seja, os planos são definidos utilizando a distribuição de elementos na região.
+	A árvore \textit{K-D-B} é utilizada principalmente para armazenamento em memória secundária, possuindo características de árvore \textit{K-D adaptativa} e árvore \textit{B} \cite{andreas}. A estrutura da árvore \textit{K-D-B} segue o mesmo princípio de divisão em planos da árvore \textit{K-D}, ou seja, os planos são definidos utilizando a distribuição de elementos na região.
 	Porém existe uma diferença fundamental entre as árvores \textit{K-D adaptativa} e as árvores \textit{K-D-B}: os nós internos são apontadores e representam determinada região. Esses apontadores são chamados de \textit{páginas de regiões} e contém o endereço para o nó filho ou para uma folha.
 	Os pontos são armazenados somente nas \textit{páginas de pontos} (folhas), e estas sempre estão em um mesmo nível - garantindo que a árvore \textit{K-D-B} esteja sempre balanceada \cite{comer}.
 
@@ -72,8 +76,10 @@
 \end{center}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{MySQL}
 \label{mysql}
 
-    \textit{MySQL} \cite{sunmysql} é um sistema de gerenciamento de banco de dados (SGBD), que utiliza a linguagem SQL (Linguagem de Consulta Estruturada, do inglês \textit{Structured Query Language}) como interface. É um banco de dados bastante popular, distribuído como software livre. Apresenta diversas engines de armazenamento como MyISAM, MEMORY(HEAP),InnoDB entre outras, possibilita a criação de indices com multiplas chaves(até 15 chaves) Os índices são utilizados para encontrar registros com um valor específico de uma coluna rapidamente. Sem um índice o MySQL tem de iniciar com o primeiro registro e depois ler através de toda a tabela até que ele encontre os registros relevantes. Quanto maior a tabela, maior será o custo. Se a tabela possui um índice para as colunas em questão, o MySQL pode rapidamente obter uma posição para procurar no meio do arquivo de dados sem ter que varrer todos os registros. Se uma tabela possui 1000000 registros, isto é pelo menos 100000 vezes mais rápido do que ler todos os registros sequencialmente. Note que se você precisar acessar quase todos os 1000000 registros, seria mais rápido acessá-los sequencialmente porque evitaria acessos ao disco.\cite{indicesMysql}  
-
+    O \textit{MySQL} \cite{sunmysql} é um Sistema de Gerenciamento de Banco de Dados (SGBD), que utiliza a linguagem SQL (Linguagem de Consulta Estruturada, do inglês \textit{Structured Query Language}) como interface. É um banco de dados bastante popular, distribuído como software livre. 
+	
+	Apresenta diversas \textit{engines} de armazenamento como MyISAM, MEMORY(HEAP), InnoDB entre outras, possibilita a criação de índices com múltiplas chaves (até 15 chaves) Os índices são utilizados para encontrar registros com um valor específico de uma coluna rapidamente. Sem um índice o MySQL tem de iniciar com o primeiro registro e depois ler através de toda a tabela até que ele encontre os registros relevantes. Quanto maior a tabela, maior será o custo. Se a tabela possui um índice para as colunas em questão, o MySQL pode rapidamente obter uma posição para procurar no meio do arquivo de dados sem ter que varrer todos os registros. Se uma tabela possui N registros, isto é pelo menos N/10 vezes mais rápido do que ler todos os registros sequencialmente. Note que caso seja necessário acessar quase todos os N registros, seria mais rápido acessá-los sequencialmente porque evitaria acessos ao disco \cite{indicesMysql}.

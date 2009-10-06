@@ -8,7 +8,7 @@
 	
 	O objetivo da pesquisa é recuperar informação a partir de uma grande massa de informação previamente armazenada. A informação é dividida em registros, em que cada registro possui uma chave para ser usada na pesquisa \cite{ziviani}. Um algoritmo de pesquisa ou busca é aquele que recebe uma chave de pesquisa como entrada, retornando os registros com chaves iguais a chave de pesquisa.
 
-	Algumas definições sobre pesquisa multidimensional estão na seção \ref{definicoes}. A seção \ref{binarias} apresenta as árvores binárias de busca. Logo depois serão apresentadas em detalhes a árvore \textit{K-D} na seção \ref{kd} e a árvore \textit{K-D-B} na seção \ref{kdb}. Por fim é apresentada a utilização de um banco de dados tradicional, o \textit{MySQL} para a implementação de pesquia multidimensional na seção \ref{mysql}.
+	Algumas definições sobre pesquisa multidimensional estão na seção \ref{definicoes}. A seção \ref{binarias} apresenta as árvores binárias de busca. Logo depois serão apresentadas em detalhes a árvore \textit{K-D} na seção \ref{kd} e a árvore \textit{K-D-B} na seção \ref{kdb}. Por fim é apresentada a utilização de um banco de dados tradicional, o \textit{MySQL} para a implementação de pesquia multidimensional na seção \ref{pesquisamultidb}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Definições Preliminares}
@@ -21,7 +21,7 @@
 
 	Uma árvore binária é definida como um conjunto finito de nós que ou está vazio ou consiste de um nó chamado raiz mais os elementos de duas árvores binárias distintas chamadas de subárvores esquerda e direita do nó raiz. Em uma árvore binária, cada nó tem no máximo duas subárvores \cite{ziviani}.
 
-	Uma árvore binária de pesquisa é uma árvore binária em que todo nó interno contém um registro, e, para cada nó, a seguinte propriedade é verdadeira: todos os registros com chaves menores estão na subárvore a esquerda e todos os registros com chaves maiores estão na subárvore a direita \cite{ziviani}. A maior vantagem em utilizar árvores binárias está relacionada a ordenação e busca de elementos que são muito eficientes.
+	Uma árvore binária de pesquisa é uma árvore binária em que todo nó interno contém um registro, e, para cada nó, a seguinte propriedade é verdadeira: todos os registros com chaves menores estão na subárvore a esquerda e todos os registros com chaves maiores estão na subárvore a direita \cite{ziviani}. A maior vantagem em utilizar árvores binárias está relacionada a ordenação e busca de elementos que são muito eficientes. As árvores binárias de pesquisa servem de base para as estruturas multidimensionais descritas a seguir (árvores K-D e K-D-B).
 
 \begin{figure}[H]
 \begin{center}
@@ -34,13 +34,9 @@
 \section{Árvores \textit{K-D}}
 \label{kd}
 
-	A árvore \textit{K-D} \cite{andreas, bentley, bentley2} é uma estrutura de dados semelhante à árvore binária, mas que permite a busca por múltiplos atributos. Em uma árvore \textit{K-D}, cada nó tem $K$ atributos que representam as coordenadas de um ponto no espaço de $K$ dimensões. 
-	
-	
-	
-%	 A hierarquia é feita através das relações menor que maior ou igual que, assim como na árvore binária. A diferença está na utilização de um elemento de comparação diferente da chave em cada nível.
+	A árvore \textit{K-D} \cite{andreas, bentley, bentley2} é uma estrutura de dados semelhante à árvore binária, mas que permite a busca por múltiplos atributos. Em uma árvore \textit{K-D}, cada nó tem $K$ atributos que representam as coordenadas de um ponto no espaço de $K$ dimensões.  A árvore K-D faz divisões recursivas do espaço em subespaços, por meio de hiperplanos de divisão de k-dimensões. Por exemplo, para k=3, os hiperplanos de divisão alternam perpendicularmente entre os eixos x, y e z \cite{andreas}.
 
-%    Considerando pontos em um espaço de $K$ dimensões, a sua representação na árvore \textit{K-D} será feita por nós de $K$ elementos em arranjo (exemplo: $a,b,c,...$), numerados de $0 ... K-1$. Uma árvore enraizada por um nó com os valores (exemplo: $i,j,k,...$) tem como sua sub-árvore a esquerda todos os pontos com $a < i$ e a direita, pontos com $a >= i$. No próximo nível, a comparação é feita da mesma forma, mas com o próximo elemento da chave, no caso $b$. Ou seja, no nível $L$, o elemento da chave que é usado na comparação é o da posição $L\ mod (K+1)$.
+	Na árvore \textit{K-D}, registros são definidos por $k$ chaves de pesquisa. Semelhante ao que ocorre na árvore binária de pesquisa, registros são acessados usando comparações lógicas menor que ou maior igual que. Entretando, a chave que determina a sub-árvore que será acessada (por exemplo, esquerda ou direita, na árvore binária), varia a cada nível da árvore. No nível $L$, a chave $L\ mod (k+1)$ é utilizada, sendo que a raiz está no nível 0. Desta maneira, a primeira chave de pesquisa é utilizada na raiz, a segunda no nível 1, e assim sucessivamente, até que todas as chaves são utilizadas. O processo continua, e as chaves são utilizadas de maneira cíclica \cite{andreas}.
 
 \begin{figure}[H]
 \begin{center}
@@ -49,8 +45,17 @@
 \end{center}
 \end{figure}
 
+%	A pesquisa em uma árvore K-D 
 
-\subsection{Árvores \textit{K-D adaptativas}}
+	A inserção de um registro na árvore K-D é feita a partir da pesquisa da chave até que um ponteiro nulo seja encontrado, indicando o local para a inserção do novo registro.
+
+%	Construir uma árvore K-D estática a partir de n pontos tem complexidade de tempo O(n log n).
+	
+%	Inserir um novo registro em uma árvore K-D balanceada leva O(log n) de tempo.
+
+%	A remoção de um ponto de uma árvore K-D balanceada tem complexidade O(log n).
+
+\section{Árvores \textit{K-D adaptativas}}
 
 	A principal desvantagem da árvore \textit{K-D} é o desbalanceamento causado pela inserção de elementos. A árvore \textit{K-D adaptativa} \cite{bentley3} resolve o problema do desbalanceamento fazendo uma divisão mais igualitária possível de elementos entre cada região. Os nós internos armazenam a coordenada de divisão do plano, sendo que nós folhas contém a informação.
 
@@ -76,8 +81,9 @@
 \end{center}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pesquisa Multidimensional em Banco de Dados}
-\label{Pesquisa Multidimensional em Banco de Dados}
+\label{pesquisamultidb}
 
     Banco de Dados\cite{bancodedados}, são conjuntos de registros dispostos em estrutura regular que possibilita a reorganização dos mesmos e produção de informação. Um Banco de Dados Relacional\cite{bancodedadosrelacional} é um conceito abstrato que define maneiras de armazenar, manipular e recuperar dados estruturados unicamente na forma de tabelas.A tabela\cite{tabela} é um conjunto de dados dispostos em número finito de colunas e número ilimitado de linhas (ou tuplas).As colunas são tipicamente consideradas os campos da tabela, e caracterizam os tipos de dados que deverão constar na tabela (numéricos, alfa-numéricos, datas, coordenadas, etc). O número de linhas pode ser interpretado como o número de combinações de valores dos campos da tabela. O número de tuplas de uma tabela é virtualmente ilimitado, o que torna as pesquisas por valor potencialmente muito lentas. Para permitir agilizar estas consultas, podem ser associados índices à tabela, que são estruturas de dados independentes da forma e ordem como estão armazenados os dados, embora tenham relação direta com os mesmos. Como consequência, a cada alteração de dados, irá corresponder uma (ou mais) alterações em cada um dos índices, aumentando o esforço necessário ao Sistema Gerenciador de Banco de Dados (SGBD) para realizar essa alteração. O Sistema Gerenciador de Banco de Dados (SGBD) é um conjunto de programas de computador responsável pelo gerenciamento de uma base de dados que disponibiliza interface para incluir, alterar ou consultar dados. Em bancos de dados relacionais a interface é constituída pelas APIs ou drivers do SGBD, que executam comandos na linguagem SQL. O \cite{sunmysql} e um SGBD bastante popular distribuído como software livre que utiliza a linguagem SQL (Linguagem de Consulta Estruturada, do inglês \textit{Structured Query Language}) como interface, apresenta diversas arquiteturas responsáveis por manter o armazenamento dos dados e tabelas (Storage Engine) como MyISAM(\textit{Storage Engine} padrão do mysql),MEMORY(HEAP),InnoDB entre outras, possibilita a criação de indices com multiplas chaves(até 15 chaves), Sem um índice o MySQL tem de iniciar com o primeiro registro e depois ler através de toda a tabela até que ele encontre os registros relevantes. Quanto maior a tabela, maior será o custo. Se a tabela possui um índice para as colunas em questão, o MySQL pode rapidamente obter uma posição para procurar no meio do arquivo de dados sem ter que varrer todos os registros.\cite{indicesMysql}  
 

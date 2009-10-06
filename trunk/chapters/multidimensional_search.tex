@@ -1,29 +1,46 @@
 \chapter{Pesquisa Multidimensional}
 
-    Em ciência da computação, algoritmo de pesquisa é aquele que toma um problema como entrada e retorna uma solução para este, depois de avaliar várias soluções possíveis. O conjunto formado por todas as soluções possíveis é chamado espaço de busca. Com o conhecimento prévio da estrutura de dados é possível restringir o espaço de busca utilizado, economizando tempo para achar a solução.
+%    Em ciência da computação, algoritmo de pesquisa é aquele que toma um problema como entrada e retorna uma solução para este, depois de avaliar várias soluções possíveis. O conjunto formado por todas as soluções possíveis é chamado espaço de busca. Com o conhecimento prévio da estrutura de dados é possível restringir o espaço de busca utilizado, economizando tempo para achar a solução.
 
-	Objetos multidimensionais ou multi-chaves como pontos, linhas, retângulos, regiões, volumes e poliedros podem ser representados por seu conjunto de atributos e por suas posições no espaço Euclidiano \cite{andreas}. Estruturas de dados multidimensionais ou espaciais indexam e dão suporte a objetos multi-atributos ou multi-chaves. Estas estruturas de dados são comumente conhecidas como métodos de acesso multidimensional \cite{gaede}. A procura de elementos através de chaves compostas é dita pesquisa multidimensional \cite{gonnet}.
+%	Objetos multidimensionais ou multi-chaves como pontos, linhas, retângulos, regiões, volumes e poliedros podem ser representados por seu conjunto de atributos e por suas posições no espaço Euclidiano \cite{andreas}. Estruturas de dados multidimensionais ou espaciais indexam e dão suporte a objetos multi-atributos ou multi-chaves. Estas estruturas de dados são comumente conhecidas como métodos de acesso multidimensional \cite{gaede}. A procura de elementos através de chaves compostas é dita pesquisa multidimensional \cite{gonnet}.
 
-    Esta seção começa com uma revisão de árvores binárias (seção \ref{binarias}), a qual será necessária para o entendimento das estruturas de dados multidimensionais. Logo depois serão apresentadas em detalhes a árvore \textit{K-D} (seção \ref{kd}) e árvore \textit{K-D-B} (seção \ref{kdb}), assim como o banco de dados \textit{MySQL} (seção \ref{mysql}).
+%   Esta seção começa com uma revisão de árvores binárias (seção \ref{binarias}), a qual será necessária para o entendimento das estruturas de dados multidimensionais. Logo depois serão apresentadas em detalhes a árvore \textit{K-D} (seção \ref{kd}) e árvore \textit{K-D-B} (seção \ref{kdb}), assim como o banco de dados \textit{MySQL} (seção \ref{mysql}).
+	
+	O objetivo da pesquisa é recuperar informação a partir de uma grande massa de informação previamente armazenada. A informação é dividida em registros, em que cada registro possui uma chave para ser usada na pesquisa \cite{ziviani}. Um algoritmo de pesquisa ou busca é aquele que recebe uma chave de pesquisa como entrada, retornando os registros com chaves iguais a chave de pesquisa.
+
+	Algumas definições sobre pesquisa multidimensional estão na seção \ref{definicoes}. A seção \ref{binarias} apresenta as árvores binárias de busca. Logo depois serão apresentadas em detalhes a árvore \textit{K-D} na seção \ref{kd} e a árvore \textit{K-D-B} na seção \ref{kdb}. Por fim é apresentada a utilização de um banco de dados tradicional, o \textit{MySQL} para a implementação de pesquia multidimensional na seção \ref{mysql}.
+
+\section{Definições Preliminares}
+\label{definicoes}
+	
+
 
 \section{Árvores Binárias}
 \label{binarias}
-	
+
+%    As árvores binárias são estruturas de dados compostas por nós que possuem no máximo dois filhos. O primeiro nó é chamado de raiz, e os nós filhos são chamados de esquerda e direita em relação ao nó em questão. Em uma árvore binária de busca cada nó possui uma chave distinta. Além disso, a sub-árvore à esquerda de um nó qualquer $n$ contém somente elementos com chave menores, e a sub-árvore à direita de $n$ contém elementos com chave maiores\cite{gilberg}. A maior vantagem de utilizar árvores binárias está relacionada a ordenação e procura de elementos que são muito eficientes.
+
+	Uma árvore binária é definida como um conjunto finito de nós que ou está vazio ou consiste de um nó chamado raiz mais os elementos de duas árvores binárias distintas chamadas de subárvores esquerda e direita do nó raiz. Em uma árvore binária, cada nó tem no máximo duas subárvores \cite{ziviani}.
+
+	Uma árvore binária de pesquisa é uma árvore binária em que todo nó interno contém um registro, e, para cada nó, a seguinte propriedade é verdadeira: todos os registros com chaves menores estão na subárvore a esquerda e todos os registros com chaves maiores estão na subárvore a direita \cite{ziviani}. A maior vantagem em utilizar árvores binárias está relacionada a ordenação e busca de elementos que são muito eficientes.
+
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.25]{images/binary.jpg}
-\caption{Árvore de busca binária.} 
+\caption{Árvore binária de pesquisa.} 
 \end{center}
 \end{figure}
-
-    As árvores binárias são estruturas de dados compostas por nós que possuem no máximo dois filhos. O primeiro nó é chamado de raiz, e os nós filhos são chamados de esquerda e direita em relação ao nó em questão. Em uma árvore binária de busca cada nó possui uma chave distinta. Além disso, a sub-árvore à esquerda de um nó qualquer $n$ contém somente elementos com chave menores, e a sub-árvore à direita de $n$ contém elementos com chave maiores\cite{gilberg}. A maior vantagem de utilizar árvores binárias está relacionada a ordenação e procura de elementos que são muito eficientes.
 
 \section{Árvores \textit{K-D}}
 \label{kd}
 
-	A árvore \textit{K-D} \cite{andreas, bentley, bentley2} é uma estrutura de dados semelhante à árvore binária, mas que difere principalmente no número de elementos por nó e na forma de organização. Em uma árvore \textit{K-D}, cada nó tem $K$ atributos que representam as coordenadas de um ponto no espaço de $K$ dimensões. A hierarquia é feita através das relações menor que maior ou igual que, assim como na árvore binária. A diferença está na utilização de um elemento de comparação diferente da chave em cada nível.
+	A árvore \textit{K-D} \cite{andreas, bentley, bentley2} é uma estrutura de dados semelhante à árvore binária, mas que permite a busca por múltiplos atributos. Em uma árvore \textit{K-D}, cada nó tem $K$ atributos que representam as coordenadas de um ponto no espaço de $K$ dimensões. 
+	
+	
+	
+%	 A hierarquia é feita através das relações menor que maior ou igual que, assim como na árvore binária. A diferença está na utilização de um elemento de comparação diferente da chave em cada nível.
 
-    Considerando pontos em um espaço de $K$ dimensões, a sua representação na árvore \textit{K-D} será feita por nós de $K$ elementos em arranjo (exemplo: $a,b,c,...$), numerados de $0 ... K-1$. Uma árvore enraizada por um nó com os valores (exemplo: $i,j,k,...$) tem como sua sub-árvore a esquerda todos os pontos com $a < i$ e a direita, pontos com $a >= i$. No próximo nível, a comparação é feita da mesma forma, mas com o próximo elemento da chave, no caso $b$. Ou seja, no nível $L$, o elemento da chave que é usado na comparação é o da posição $L\ mod (K+1)$.
+%    Considerando pontos em um espaço de $K$ dimensões, a sua representação na árvore \textit{K-D} será feita por nós de $K$ elementos em arranjo (exemplo: $a,b,c,...$), numerados de $0 ... K-1$. Uma árvore enraizada por um nó com os valores (exemplo: $i,j,k,...$) tem como sua sub-árvore a esquerda todos os pontos com $a < i$ e a direita, pontos com $a >= i$. No próximo nível, a comparação é feita da mesma forma, mas com o próximo elemento da chave, no caso $b$. Ou seja, no nível $L$, o elemento da chave que é usado na comparação é o da posição $L\ mod (K+1)$.
 
 \begin{figure}[H]
 \begin{center}
@@ -44,8 +61,8 @@
 \section{Árvores \textit{K-D-B}}
 \label{kdb}
 
-	A árvores \textit{K-D-B} são utilizadas principalmente para armazenamento em memória secundária, possuindo características de árvore \textit{K-D adaptativa} e árvore \textit{B} \cite{andreas}. A estrutura da árvore \textit{K-D-B} segue o mesmo princípio de divisão de planos da árvore \textit{K-D}, ou seja, os planos são definidos utilizando-se da distribuição de elementos na região.
-	Porém existe uma diferença fundamental nas árvores \textit{K-D-B}: os nós internos são apontadores e representam determinada região. Esses apontadores são chamados de \textit{páginas de regiões} e contém o endereço para o nó filho ou para uma folha.
+	As árvores \textit{K-D-B} são utilizadas principalmente para armazenamento em memória secundária, possuindo características de árvore \textit{K-D adaptativa} e árvore \textit{B} \cite{andreas}. A estrutura da árvore \textit{K-D-B} segue o mesmo princípio de divisão em planos da árvore \textit{K-D}, ou seja, os planos são definidos utilizando a distribuição de elementos na região.
+	Porém existe uma diferença fundamental entre as árvores \textit{K-D adaptativa} e as árvores \textit{K-D-B}: os nós internos são apontadores e representam determinada região. Esses apontadores são chamados de \textit{páginas de regiões} e contém o endereço para o nó filho ou para uma folha.
 	Os pontos são armazenados somente nas \textit{páginas de pontos} (folhas), e estas sempre estão em um mesmo nível - garantindo que a árvore \textit{K-D-B} esteja sempre balanceada \cite{comer}.
 
 \begin{figure}[H]

@@ -1,8 +1,8 @@
 \chapter{Pesquisa Multidimensional}
 
-	O objetivo da pesquisa é recuperar informação a partir de uma grande massa de informação previamente armazenada. A informação é dividida em registros, em que cada registro possui uma chave para ser usada na pesquisa \cite{ziviani}. Um algoritmo de pesquisa ou busca é aquele que recebe uma chave de pesquisa como entrada, retornando os registros com chaves iguais a chave de pesquisa.
+	O objetivo da busca ou pesquisa é recuperar informação a partir de uma grande massa de dados previamente armazenada. A informação é dividida em registros, sendo que cada registro possui uma chave que é usada como critério de pesquisa \cite{ziviani}. Um algoritmo de busca ou pesquisa é aquele que recebe uma chave de pesquisa como entrada, retornando os registros com chaves iguais à chave de pesquisa.
 
-	Algumas definições sobre pesquisa multidimensional estão na seção \ref{definicoes}. A seção \ref{binarias} apresenta as árvores binárias de busca. Logo depois serão apresentadas em detalhes a árvore \textit{K-D} na seção \ref{kd} e a árvore \textit{K-D-B} na seção \ref{kdb}. Por fim é apresentada a utilização de um banco de dados tradicional, o \textit{MySQL} para a implementação de pesquia multidimensional na seção \ref{pesquisamultidb}.
+	Este capítulo está organizado da seguinte maneira. Uma visão geral sobre pesquisa multidimensional é apresentada na seção \ref{definicoes}. A seção \ref{binarias} apresenta as árvores binárias de busca. Logo depois serão apresentadas em detalhes a árvore \textit{K-D} na seção \ref{kd}, a árvore \textit{K-D adaptativa} na seção \ref{kdadaptativa} e a árvore \textit{K-D-B} na seção \ref{kdb}. Por fim é apresentada a utilização de um banco de dados tradicional, o \textit{MySQL}, para a implementação de pesquisa multidimensional na seção \ref{pesquisamultidb}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Definições Preliminares}
@@ -10,15 +10,15 @@
 
 	Um registro é dito multidimensional quando possui múltiplas chaves, podendo ser representado como um ponto no espaço euclidiano. Em termos geométricos, um conjunto de chaves pode ser distribuído em um espaço multidimensional, onde cada dimensão do espaço corresponde a um atributo. Portanto para $k$ chaves temos um espaço \textit{k-dimensional}. Uma consulta multidimensional retorna todos os registros (pontos) que satisfazem certas características \cite{andreas}. 
 	
-	A operação de consulta multidimensional é muito mais eficiente se feita em uma estrutura de dados multidimensional. Estruturas de dados multidimensionais indexam e dão suporte a registros multidimensionais. Estas estruturas são comumente conhecidas como métodos de acesso multidimensional \cite{gaede}. Nesse trabalho são apresentadas as seguintes estruturas multidimensionais: árvores \textit{K-D} e \textit{K-D-B}. Ambas são baseadas na árvore binária de pesquisa, a qual será apresentada a seguir. 
+	Estruturas de dados multidimensionais indexam e dão suporte a registros multidimensionais. Estas estruturas são comumente conhecidas como métodos de acesso multidimensional \cite{gaede}. A operação de consulta multidimensional é muito mais eficiente se feita em uma estrutura de dados multidimensional. Nesse trabalho são apresentadas as seguintes estruturas multidimensionais: árvores \textit{K-D}, árvores \textit{K-D adaptativas} e árvores \textit{K-D-B}. Todas são baseadas na árvore binária de pesquisa, a qual será apresentada a seguir. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvores Binárias de Pesquisa}
 \label{binarias}
 
-	Uma árvore binária é definida como um conjunto finito de nós que ou está vazio ou consiste de um nó chamado raiz mais os elementos de duas árvores binárias distintas chamadas de subárvores esquerda e direita do nó raiz. Em uma árvore binária, cada nó tem no máximo duas subárvores \cite{ziviani}.
+	Uma árvore binária é definida como um conjunto finito de nós que, ou está vazio, ou consiste de um nó, chamado raiz, mais os elementos de duas árvores binárias distintas chamadas de subárvores esquerda e direita do nó raiz. Em uma árvore binária, cada nó tem no máximo duas subárvores \cite{ziviani}.
 
-	Uma árvore binária de pesquisa é uma árvore binária em que todo nó interno contém um registro, e, para cada nó, a seguinte propriedade é verdadeira: todos os registros com chaves menores estão na subárvore a esquerda e todos os registros com chaves maiores estão na subárvore a direita \cite{ziviani}. A maior vantagem em utilizar árvores binárias está relacionada a ordenação e busca de elementos que são muito eficientes. As árvores binárias de pesquisa servem de base para as estruturas multidimensionais descritas a seguir (árvores \textit{K-D} e \textit{K-D-B}).
+	Uma árvore binária de pesquisa é uma árvore binária em que todo nó interno contém um registro, e, para cada nó, a seguinte propriedade é verdadeira: todos os registros com chaves menores estão na subárvore à esquerda e todos os registros com chaves maiores estão na subárvore à direita \cite{ziviani}. A maior vantagem em utilizar árvores binárias está relacionada a ordenação e busca de elementos, operações que são muito eficientes. As árvores binárias de pesquisa servem de base para as estruturas multidimensionais descritas a seguir (árvores \textit{K-D} e \textit{K-D-B}).
 
 \begin{figure}[H]
 \begin{center}
@@ -42,17 +42,9 @@
 \end{center}
 \end{figure}
 
-%	A pesquisa em uma árvore K-D 
-
-%	A inserção de um registro na árvore \textit{K-D} é feita a partir da pesquisa da chave até que um ponteiro nulo seja encontrado, indicando o local para a inserção do novo registro.
-
-%	Construir uma árvore K-D estática a partir de n pontos tem complexidade de tempo O(n log n).
-	
-%	Inserir um novo registro em uma árvore K-D balanceada leva O(log n) de tempo.
-
-%	A remoção de um ponto de uma árvore K-D balanceada tem complexidade O(log n).
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvores \textit{K-D adaptativas}}
+\label{kdadaptativa}
 
 	A principal desvantagem da árvore \textit{K-D} é o desbalanceamento causado pela inserção de elementos. A árvore \textit{K-D adaptativa} \cite{bentley3} é uma variação da árvore \textit{K-D}, e resolve o problema do desbalanceamento fazendo uma divisão mais igualitária possível de elementos entre cada região. Para determinar o hiperplano que divide um eixo é utilizado o algoritmo de Hoare aplicado sobre o conjunto de pontos da partição. O algoritmo encontra a mediana sobre o número de pontos na partição, garantindo dessa maneira que cada nova partição contenha o mesmo número de pontos. Os nós internos armazenam a coordenada de divisão do plano, sendo que nós folhas contém a informação.
 

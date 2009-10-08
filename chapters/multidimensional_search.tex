@@ -31,9 +31,9 @@
 \section{Árvores \textit{K-D}}
 \label{kd}
 
-	A árvore \textit{K-D} \cite{andreas, bentley, bentley2} é uma estrutura de dados semelhante à árvore binária, mas que permite a busca por múltiplos atributos. Em uma árvore \textit{K-D}, cada nó tem $K$ atributos que representam as coordenadas de um ponto no espaço de $K$ dimensões.  A árvore \textit{K-D} faz divisões recursivas do espaço em subespaços, por meio de hiperplanos de divisão de k-dimensões. Por exemplo, para k=3, os hiperplanos de divisão alternam perpendicularmente entre os eixos x, y e z \cite{andreas}.
+	A árvore \textit{K-D} (\textit{K-Dimensional}) \cite{andreas, bentley, bentley2} é uma estrutura de dados semelhante à árvore binária, mas que permite a busca por múltiplos atributos. Em uma árvore \textit{K-D}, cada nó tem $K$ atributos que representam as coordenadas de um ponto no espaço de $K$ dimensões.  A árvore \textit{K-D} faz divisões recursivas do espaço em subespaços, por meio de hiperplanos de divisão de \textit{K}-dimensões. Por exemplo, para \textit{K}=3, os hiperplanos de divisão alternam perpendicularmente entre os eixos $x$, $y$ e $z$ \cite{andreas}.
 
-	Na árvore \textit{K-D}, registros são definidos por $k$ chaves de pesquisa. Semelhante ao que ocorre na árvore binária de pesquisa, registros são acessados usando comparações lógicas menor que ou maior igual que. Entretando, a chave que determina a sub-árvore que será acessada (por exemplo, esquerda ou direita, na árvore binária), varia a cada nível da árvore. No nível $L$, a chave $L\ mod (k+1)$ é utilizada, sendo que a raiz está no nível 0. Desta maneira, a primeira chave de pesquisa é utilizada na raiz, a segunda no nível 1, e assim sucessivamente, até que todas as chaves são utilizadas. O processo continua, e as chaves são utilizadas de maneira cíclica \cite{andreas}.
+	Em termos de pesquisa, na árvore \textit{K-D}, registros são definidos por $K$ chaves. Semelhante ao que ocorre na árvore binária de pesquisa, registros são acessados usando comparações lógicas \textit{menor que} ou \textit{maior ou igual que}. Entretando, a chave que determina a sub-árvore que será acessada (por exemplo, esquerda ou direita, na árvore binária), varia a cada nível da árvore. No nível $L$, a chave $L\ mod (K+1)$ é utilizada, sendo que a raiz está no nível 0. Desta maneira, a primeira chave de pesquisa é utilizada na raiz, a segunda no nível 1, e assim sucessivamente, até que todas as chaves são utilizadas. O processo continua, e as chaves são utilizadas de maneira cíclica \cite{andreas}.
 
 \begin{figure}[H]
 \begin{center}
@@ -43,7 +43,7 @@
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Árvores \textit{K-D adaptativas}}
+\section{Árvores \textit{K-D Adaptativas}}
 \label{kdadaptativa}
 
 	A principal desvantagem da árvore \textit{K-D} é o desbalanceamento causado pela inserção de elementos. A árvore \textit{K-D adaptativa} \cite{bentley3} é uma variação da árvore \textit{K-D}, e resolve o problema do desbalanceamento fazendo uma divisão mais igualitária possível de elementos entre cada região. Para determinar o hiperplano que divide um eixo é utilizado o algoritmo de Hoare aplicado sobre o conjunto de pontos da partição. O algoritmo encontra a mediana sobre o número de pontos na partição, garantindo dessa maneira que cada nova partição contenha o mesmo número de pontos. Os nós internos armazenam a coordenada de divisão do plano, sendo que nós folhas contém a informação.
@@ -57,13 +57,13 @@
 
 	A árvore K-D adaptativa é uma estrutura estática, sendo difícil mantê-la balanceada na presença constante de inserções e remoções. A estrutura funciona melhor se os dados são conhecidos a priori e se as atualizações forem raras, dependendo assim da ordem de inserção dos dados. 
 
-	As árvores \textit{K-D} são estruturas de dados armazenadas em memória primária, assim sendo não possuem um bom desempenho em um ambiente com armazenamento secundário, onde a estrutura de dados precisa ser paginada para ser transferida para a memória primária . Tanto a árvore \textit{K-D} quanto a \textit{K-D adaptativa} tornam-se desbalanceadas na presença frequente de inserções e remoções, o que degrada o desempenho de busca nessas árvores \cite{andreas}. .
+	As árvores \textit{K-D} são estruturas de dados armazenadas em memória primária. Desta forma, não são adequadas para uso em um ambiente com armazenamento secundário, onde a estrutura de dados precisa ser paginada para ser transferida para a memória primária. Tanto a árvore \textit{K-D} quanto a árvore \textit{K-D adaptativa} tornam-se desbalanceadas na presença frequente de inserções e remoções, o que degrada o desempenho de busca nessas árvores \cite{andreas}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvores \textit{K-D-B}}
 \label{kdb}
 
-	A árvore \textit{K-D-B} é utilizada principalmente para armazenamento em memória secundária, possuindo características de árvore \textit{K-D adaptativa} e árvore \textit{B} \cite{andreas}. A estrutura da árvore \textit{K-D-B} segue o mesmo princípio de divisão em planos da árvore \textit{K-D}, ou seja, os planos são definidos utilizando a distribuição de elementos na região.
+	A árvore \textit{K-D-B} \cite{andreas} é utilizada principalmente para armazenamento em memória secundária, possuindo características de árvore \textit{K-D adaptativa} e árvore \textit{B} \cite{comer}. A estrutura da árvore \textit{K-D-B} segue o mesmo princípio de divisão em planos da árvore \textit{K-D}, ou seja, os planos são definidos utilizando a distribuição de elementos na região.
 	Porém existe uma diferença fundamental entre as árvores \textit{K-D adaptativa} e as árvores \textit{K-D-B}: os nós internos são apontadores e representam determinada região. Esses apontadores são chamados de \textit{páginas de regiões} e contém o endereço para o nó filho ou para uma folha.
 	Os pontos são armazenados somente nas \textit{páginas de pontos} (folhas), e estas sempre estão em um mesmo nível - garantindo que a árvore \textit{K-D-B} esteja sempre balanceada \cite{comer}.
 
@@ -74,9 +74,9 @@
 \end{center}
 \end{figure}
 
-	Na árvore \textit{K-D-B}, subregiões de um mesmo nível são mutuamente disjuntas, isto faz com que a busca por um ponto seja uma simples busca da raiz até a folha. Desta maneira usa-se o mesmo algoritmo de busca da árvore \textit{K-D}, e a complexidade do tempo de busca é logarítima em relação ao número de elementos total \cite{andreas}.
+	Na árvore \textit{K-D-B}, subregiões de um mesmo nível são mutuamente disjuntas, isto faz com que a busca por um ponto seja uma simples busca da raiz até a folha. Desta maneira é usado o mesmo algoritmo de busca da árvore \textit{K-D}. Como a árvore \textit{K-D-B} é balanceada, a complexidade do tempo de busca é logarítimica em relação ao número total de elementos \cite{andreas}.
 
-	A árvore \textit{K-D-B}, na presença de inserções e remoções pode forçar divisões dos blocos de dados. As divisões podem ser propagadas de um nó a seus descendentes, para garantir que as regiões permaneçam disjuntas. Uma divisão forçada ocorre quando há um \textit{overflow} ou \textit{underflow} de uma página, nas operações de inserções ou remoções. Este problema é resolvido utilizando a mesma técnica utilizada na árvore B, a reorganização. Existem dois tipos de reorganização possíveis: a união e a distribuição. No caso da união, as informações de duas páginas diferentes são combinadas em uma única. E no caso da distribuição, as informações são divididas entre duas páginas \cite{andreas}.
+	A árvore \textit{K-D-B}, na presença de inserções e remoções pode forçar divisões dos blocos de dados. As divisões podem ser propagadas de um nó a seus descendentes, para garantir que as regiões permaneçam disjuntas. Uma divisão forçada ocorre quando há um \textit{overflow} ou \textit{underflow} de uma página, nas operações de inserções ou remoções. Este problema é resolvido utilizando a mesma técnica utilizada na árvore B, a reorganização. Existem dois tipos de reorganização possíveis: a união e a distribuição. No caso da união, as informações de duas páginas diferentes são combinadas em uma única. E no caso da distribuição, as informações de uma página são divididas em duas páginas \cite{andreas}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pesquisa Multidimensional em Banco de Dados}

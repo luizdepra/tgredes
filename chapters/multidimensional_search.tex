@@ -18,12 +18,13 @@
 
 	Uma árvore binária é definida como um conjunto finito de nós que, ou está vazio, ou consiste de um nó, chamado raiz, mais os elementos de duas árvores binárias distintas chamadas de subárvores esquerda e direita do nó raiz. Em uma árvore binária, cada nó tem no máximo duas subárvores \cite{ziviani}.
 
-	Uma árvore binária de pesquisa é uma árvore binária em que todo nó interno contém um registro, e, para cada nó, a seguinte propriedade é verdadeira: todos os registros com chaves menores estão na subárvore à esquerda e todos os registros com chaves maiores estão na subárvore à direita \cite{ziviani}. A maior vantagem em utilizar árvores binárias está relacionada a ordenação e busca de elementos, operações que são muito eficientes. As árvores binárias de pesquisa servem de base para as estruturas multidimensionais descritas a seguir (árvores \textit{K-D} e \textit{K-D-B}).
+	Uma árvore binária de pesquisa é uma árvore binária em que todo nó interno contém um registro, e, para cada nó, a seguinte propriedade é verdadeira: todos os registros com chaves menores estão na subárvore à esquerda e todos os registros com chaves maiores estão na subárvore à direita \cite{ziviani}. A maior vantagem em utilizar árvores binárias está relacionada a ordenação e busca de elementos, operações que são muito eficientes. A figura \ref{img_binaria} ilustra um exemplo de árvore binária de pesquisa com 8 nós, todos ordenados de acordo com sua posição na árvore. As árvores binárias de pesquisa servem de base para as estruturas multidimensionais descritas a seguir (árvores \textit{K-D} e \textit{K-D-B}).
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.25]{images/binary.jpg}
-\caption{Árvore binária de pesquisa.} 
+\caption{Árvore binária de pesquisa, com nó raiz 50.} 
+\label{img_binaria}
 \end{center}
 \end{figure}
 
@@ -33,12 +34,13 @@
 
 	A árvore \textit{K-D} (\textit{K-Dimensional}) \cite{andreas, bentley, bentley2} é uma estrutura de dados semelhante à árvore binária, mas que permite a busca por múltiplos atributos. Em uma árvore \textit{K-D}, cada nó tem $K$ atributos que representam as coordenadas de um ponto no espaço de $K$ dimensões.  A árvore \textit{K-D} faz divisões recursivas do espaço em subespaços, por meio de hiperplanos de divisão de \textit{K}-dimensões. Por exemplo, para \textit{K}=3, os hiperplanos de divisão alternam perpendicularmente entre os eixos $x$, $y$ e $z$ \cite{andreas}.
 
-	Em termos de pesquisa, na árvore \textit{K-D}, registros são definidos por $K$ chaves. Semelhante ao que ocorre na árvore binária de pesquisa, registros são acessados usando comparações lógicas \textit{menor que} ou \textit{maior ou igual que}. Entretando, a chave que determina a sub-árvore que será acessada (por exemplo, esquerda ou direita, na árvore binária), varia a cada nível da árvore. No nível $L$, a chave $L\ mod (K+1)$ é utilizada, sendo que a raiz está no nível 0. Desta maneira, a primeira chave de pesquisa é utilizada na raiz, a segunda no nível 1, e assim sucessivamente, até que todas as chaves são utilizadas. O processo continua, e as chaves são utilizadas de maneira cíclica \cite{andreas}.
+	Em termos de pesquisa, na árvore \textit{K-D}, registros são definidos por $K$ chaves. Semelhante ao que ocorre na árvore binária de pesquisa, registros são acessados usando comparações lógicas \textit{menor que} ou \textit{maior ou igual que}. Entretando, a chave que determina a sub-árvore que será acessada (por exemplo, esquerda ou direita, na árvore binária), varia a cada nível da árvore. No nível $L$, a chave $L\ mod (K+1)$ é utilizada, sendo que a raiz está no nível 0. Desta maneira, a primeira chave de pesquisa é utilizada na raiz, a segunda no nível 1, e assim sucessivamente, até que todas as chaves são utilizadas. O processo continua, e as chaves são utilizadas de maneira cíclica \cite{andreas}. A figura \ref{img_kd} exemplifica o processo: no primeiro nível, só existe o nó raiz $A$ e a sub-chave de comparação é a $k_{0}$ (de valor 25). Portanto, os descendentes \textit{B e C} serão posicionados de acordo com o valor de sua sub-chave $k_{0}$. No caso, $B$ possui sub-chave $k_{0}$ de valor 12, ficando no lado esquerdo de $A$ ($12 < 25$). $C$ possuindo sub-chave $k_{0}$ de valor 70, fica do lado direito de $A$ ($70 > 25$). No nível seguinte a sub-chave de comparação é a $k_{1}$, e no próximo a sub-chave seria a $k_{2}$. As sub-chaves são utilizadas de maneira cíclica até que todos os pontos estejam representados.
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.3]{images/kd.jpg}
-\caption{Árvore \textit{K-D}.} 
+\includegraphics[scale=0.65]{images/kd.jpg}
+\label{img_kd}
+\caption{Árvore \textit{3-D} indexada por 3 chaves $(k_{0},k_{1},k_{2})$.}
 \end{center}
 \end{figure}
 
@@ -46,12 +48,13 @@
 \section{Árvores \textit{K-D Adaptativas}}
 \label{kdadaptativa}
 
-	A principal desvantagem da árvore \textit{K-D} é o desbalanceamento causado pela inserção de elementos. A árvore \textit{K-D adaptativa} \cite{bentley3} é uma variação da árvore \textit{K-D}, e resolve o problema do desbalanceamento fazendo uma divisão mais igualitária possível de elementos entre cada região. Para determinar o hiperplano que divide um eixo é utilizado o algoritmo de Hoare aplicado sobre o conjunto de pontos da partição. O algoritmo encontra a mediana sobre o número de pontos na partição, garantindo dessa maneira que cada nova partição contenha o mesmo número de pontos. Os nós internos armazenam a coordenada de divisão do plano, sendo que nós folhas contém a informação.
+	A principal desvantagem da árvore \textit{K-D} é o desbalanceamento causado pela inserção de elementos. A árvore \textit{K-D adaptativa} \cite{bentley3} é uma variação da árvore \textit{K-D}, e resolve o problema do desbalanceamento fazendo uma divisão mais igualitária possível de elementos entre cada região. Para determinar o hiperplano que divide um eixo é utilizado o algoritmo de Hoare aplicado sobre o conjunto de pontos da partição. O algoritmo encontra a mediana sobre o número de pontos na partição, garantindo dessa maneira que cada nova partição contenha o mesmo número de pontos. Os nós internos armazenam a coordenada de divisão do plano, sendo que nós folhas contém a informação. A figura \ref{img_kd_adaptative} ilustra esse conceito, um conjunto de 4 pontos em um plano, sendo que os hiperplanos de divisão escolhidos dividem igualmente os pontos entre as regiões.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{images/kd_adaptative.jpg}
 \caption{Árvore \textit{K-D adaptativa}. O hiperplano não é definido pela coordenada do plano.} 
+\label{img_kd_adaptative}
 \end{center}
 \end{figure}
 
@@ -63,13 +66,14 @@
 \section{Árvores \textit{K-D-B}}
 \label{kdb}
 
-	A árvore \textit{K-D-B} \cite{andreas} é utilizada principalmente para armazenamento em memória secundária, possuindo características de árvore \textit{K-D adaptativa} e árvore \textit{B} \cite{comer}. A estrutura da árvore \textit{K-D-B} segue o mesmo princípio de divisão em planos da árvore \textit{K-D}, ou seja, os planos são definidos utilizando a distribuição de elementos na região.
+	A árvore \textit{K-D-B} \cite{andreas} é utilizada principalmente para armazenamento em memória secundária, possuindo características de árvore \textit{K-D adaptativa} e árvore \textit{B} \cite{comer}. A estrutura da árvore \textit{K-D-B} segue o mesmo princípio de divisão em planos da árvore \textit{K-D adaptativa}, ou seja, os planos são definidos utilizando a distribuição de elementos na região.
 	Porém existe uma diferença fundamental entre as árvores \textit{K-D adaptativa} e as árvores \textit{K-D-B}: os nós internos são apontadores e representam determinada região. Esses apontadores são chamados de \textit{páginas de regiões} e contém o endereço para o nó filho ou para uma folha.
-	Os pontos são armazenados somente nas \textit{páginas de pontos} (folhas), e estas sempre estão em um mesmo nível - garantindo que a árvore \textit{K-D-B} esteja sempre balanceada \cite{comer}.
+	Os pontos são armazenados somente nas \textit{páginas de pontos} (folhas), e estas sempre estão em um mesmo nível - garantindo que a árvore \textit{K-D-B} esteja sempre balanceada \cite{comer}. A figura \ref{img_kdb} mostra um exemplo de árvore \textit{2-D-B}, cada nó interno representa a uma região retangular e os filhos correspondem a partições disjuntas obtidos por divisões recursivas usando linhas paralelas ao eixo x e y. Os pontos são armazenados nas folhas da árvore.
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.30]{images/kdb.jpg}
+\includegraphics[scale=0.45]{images/kdb.jpg}
+\label{img_kdb}
 \caption{Árvore \textit{K-D-B}.} 
 \end{center}
 \end{figure}

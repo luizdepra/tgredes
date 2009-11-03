@@ -1,6 +1,6 @@
 \chapter{Experimentos}
 
-	
+	Todas as implementações relativas aos experimentos utilizam-se de ferramentas ou bibliotecas de código aberto. Para a implementação da árvore \textit{K-D} foi utilizada a biblioteca libkdtree++ \cite{libkdtree}, a qual possui todas as operações necessárias. A árvore \textit{K-D-B} foi implementada a partir da biblioteca TPIE \cite{tpie}, a qual provê vários mecanismos para trabalhar com a memória secundária de uma forma mais abstrata, em alto nível.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -12,11 +12,13 @@
 
 	O sistema operacional utilizado é o Debian Lenny, com kernel linux 2.6.26.
 
+	As versões das bibliotecas utilizadas são as seguintes: libkdtree++ 0.7.0, tpie release '091905' e MySQL 5.0.51.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Geração das Bases de Dados}
 
-	Os dados de entrada utilizados nos experimentos não são originados de monitoramento de redes reais. São dados gerados randomicamente através de um programa, o qual coloca em arquivo em forma de texto ou binário para que sejam utilizados posteriormente pelas ferramentas de comparação.
+	Os dados de entrada utilizados nos experimentos não são originados de monitoramento de redes reais. São dados gerados randomicamente através de um programa, o qual coloca em arquivo em forma de texto ou binário para que sejam utilizados posteriormente pelas ferramentas de comparação. Mesmo que a origem dos dados seja randômica, isso não afetaria o resultado em nenhum aspecto, visto que seriam dados de mesma natureza.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -109,6 +111,3 @@
 \label{img_search_10keys_kdb_mysql}
 \end{center}
 \end{figure}
-
-
-

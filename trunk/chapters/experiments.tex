@@ -1,3 +1,114 @@
 \chapter{Experimentos}
 
-é	
+	
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Configurações}
+
+	Para a realização dos experimentos de comparação, foi utilizada uma máquina dedicada somente para esta atividade. 
+
+	A configuração da máquina é a seguinte:
+
+	O sistema operacional utilizado é o Debian Lenny, com kernel linux 2.6.26.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Geração das Bases de Dados}
+
+	Os dados de entrada utilizados nos experimentos não são originados de monitoramento de redes reais. São dados gerados randomicamente através de um programa, o qual coloca em arquivo em forma de texto ou binário para que sejam utilizados posteriormente pelas ferramentas de comparação.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Árvore \textit{K-D} vs MySQL}
+
+\subsection{Decisão do Formato do Arquivo de Dados}
+
+	Nesse experimento foram utilizados dois tipos de arquivo: binário e texto. A escolha para o resto dos experimentos foi pelo formato que gerava menos carga sobre o sistema, ou seja, o arquivo texto. Para simplificação do experimento, os testes foram feitos somente com registros de 4 chaves. A figura \ref{img_insert_4keys_kd_mysql} mostra a comparação para a inserção entre a árvore \textit{K-D} e o MySQL, analogamente a figura \ref{img_search_4keys_kd_mysql} mostra a comparação para a busca.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{images/experiments/4keys_insertion_kdtree_mysql.jpg}
+\caption{Árvore \textit{K-D} vs MySQL: inserção.}
+\label{img_insert_4keys_kd_mysql}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{images/experiments/4keys_search_kdtree_mysql.jpg}
+\caption{Árvore \textit{K-D} vs MySQL: busca.} 
+\label{img_search_4keys_kd_mysql}
+\end{center}
+\end{figure}
+
+	A partir desse ponto, todos os experimentos foram feitos com 5 bases diferentes, sendo que o valor que aparece no gráfico é uma média das 5 medições. Além disso, as todas as bases possuem formato texto.
+
+\subsection{Árvore \textit{K-D} vs MySQL: Inserção}
+
+	A comparação da inserção entre a árvore \textit{K-D} e o MySQL, com chaves variando de 4, 8 e 16 estão na figura \ref{img_insert_Xkeys_kd_mysql}.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{images/experiments/Xkeys_insertion_kdtree_mysql.jpg}
+\caption{Árvore \textit{K-D} vs MySQL: inserção. Chaves variando de 4, 8 e 16.}
+\label{img_insert_Xkeys_kd_mysql}
+\end{center}
+\end{figure}
+
+\subsection{Árvore \textit{K-D} vs MySQL: Busca}
+	
+	O gráfico de busca da árvore \textit{K-D} foi omitido pois, em todos os testes, o tempo de retorno foi de 0ms até 2ms. Ou seja, não apareceria nenhuma linha no gráfico de comparação. A figura \ref{img_search_Xkeys_mysql} mostra o tempo para a busca no MySQL, com chaves variando entre 4, 8 e 16.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{images/experiments/Xkeys_search_mysql.jpg}
+\caption{MySQL: busca. Chaves variando de 4, 8 e 16.}
+\label{img_search_Xkeys_mysql}
+\end{center}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Árvore \textit{K-D-B} vs MySQL}
+
+	Como o uso da biblioteca da árvore \textit{K-D-B} é mais restrita, os experimentos utilizam somente chaves de tamanho 10.
+
+\subsection{Árvore \textit{K-D-B} vs MySQL: Inserção}
+
+	A figura \ref{img_insert_10keys_kdb_mysql} mostra a comparação entre a árvore \textit{K-D-B} e o MySQL. Um detalhe é que foi utilizado de indexação variando de 0 a 10 no MySQL.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{images/experiments/10keys_insertion_kdbtree_mysql.jpg}
+\caption{Árvore \textit{K-D-B} vs MySQL: Inserção}
+\label{img_insert_10keys_kdb_mysql}
+\end{center}
+\end{figure}
+
+\subsection{Árvore \textit{K-D-B} vs MySQL: Inserção Otimizada}
+
+	Nesse experimento foi utilizada uma forma de inserção otimizada do MySQL, através da operação LOAD IN FILE \cite{mysqlLIF}. A figura \ref{img_insert_10keys_kdb_mysql_2} mostra o resultado dessa otimização no MySQL.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{images/experiments/10keys_insertion_kdbtree_mysql2.png}
+\caption{Árvore \textit{K-D-B} vs MySQL}
+\label{img_insert_10keys_kdb_mysql_2}
+\end{center}
+\end{figure}
+
+\subsection{Árvore \textit{K-D-B} vs MySQL: Busca}
+
+	A comparação da busca entre a árvore \textit{K-D-B} e o MySQL com índices estão na figura \ref{img_search_10keys_kdb_mysql}.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{images/experiments/10keys_search_kdbtree_mysql.jpg}
+\caption{Árvore \textit{K-D-B} vs MySQL: Busca}
+\label{img_search_10keys_kdb_mysql}
+\end{center}
+\end{figure}
+
+
+

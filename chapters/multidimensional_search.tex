@@ -1,16 +1,16 @@
 \chapter{Pesquisa Multidimensional}
 
-	O objetivo da busca ou pesquisa é recuperar informação a partir de uma grande massa de dados previamente armazenada. A informação é dividida em registros, sendo que cada registro possui uma chave que é usada como critério de pesquisa \cite{ziviani}. Um algoritmo de busca ou pesquisa é aquele que recebe uma chave de pesquisa como entrada, retornando os registros com chaves iguais à chave de pesquisa.
+	O objetivo da \textit{busca} ou \textit{pesquisa} é recuperar informação a partir de uma grande massa de dados previamente armazenada \cite{ziviani}. A informação é dividida em registros, sendo que cada registro possui uma chave que é usada como critério de pesquisa. Um algoritmo de busca ou pesquisa é aquele que recebe uma chave de pesquisa como entrada, retornando os registros com chaves iguais à chave de pesquisa. Quando múltiplas chaves de pesquisa são utilizadas simultaneamente, a pesquisa é dita multidimensional.
 
-	Este capítulo está organizado da seguinte maneira. Uma visão geral sobre pesquisa multidimensional é apresentada na seção \ref{definicoes}. A seção \ref{binarias} apresenta as árvores binárias de busca. Logo depois serão apresentadas em detalhes a árvore \textit{K-D} na seção \ref{kd}, a árvore \textit{K-D adaptativa} na seção \ref{kdadaptativa} e a árvore \textit{K-D-B} na seção \ref{kdb}. Por fim é apresentada a utilização de um banco de dados tradicional, o \textit{MySQL}, para a implementação de pesquisa multidimensional na seção \ref{pesquisamultidb}.
+	Este capítulo está organizado da seguinte maneira. Uma visão geral sobre pesquisa multidimensional é apresentada na seção \ref{definicoes}. A seção \ref{binarias} apresenta as árvores binárias de pesquisa. Logo depois serão apresentadas a árvore \textit{K-D} na seção \ref{kd}, a árvore \textit{K-D adaptativa} na seção \ref{kdadaptativa} e a árvore \textit{K-D-B} na seção \ref{kdb}. Por fim é apresentada a utilização de um banco de dados tradicional, o \textit{MySQL}, para a implementação de pesquisa multidimensional na seção \ref{pesquisamultidb}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Definições Preliminares}
 \label{definicoes}
 
-	Um registro é dito multidimensional quando possui múltiplas chaves, podendo ser representado como um ponto no espaço euclidiano. Em termos geométricos, um conjunto de chaves pode ser distribuído em um espaço multidimensional, onde cada dimensão do espaço corresponde a um atributo. Portanto para $k$ chaves temos um espaço \textit{k-dimensional}. Uma consulta multidimensional retorna todos os registros (pontos) que satisfazem certas características \cite{andreas}. 
+	Um registro é dito multidimensional quando possui múltiplas chaves, podendo ser representado como um ponto no espaço euclidiano. Em termos geométricos, um conjunto de chaves pode ser distribuído em um espaço multidimensional, onde cada dimensão do espaço corresponde a um atributo. Portanto para $K$ chaves temos um espaço \textit{K-dimensional}. A pesquisa multidimensional retorna todos os registros (pontos) que satisfazem certas características \cite{andreas}. 
 	
-	Estruturas de dados multidimensionais indexam e dão suporte a registros multidimensionais. Estas estruturas são comumente conhecidas como métodos de acesso multidimensional \cite{gaede}. A operação de consulta multidimensional é muito mais eficiente se feita em uma estrutura de dados multidimensional. Nesse trabalho são apresentadas as seguintes estruturas multidimensionais: árvores \textit{K-D}, árvores \textit{K-D adaptativas} e árvores \textit{K-D-B}. Todas são baseadas na árvore binária de pesquisa, a qual será apresentada a seguir. 
+	Estruturas de dados multidimensionais indexam e dão suporte a registros multidimensionais. Estas estruturas são comumente conhecidas como métodos de acesso multidimensional \cite{gaede}. A pesquisa multidimensional é eficiente - logarítmica - se feita com uma estrutura de dados multidimensional. Nesse trabalho são apresentadas as seguintes estruturas multidimensionais: árvores \textit{K-D}, árvores \textit{K-D adaptativas} e árvores \textit{K-D-B}. Antes da descrição dessas estruturas é apresentada a árvore binária de pesquisa. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvores Binárias de Pesquisa}
@@ -18,12 +18,12 @@
 
 	Uma árvore binária é definida como um conjunto finito de nós que, ou está vazio, ou consiste de um nó, chamado raiz, mais os elementos de duas árvores binárias distintas chamadas de subárvores esquerda e direita do nó raiz. Em uma árvore binária, cada nó tem no máximo duas subárvores \cite{ziviani}.
 
-	Uma árvore binária de pesquisa é uma árvore binária em que todo nó interno contém um registro, e, para cada nó, a seguinte propriedade é verdadeira: todos os registros com chaves menores estão na subárvore à esquerda e todos os registros com chaves maiores estão na subárvore à direita \cite{ziviani}. A maior vantagem em utilizar árvores binárias está relacionada a ordenação e busca de elementos, operações que são muito eficientes. A figura \ref{img_binaria} ilustra um exemplo de árvore binária de pesquisa com 8 nós, todos ordenados de acordo com sua posição na árvore. As árvores binárias de pesquisa servem de base para as estruturas multidimensionais descritas a seguir (árvores \textit{K-D} e \textit{K-D-B}).
+	Uma árvore binária de pesquisa é uma árvore binária em que todo nó interno contém um registro, e, para cada nó, a seguinte propriedade é verdadeira: todos os registros com chaves menores estão na subárvore à esquerda e todos os registros com chaves maiores estão na subárvore à direita \cite{ziviani}. A maior vantagem em utilizar árvores binárias está relacionada à ordenação e busca de elementos, operações que são muito eficientes. A figura \ref{img_binaria} ilustra um exemplo de árvore binária de pesquisa com 8 nós, todos ordenados de acordo com sua posição na árvore. Por exemplo, em comparação com a chave da raiz, 50, todos os registros da subárvore da esquerda têm chaves menores: 33, 12, 40, 47. Analogamente, todos os registros da subárvore da direita têm chaves maiores: 55, 66, 77.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.25]{images/binary.jpg}
-\caption{Árvore binária de pesquisa, com nó raiz 50.} 
+\caption{Exemplo de árvore binária de pesquisa, com nó raiz 50.} 
 \label{img_binaria}
 \end{center}
 \end{figure}
@@ -34,13 +34,13 @@
 
 	A árvore \textit{K-D} (\textit{K-Dimensional}) \cite{andreas, bentley, bentley2} é uma estrutura de dados semelhante à árvore binária, mas que permite a busca por múltiplos atributos. Em uma árvore \textit{K-D}, cada nó tem $K$ atributos que representam as coordenadas de um ponto no espaço de $K$ dimensões.  A árvore \textit{K-D} faz divisões recursivas do espaço em subespaços, por meio de hiperplanos de divisão de \textit{K}-dimensões. Por exemplo, para \textit{K}=3, os hiperplanos de divisão alternam perpendicularmente entre os eixos $x$, $y$ e $z$ \cite{andreas}.
 
-	Em termos de pesquisa, na árvore \textit{K-D}, registros são definidos por $K$ chaves. Semelhante ao que ocorre na árvore binária de pesquisa, registros são acessados usando comparações lógicas \textit{menor que} ou \textit{maior ou igual que}. Entretando, a chave que determina a sub-árvore que será acessada (por exemplo, esquerda ou direita, na árvore binária), varia a cada nível da árvore. No nível $L$, a chave $L\ mod (K+1)$ é utilizada, sendo que a raiz está no nível 0. Desta maneira, a primeira chave de pesquisa é utilizada na raiz, a segunda no nível 1, e assim sucessivamente, até que todas as chaves são utilizadas. O processo continua, e as chaves são utilizadas de maneira cíclica \cite{andreas}. A figura \ref{img_kd} exemplifica o processo: no primeiro nível, só existe o nó raiz $A$ e a sub-chave de comparação é a $k_{0}$ (de valor 25). Portanto, os descendentes \textit{B e C} serão posicionados de acordo com o valor de sua sub-chave $k_{0}$. No caso, $B$ possui sub-chave $k_{0}$ de valor 12, ficando no lado esquerdo de $A$ ($12 < 25$). $C$ possuindo sub-chave $k_{0}$ de valor 70, fica do lado direito de $A$ ($70 > 25$). No nível seguinte a sub-chave de comparação é a $k_{1}$, e no próximo a sub-chave seria a $k_{2}$. As sub-chaves são utilizadas de maneira cíclica até que todos os pontos estejam representados.
+	Em termos de pesquisa, na árvore \textit{K-D}, registros são definidos por $K$ chaves. Semelhante ao que ocorre na árvore binária de pesquisa, registros são acessados usando as comparações lógicas \textit{menor que} ou \textit{maior ou igual que}. Entretando, a chave que determina a sub-árvore que será acessada (por exemplo, esquerda ou direita, na árvore binária), varia a cada nível da árvore. No nível $L$, a chave $L\ mod (K+1)$ é utilizada, sendo que a raiz está no nível 0. Desta maneira, a primeira chave de pesquisa é utilizada na raiz, a segunda no nível 1, e assim sucessivamente, até que todas as chaves são utilizadas. O processo continua, e as chaves são utilizadas de maneira cíclica \cite{andreas}. A figura \ref{img_kd} exemplifica o processo: no primeiro nível, só existe o nó raiz $A$ e a chave de comparação é a $k_{0}$ (de valor 25). Portanto, os descendentes \textit{B e C} serão posicionados de acordo com o valor de sua chave $k_{0}$. No caso, $B$ possui chave $k_{0}$ de valor 12, ficando no lado esquerdo de $A$ ($12 < 25$). $C$ possuindo chave $k_{0}$ de valor 70, fica do lado direito de $A$ ($70 > 25$). No nível seguinte a chave de comparação é a $k_{1}$, e no próximo a chave é a $k_{2}$. As chaves são utilizadas de maneira cíclica até que todos os pontos estejam representados.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.65]{images/kd.jpg}
 \label{img_kd}
-\caption{Árvore \textit{3-D} indexada por 3 chaves $(k_{0},k_{1},k_{2})$.}
+\caption{Exemplo de árvore \textit{3-D} indexada por 3 chaves $(k_{0},k_{1},k_{2})$.}
 \end{center}
 \end{figure}
 
@@ -48,19 +48,19 @@
 \section{Árvores \textit{K-D Adaptativas}}
 \label{kdadaptativa}
 
-	A principal desvantagem da árvore \textit{K-D} é o desbalanceamento causado pela inserção de elementos. A árvore \textit{K-D adaptativa} \cite{bentley3} é uma variação da árvore \textit{K-D}, e resolve o problema do desbalanceamento fazendo uma divisão mais igualitária possível de elementos entre cada região. Para determinar o hiperplano que divide um eixo é utilizado o algoritmo de Hoare aplicado sobre o conjunto de pontos da partição. O algoritmo encontra a mediana sobre o número de pontos na partição, garantindo dessa maneira que cada nova partição contenha o mesmo número de pontos. Os nós internos armazenam a coordenada de divisão do plano, sendo que nós folhas contém a informação. A figura \ref{img_kd_adaptative} ilustra esse conceito, um conjunto de 4 pontos em um plano, sendo que os hiperplanos de divisão escolhidos dividem igualmente os pontos entre as regiões.
+	A principal desvantagem da árvore \textit{K-D} é o desbalanceamento causado pela inserção de elementos. A árvore \textit{K-D adaptativa} \cite{bentley3} é uma variação da árvore \textit{K-D}, e resolve o problema do desbalanceamento fazendo uma divisão o mais igualitária possível de elementos entre cada região. Para determinar o hiperplano que divide um eixo é utilizado o algoritmo de Hoare aplicado sobre o conjunto de pontos da partição. O algoritmo encontra a mediana sobre o número de pontos na partição, garantindo dessa maneira que cada nova partição contenha o mesmo número de pontos. Os nós internos armazenam a coordenada de divisão do plano, sendo que nós folhas contém a informação. A figura \ref{img_kd_adaptative} ilustra esse conceito, um conjunto de 4 pontos em um plano, sendo que os hiperplanos de divisão escolhidos dividem igualmente os pontos entre as regiões.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{images/kd_adaptative.jpg}
-\caption{Árvore \textit{K-D adaptativa}. O hiperplano não é definido pela coordenada do plano.} 
+\caption{Exemplo de árvore \textit{K-D adaptativa}.} 
 \label{img_kd_adaptative}
 \end{center}
 \end{figure}
 
 	A árvore K-D adaptativa é uma estrutura estática, sendo difícil mantê-la balanceada na presença constante de inserções e remoções. A estrutura funciona melhor se os dados são conhecidos a priori e se as atualizações forem raras, dependendo assim da ordem de inserção dos dados. 
 
-	As árvores \textit{K-D} são estruturas de dados armazenadas em memória primária. Desta forma, não são adequadas para uso em um ambiente com armazenamento secundário, onde a estrutura de dados precisa ser paginada para ser transferida para a memória primária. Tanto a árvore \textit{K-D} quanto a árvore \textit{K-D adaptativa} tornam-se desbalanceadas na presença frequente de inserções e remoções, o que degrada o desempenho de busca nessas árvores \cite{andreas}.
+	As árvores \textit{K-D} são estruturas de dados armazenadas em memória primária. Desta forma, não são adequadas para uso em um ambiente com armazenamento secundário, onde a estrutura de dados precisa ser paginada para ser transferida para a memória primária. Além disso, tanto a árvore \textit{K-D} quanto a árvore \textit{K-D adaptativa} tornam-se desbalanceadas na presença frequente de inserções e remoções, o que degrada o desempenho de busca nessas árvores \cite{andreas}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvores \textit{K-D-B}}
@@ -68,19 +68,19 @@
 
 	A árvore \textit{K-D-B} \cite{andreas} é utilizada principalmente para armazenamento em memória secundária, possuindo características de árvore \textit{K-D adaptativa} e árvore \textit{B} \cite{comer}. A estrutura da árvore \textit{K-D-B} segue o mesmo princípio de divisão em planos da árvore \textit{K-D adaptativa}, ou seja, os planos são definidos utilizando a distribuição de elementos na região.
 	Porém existe uma diferença fundamental entre as árvores \textit{K-D adaptativa} e as árvores \textit{K-D-B}: os nós internos são apontadores e representam determinada região. Esses apontadores são chamados de \textit{páginas de regiões} e contém o endereço para o nó filho ou para uma folha.
-	Os pontos são armazenados somente nas \textit{páginas de pontos} (folhas), e estas sempre estão em um mesmo nível - garantindo que a árvore \textit{K-D-B} esteja sempre balanceada \cite{comer}. A figura \ref{img_kdb} mostra um exemplo de árvore \textit{2-D-B}, cada nó interno representa a uma região retangular e os filhos correspondem a partições disjuntas obtidos por divisões recursivas usando linhas paralelas ao eixo x e y. Os pontos são armazenados nas folhas da árvore.
+	Os dados (chamados pontos) são armazenados somente nas \textit{páginas de pontos} (folhas), e estas sempre estão em um mesmo nível - garantindo que a árvore \textit{K-D-B} esteja sempre balanceada \cite{comer}. A figura \ref{img_kdb} mostra um exemplo de árvore \textit{2-D-B}, cada nó interno representa uma região retangular e os filhos correspondem a partições disjuntas obtidos por divisões recursivas usando linhas paralelas ao eixo \textit{x} e \textit{y}. Os pontos são armazenados nas folhas da árvore.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.45]{images/kdb.jpg}
 \label{img_kdb}
-\caption{Árvore \textit{K-D-B}.} 
+\caption{Exemplo de árvore \textit{K-D-B}.} 
 \end{center}
 \end{figure}
 
-	Na árvore \textit{K-D-B}, subregiões de um mesmo nível são mutuamente disjuntas, isto faz com que a busca por um ponto seja uma simples busca da raiz até a folha. Desta maneira é usado o mesmo algoritmo de busca da árvore \textit{K-D}. Como a árvore \textit{K-D-B} é balanceada, a complexidade do tempo de busca é logarítimica em relação ao número total de elementos \cite{andreas}.
+	Na árvore \textit{K-D-B}, subregiões de um mesmo nível são mutuamente disjuntas, isto faz com que a busca por um ponto seja uma simples busca da raiz até a folha. Desta maneira é usado o mesmo algoritmo de busca da árvore \textit{K-D}. Como a árvore \textit{K-D-B} é balanceada, a complexidade do tempo de busca é sempre logarítimica em relação ao número total de elementos \cite{andreas}.
 
-	A árvore \textit{K-D-B}, na presença de inserções e remoções pode forçar divisões dos blocos de dados. As divisões podem ser propagadas de um nó a seus descendentes, para garantir que as regiões permaneçam disjuntas. Uma divisão forçada ocorre quando há um \textit{overflow} ou \textit{underflow} de uma página, nas operações de inserções ou remoções. Este problema é resolvido utilizando a mesma técnica utilizada na árvore B, a reorganização. Existem dois tipos de reorganização possíveis: a união e a distribuição. No caso da união, as informações de duas páginas diferentes são combinadas em uma única. E no caso da distribuição, as informações de uma página são divididas em duas páginas \cite{andreas}.
+	A árvore \textit{K-D-B}, na presença de inserções e remoções pode forçar divisões dos blocos de dados. As divisões podem ser propagadas de um nó a seus descendentes, para garantir que as regiões permaneçam disjuntas. Uma divisão forçada ocorre quando há um \textit{overflow} ou \textit{underflow} de uma página, nas operações de inserções ou remoções. Este problema é resolvido utilizando a mesma técnica da árvore B, a reorganização. Existem dois tipos de reorganização possíveis: a união e a distribuição. No caso da união, as informações de duas páginas diferentes são combinadas em uma única. E no caso da distribuição, as informações de uma página são divididas em duas páginas \cite{andreas}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pesquisa Multidimensional em Banco de Dados}

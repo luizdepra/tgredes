@@ -1,6 +1,6 @@
 \chapter{Experimentos}
 
-	Nesse capítulo são descritos os experimentos realizados para comparação do uso de árvores multidimensionais com o MySQL na manipulação de dados multidimensionais. Na seção \ref{config_experiments} é descrita a máquina utilizada para os experimentos, tanto em nível de hardware quanto de software. Na seção \ref{database_generation} é apresentada a origem dos dados que forma utilizados nos experimentos. E finalmente, os experimentos foram divididos em duas partes: a seção \ref{kd_vs_mysql} apresenta os experimentos de comparação entre árvores \textit{K-D} e MySQL para monitoramento \textit{online}, seguida da seção \ref{kdb_vs_mysql} a qual apresenta os experimentos de comparação entre árvores \textit{K-D-B} e MySQL para monitoramento \textit{offline}.
+	Nesse capítulo são descritos os experimentos realizados para comparação do uso de árvores multidimensionais com o MySQL na manipulação de dados multidimensionais. Na seção \ref{config_experiments} é descrita a máquina utilizada para os experimentos, tanto em nível de hardware quanto de software. A seção \ref{impl_decisions} justifica e apresenta as decisões de implementação. E finalmente, os experimentos foram divididos em duas partes: a seção \ref{kd_vs_mysql} apresenta os experimentos de comparação entre árvores \textit{K-D} e MySQL para monitoramento \textit{online}, seguida da seção \ref{kdb_vs_mysql} a qual apresenta os experimentos de comparação entre árvores \textit{K-D-B} e MySQL para monitoramento \textit{offline}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -11,34 +11,17 @@
 
 	O sistema operacional utilizado é o Debian Lenny, com kernel linux 2.6.26. Todas as implementações relativas aos experimentos utilizam-se de ferramentas ou bibliotecas de código aberto. Para a implementação da árvore \textit{K-D} foi utilizada a biblioteca libkdtree++ \cite{libkdtree}, a qual possui todas as operações necessárias. A árvore \textit{K-D-B} foi implementada a partir da biblioteca TPIE \cite{tpie}, a qual provê vários mecanismos para trabalhar com a memória secundária com abstrações de alto nível.	As versões das bibliotecas utilizadas são as seguintes: libkdtree++ 0.7.0, tpie release '091905' e MySQL 5.0.51.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Decisões de Implementação}
 \label{impl_decisions}
 
 	Os experimentos de comparação envolvem várias ferramentas distintas, e portanto, várias decisões de padronização foram tomadas. 
 	
-	A decisão inicial foi na forma de medição do tempo para as operações de inserção e busca. Como todas as ferramentas utilizam de \textit{C} ou \textit{C++}, foi escolhido um algoritmo para medição do tempo, o qual usa a função \textit{clock()} disponível na biblioteca time.h. Com essa função é possível alcançar a precisão de milisegundos, porém essa medida não é totalmente precisa - visto que foi amostrada em um sistema linux multitarefas.
-
-	O tipo de arquivo de entrada a ser usado (texto ou binário) foi uma decisão tomada empiricamente. Sendo que o formato do arquivo de entrada também foi definido nesse mesmo tempo - cada linha representa um dado multidimensional, sendo que cada coluna representa uma dimensão desse dado. Através dos resultados obtidos nas figuras \ref{img_insert_4keys_kd_mysql} e \ref{img_search_4keys_kd_mysql}, verifica-se que o arquivo texto tem um desempenho levemente superior em relação ao arquivo binário tanto na inserção quanto na busca. Apesar disso, o espaço ocupado pelos arquivos binários 
+	A decisão inicial foi na estratégia de medição do tempo para as operações de inserção e busca. Como todas as ferramentas utilizam de \textit{C} ou \textit{C++}, foi escolhido um algoritmo para medição do tempo, o qual usa a função \textit{clock()} disponível na biblioteca \textit{time.h}. Com essa função é possível alcançar a precisão de milisegundos, porém essa medida não é totalmente precisa - visto que foi amostrada em um sistema linux multitarefas. O número de registros (dados multidimensionais) que foram usados nos experimentos variam de 16000, 100000, 250000, 500000, 1000000, 2000000, 4000000, e 8000000. 
 	
-	
-	Para obtenção de resultados algumas escolhas foram tomadas ou definidas empiricamente. Por exemplo, o formato do arquivo de entrada segue um padrão: cada linha do arquivo representa um dado multidimensional, sendo que cada coluna representa uma dimensão desse dado. 
-	Porém o tipo do arquivo de entrada foi definido através de experimentos.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Geração das Bases de Dados}
-\label{database_generation}
-
-	Os dados de entrada utilizados nos experimentos não são originados de monitoramento de redes reais. São dados gerados randomicamente através de um programa, o qual coloca em arquivo na forma de texto ou binário para que sejam utilizados posteriormente pelas ferramentas de comparação. Mesmo que a origem dos dados seja randômica, isso não afetaria o resultado em nenhum aspecto, visto que seriam dados de mesma natureza.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Árvore \textit{K-D} vs MySQL}
-\label{kd_vs_mysql}
-
-
-	Nesse experimento foram utilizados dois tipos de arquivo: binário e texto. A escolha para o resto dos experimentos foi pelo formato que gerava menos carga sobre o sistema, ou seja, o arquivo texto. Para simplificação do experimento, os testes foram feitos somente com registros de 4 chaves. A figura \ref{img_insert_4keys_kd_mysql} mostra a comparação para a inserção entre a árvore \textit{K-D} e o MySQL, analogamente a figura \ref{img_search_4keys_kd_mysql} mostra a comparação para a busca.
-
+	O tipo do arquivo de entrada a ser usado (texto ou binário) foi uma decisão tomada empiricamente. Nesse experimento, comparamos a árvore \textit{K-D} com o \textit{MySQL} tanto para a operação de inserção quanto de busca. Para a simplificação do experimento, os testes foram feitos somente com dados multidimensionais de 4 chaves. No MySQL, utilizamos somente arquivo de entrada texto e na árvore \textit{K-D} foram usados o arquivo de entrada texto e binário.
+			
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.6]{images/experiments/4keys_insertion_kdtree_mysql.jpg}
@@ -46,6 +29,8 @@
 \label{img_insert_4keys_kd_mysql}
 \end{center}
 \end{figure}
+
+	Na figura \ref{img_insert_4keys_kd_mysql} é possível visualizar os resultados obtidos na comparação entre árvore \textit{K-D} e MySQL para a inserção. Nesse gráfico de resultados, o MySQL possui um crescimento linear muito maior que a árvore \textit{K-D}. Além disso, é possível verificar que para a árvore \textit{K-D} a inserção de dados multidimensionais com arquivo texto tem um tempo levemente inferior em relação ao arquivo binário. Como o tempo é o parâmetro de comparação em todos os experimentos, a árvore \textit{K-D} com arquivo de entrada texto obteve desempenho superior.
 
 \begin{figure}[H]
 \begin{center}
@@ -55,9 +40,21 @@
 \end{center}
 \end{figure}
 
-	A partir desse ponto, todos os experimentos foram feitos com 5 bases diferentes, sendo que o valor que aparece no gráfico é uma média das 5 medições. Além disso, as todas as bases possuem formato texto.
+	A operação de busca para comparação entre árvores \textit{K-D} e MySQL tem seus resultados apresentados na figura \ref{img_search_4keys_kd_mysql}. É possível visualizar novamente o crescimento linear muito maior no MySQL do que na árvore \textit{K-D}. Além disso, apesar de não ficar visível no gráfico, a árvore \textit{K-D} com arquivo de entrada texto teve desempenho superior novamente.
+	
+	Nesses dois experimentos foram utilizados os dois tipos de arquivo: binário e texto. A escolha para o resto dos experimentos foi pelo formato que gerava menos carga sobre o sistema, ou seja, o arquivo texto. Apesar disso, o espaço ocupado em disco pelos arquivos binários é aproximadamente a metade do espaço ocupado pelo arquivo texto equivalente. Uma observação que deve ser feita é que nesse experimento não houve nenhum tipo de otimização no MySQL. O formato do arquivo de entrada também foi definido nesse mesmo experimento - cada linha representa um dado multidimensional, sendo que cada coluna representa uma dimensão desse dado. A partir desse ponto, todos os experimentos foram feitos com cinco bases diferentes, sendo que o valores que aparecem nos gráficos são uma média das cinco medições.
+
+	As bases de arquivos, que possuem os dados multidimensionais são comuns entre as ferramentas. Esses dados de entrada utilizados nos experimentos não são originados de monitoramento de redes reais. São dados gerados randomicamente através de um programa, o qual coloca em arquivo na forma de texto ou binário para que sejam utilizados posteriormente pelas ferramentas. Mesmo que a origem dos dados seja randômica, isso não afetaria o resultado em nenhum aspecto, visto que seriam dados de mesma natureza.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Árvore \textit{K-D} vs MySQL}
+\label{kd_vs_mysql}
+
+	A motivação para experimentos de comparação entre árvores \textit{K-D} e MySQL é o monitoramento \textit{online}. O monitoramento \textit{online} consiste em ir construindo a estrutura multidimensional na medida em que os dados são monitorados. Essa seção está dividida em duas partes: A subseção \ref{kd_vs_mysql_insert} trata dos experimentos envolvendo a operação de inserção, e a subseção \ref{kd_vs_mysql_search} trata dos experimentos envolvendo a operação de busca.
 
 \subsection{Árvore \textit{K-D} vs MySQL: Inserção}
+\label{kd_vs_mysql_insert}
 
 	A comparação da inserção entre a árvore \textit{K-D} e o MySQL, com chaves variando de 4, 8 e 16 estão na figura \ref{img_insert_Xkeys_kd_mysql}.
 
@@ -69,7 +66,10 @@
 \end{center}
 \end{figure}
 
+	
+
 \subsection{Árvore \textit{K-D} vs MySQL: Busca}
+\label{kd_vs_mysql_search}
 	
 	O gráfico de busca da árvore \textit{K-D} foi omitido pois, em todos os testes, o tempo de retorno foi de 0ms até 2ms. Ou seja, não apareceria nenhuma linha no gráfico de comparação. A figura \ref{img_search_Xkeys_mysql} mostra o tempo para a busca no MySQL, com chaves variando entre 4, 8 e 16.
 
@@ -85,6 +85,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvore \textit{K-D-B} vs MySQL}
 \label{kdb_vs_mysql}
+
+	Monitoramento OFFLINE
 
 	Como o uso da biblioteca da árvore \textit{K-D-B} é mais restrita, os experimentos utilizam somente chaves de tamanho 10.
 

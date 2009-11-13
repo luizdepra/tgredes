@@ -50,13 +50,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvore \textit{K-D} vs MySQL}
 \label{kd_vs_mysql}
+	
+	A libkdtree++ possui todas as operações de inserção e busca implementadas, sendo que para os experimentos de busca foi escolhido uma busca por intervalo. Esse intervalo é de 5, e o valor pelo qual varia é 50. Ou seja, valores de chaves entre 45 e 55 seriam filtrados. Porém, a operação é de pesquisa multidimensional e um exemplo de registro com 4 chaves que seria selecionado é \{45, 47, 54, 50\}.
 
 	A motivação para experimentos de comparação entre árvores \textit{K-D} e MySQL é o monitoramento \textit{online}. O monitoramento \textit{online} consiste em ir construindo a estrutura multidimensional na medida em que os dados são monitorados. Essa seção está dividida em duas partes: A subseção \ref{kd_vs_mysql_insert} trata dos experimentos envolvendo a operação de inserção, e a subseção \ref{kd_vs_mysql_search} trata dos experimentos envolvendo a operação de busca.
 
 \subsection{Árvore \textit{K-D} vs MySQL: Inserção}
 \label{kd_vs_mysql_insert}
 
-	A comparação da inserção entre a árvore \textit{K-D} e o MySQL, com chaves variando de 4, 8 e 16 estão na figura \ref{img_insert_Xkeys_kd_mysql}.
+	Para o experimento de comparação da inserção entre a árvore \textit{K-D} e o MySQL, as chaves variam de 4, 8 e 16.
 
 \begin{figure}[H]
 \begin{center}
@@ -66,12 +68,12 @@
 \end{center}
 \end{figure}
 
+	A figura \ref{img_insert_Xkeys_kd_mysql} ilustra os resultados desse experimento. Pode-se observar que tanto na árvore \textit{K-D} quanto no MySQL o crescimento é linear conforme aumentam o número de chaves. Porém, é possível visualizar a grande diferença absoluta entre a árvore \textit{K-D} e o MySQL. Por exemplo, com 8 milhões de registros e 16 chaves, o MySQL fez a inserção em 20 minutos enquanto que a árvore \textit{K-D} fez a inserção em 1 minuto e 43 segundos.  
 	
-
 \subsection{Árvore \textit{K-D} vs MySQL: Busca}
 \label{kd_vs_mysql_search}
 	
-	O gráfico de busca da árvore \textit{K-D} foi omitido pois, em todos os testes, o tempo de retorno foi de 0ms até 2ms. Ou seja, não apareceria nenhuma linha no gráfico de comparação. A figura \ref{img_search_Xkeys_mysql} mostra o tempo para a busca no MySQL, com chaves variando entre 4, 8 e 16.
+	Para esse experimento de comparação de busca entre árvore \textit{K-D} e o MySQL, as chaves variam de 4, 8 e 16.
 
 \begin{figure}[H]
 \begin{center}
@@ -80,6 +82,8 @@
 \label{img_search_Xkeys_mysql}
 \end{center}
 \end{figure}
+
+	O gráfico de busca da árvore \textit{K-D} foi omitido pois, em todos os testes, o tempo de retorno foi de 0ms até 2ms. Ou seja, não apareceria nenhuma linha no gráfico de comparação. A figura \ref{img_search_Xkeys_mysql} mostra o tempo para a busca no MySQL, com chaves variando entre 4, 8 e 16. Observa-se que a partir de 2 milhões de registros e 16 chaves, o MySQL acentua a sua curva de crescimento em muito mais do que seria o padrão esperado.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

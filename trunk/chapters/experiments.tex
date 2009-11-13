@@ -11,6 +11,19 @@
 
 	O sistema operacional utilizado é o Debian Lenny, com kernel linux 2.6.26. Todas as implementações relativas aos experimentos utilizam-se de ferramentas ou bibliotecas de código aberto. Para a implementação da árvore \textit{K-D} foi utilizada a biblioteca libkdtree++ \cite{libkdtree}, a qual possui todas as operações necessárias. A árvore \textit{K-D-B} foi implementada a partir da biblioteca TPIE \cite{tpie}, a qual provê vários mecanismos para trabalhar com a memória secundária com abstrações de alto nível.	As versões das bibliotecas utilizadas são as seguintes: libkdtree++ 0.7.0, tpie release '091905' e MySQL 5.0.51.
 
+\section{Decisões de Implementação}
+\label{impl_decisions}
+
+	Os experimentos de comparação envolvem várias ferramentas distintas, e portanto, várias decisões de padronização foram tomadas. 
+	
+	A decisão inicial foi na forma de medição do tempo para as operações de inserção e busca. Como todas as ferramentas utilizam de \textit{C} ou \textit{C++}, foi escolhido um algoritmo para medição do tempo, o qual usa a função \textit{clock()} disponível na biblioteca time.h. Com essa função é possível alcançar a precisão de milisegundos, porém essa medida não é totalmente precisa - visto que foi amostrada em um sistema linux multitarefas.
+
+	O tipo de arquivo de entrada a ser usado (texto ou binário) foi uma decisão tomada empiricamente. Sendo que o formato do arquivo de entrada também foi definido nesse mesmo tempo - cada linha representa um dado multidimensional, sendo que cada coluna representa uma dimensão desse dado. Através dos resultados obtidos nas figuras \ref{img_insert_4keys_kd_mysql} e \ref{img_search_4keys_kd_mysql}, verifica-se que o arquivo texto tem um desempenho levemente superior em relação ao arquivo binário tanto na inserção quanto na busca. Apesar disso, o espaço ocupado pelos arquivos binários 
+	
+	
+	Para obtenção de resultados algumas escolhas foram tomadas ou definidas empiricamente. Por exemplo, o formato do arquivo de entrada segue um padrão: cada linha do arquivo representa um dado multidimensional, sendo que cada coluna representa uma dimensão desse dado. 
+	Porém o tipo do arquivo de entrada foi definido através de experimentos.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Geração das Bases de Dados}

@@ -64,6 +64,8 @@
 
 	A árvore K-D adaptativa é uma estrutura estática, sendo difícil mantê-la balanceada na presença constante de inserções e remoções. A estrutura funciona melhor se os dados são conhecidos a priori e se as atualizações forem raras, dependendo assim da ordem de inserção dos dados. 
 
+	O algoritmo de pesquisa é executado de maneira parecida com o algoritmo de pesquisa da árvore \textit{K-D}. A única diferença é que ao invés de utilizar a chave do nodo atual para a comparação, é usado a mediana entre todos os pontos daquela plano. O algoritmo de inserção para as árvores \textit{K-D adaptativas} segue esse mesmo raciocínio, o que faz com que a árvore se comporte melhor quando os dados são pouco atualizados.
+
 	As árvores \textit{K-D} são estruturas de dados armazenadas em memória primária. Desta forma, não são adequadas para uso em um ambiente com armazenamento secundário, onde a estrutura de dados precisa ser paginada para ser transferida para a memória primária. Além disso, tanto a árvore \textit{K-D} quanto a árvore \textit{K-D adaptativa} tornam-se desbalanceadas na presença frequente de inserções e remoções, o que degrada o desempenho de busca nessas árvores \cite{andreas}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -84,7 +86,35 @@
 
 	Na árvore \textit{K-D-B}, subregiões de um mesmo nível são mutuamente disjuntas, isto faz com que a busca por um ponto seja uma simples busca da raiz até a folha. Desta maneira é usado o mesmo algoritmo de busca da árvore \textit{K-D}. Como a árvore \textit{K-D-B} é balanceada, a complexidade do tempo de busca é sempre logarítimica em relação ao número total de elementos \cite{andreas}.
 
-	
+	Os algoritmos de pesquisa para a árvore \textit{K-D-B} se dividem em pesquisa exata, parcial, por intervalo e por proximidade. 
+
+	O algoritmo de pesquisa exata acha um ponto $p$ especificado por $K$ coordenadas. Esse algoritmo faz  um caminho sobre a árvore até achar a página de folha, usando das divisões dos planos até achar ou não o ponto exato de pesquisa. Os passos desse algoritmo esão descritos a seguir:
+
+	\begin{verbatim}
+	(L1) Iniciando na página raiz, visitar a página;
+	(L2) Se a página visitada é página folha, 
+	      então retorna o ponto na página ou falso caso o ponto não esteja 
+		  na página;
+	(L3) Senão, enquanto a página visitada for página de região faça:
+	      recupera a página visitada da memória,
+	      localiza a página descendente que intercepta o ponto,
+	      faz essa a página a ser visitada e vai para (L2);
+	\end{verbatim}
+
+	O algoritmo de pesquisa por intervalo procura por todos os pontos que possuem suas $K$ coordenadas especificadas dentro de um intervalo de coordenadas. Esse algoritmo é muito similar ao anterior, porém retorna um ou vários pontos dependendo do intervalo escolhido. Os passos para esse algoritmo estão descritos abaixo:
+
+	\begin{verbatim}
+	(L1) Iniciando na página raiz, visitar a página;
+	(L2) Se a página visitada é página folha,
+	      então retorna todos os pontos na página que pertencem ao intervalo 
+		  especificado;
+	(L3) Senão, enquanto a página visitada for página de região faça:
+	      recupera a página visitada da memória,
+	      para cada página que intercepta o intervalo especificado, e caso 
+          não seja vazio, faz essa a página a ser visitada e vai para (L2);
+	\end{verbatim}
+
+	O método de inserção para inserir um ponto $p$ na árvore \textit{K-D-B} consiste em localizar a página folha apropriada para o ponto, se existe espaço na página folha, $p$ é inserido, caso contrário a página é dividida em duas outras.
 
 	A árvore \textit{K-D-B}, na presença de inserções e remoções pode forçar divisões dos blocos de dados. As divisões podem ser propagadas de um nó a seus descendentes, para garantir que as regiões permaneçam disjuntas. Uma divisão forçada ocorre quando há um \textit{overflow} ou \textit{underflow} de uma página, nas operações de inserções ou remoções. Este problema é resolvido utilizando a mesma técnica da árvore B, a reorganização. Existem dois tipos de reorganização possíveis: a união e a distribuição. No caso da união, as informações de duas páginas diferentes são combinadas em uma única. E no caso da distribuição, as informações de uma página são divididas em duas páginas \cite{andreas}.
 

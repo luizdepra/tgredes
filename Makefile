@@ -2,6 +2,7 @@
 tg.pdf: tg.tex
 	pdflatex tg.tex
 	pdflatex tg.tex
+	pdflatex tg.tex
 # opens the manual with this parameter
 all: tg.pdf
 	evince tg.pdf

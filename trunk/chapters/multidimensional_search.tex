@@ -44,9 +44,9 @@
 \end{center}
 \end{figure}
 
-	Em árvores \textit{K-D} a operação de pesquisa se desenvolve de três formas distintas, pesquisando pelo conjunto de chaves exato, parcial ou dentro de um intervalo.
+	Em árvores \textit{K-D} a operação de pesquisa pode ser feita de três formas distintas: pesquisando pelo conjunto de chaves exato, parcial ou dentro de um intervalo. A pesquisa exata consiste em percorrer a estrutura procurando um registro com exatamente todas as chaves iguais às da pesquisa. A pesquisa parcial procura por registro com uma ou mais chaves iguais. E a pesquisa por intervalo localiza todos os registros que tenham suas chaves entre os intervalos das chaves da pesquisa. Em todos os casos a forma com que o algoritmo percorre a árvore é semelhante ao mesmo algoritmo da árvore binária de busca, porém em cada nível da árvore uma chave diferente é usada para a comparação.
 
-	A inserção em árvores \textit{K-D} ocorre de forma similar a inserção em árvores binárias de pesquisa, o algoritmo percorre a estrutura usando os mesmo critérios de movimentação da pesquisa em árvores \textit{K-D} até que seja encontrado um nodo folha. O nodo com os novos dados se torna filho do nodo folha encontrado. É inserido a esquerda se o valor da chave correspondente ao nível for \textit{menor que} a chave do nodo pai, ou a direita se for a chave for \textit{maior ou igual que}.
+	A inserção em árvores \textit{K-D} ocorre de forma similar a inserção em árvores binárias de pesquisa, o algoritmo percorre a estrutura usando os mesmo critérios de percurso da pesquisa em árvores \textit{K-D} até que seja encontrado um nodo folha. O nodo com os novos dados se torna filho do nodo folha encontrado. É inserido a esquerda se o valor da chave correspondente ao nível for \textit{menor que} a chave do nodo pai, ou a direita se a chave for \textit{maior ou igual que}.
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvores \textit{K-D Adaptativas}}

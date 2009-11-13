@@ -1,36 +1,28 @@
 \chapter{Experimentos}
 
-	Todas as implementações relativas aos experimentos utilizam-se de ferramentas ou bibliotecas de código aberto. Para a implementação da árvore \textit{K-D} foi utilizada a biblioteca libkdtree++ \cite{libkdtree}, a qual possui todas as operações necessárias. A árvore \textit{K-D-B} foi implementada a partir da biblioteca TPIE \cite{tpie}, a qual provê vários mecanismos para trabalhar com a memória secundária de uma forma mais abstrata, em alto nível.
+	Nesse capítulo são descritos os experimentos realizados para comparação do uso de árvores multidimensionais com o MySQL na manipulação de dados multidimensionais. Na seção \ref{config_experiments} é descrita a máquina utilizada para os experimentos, tanto em nível de hardware quanto de software. Na seção \ref{database_generation} é apresentada a origem dos dados que forma utilizados nos experimentos. E finalmente, os experimentos foram divididos em duas partes: a seção \ref{kd_vs_mysql} apresenta os experimentos de comparação entre árvores \textit{K-D} e MySQL para monitoramento \textit{online}, seguida da seção \ref{kdb_vs_mysql} a qual apresenta os experimentos de comparação entre árvores \textit{K-D-B} e MySQL para monitoramento \textit{offline}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Configurações}
+\section{Configurações e Ambiente de Experimentação}
+\label{config_experiments}
+	
+	Para a realização dos experimentos de comparação, foi utilizada uma máquina dedicada somente para esta atividade. A configuração de hardware dessa maquina é a seguinte: processador AMD Athlon XP 1800+, dois módulos de memória DDR 400 de 512MB e disco \textit{Saunsung} 40GB, 7200RPM.
 
-	Para a realização dos experimentos de comparação, foi utilizada uma máquina dedicada somente para esta atividade. 
-
-	A configuração de hardware é a seguinte:
-
-	\begin{itemize}
-	\item{Processador: AMD Athlon XP 1800+}
-	\item{Memória: 2 x 512MB DDR 400}
-	\item{Disco: Sansung 40GB 7200RPM}
-	\end{itemize}
-
-	O sistema operacional utilizado é o Debian Lenny, com kernel linux 2.6.26.
-
-	As versões das bibliotecas utilizadas são as seguintes: libkdtree++ 0.7.0, tpie release '091905' e MySQL 5.0.51.
+	O sistema operacional utilizado é o Debian Lenny, com kernel linux 2.6.26. Todas as implementações relativas aos experimentos utilizam-se de ferramentas ou bibliotecas de código aberto. Para a implementação da árvore \textit{K-D} foi utilizada a biblioteca libkdtree++ \cite{libkdtree}, a qual possui todas as operações necessárias. A árvore \textit{K-D-B} foi implementada a partir da biblioteca TPIE \cite{tpie}, a qual provê vários mecanismos para trabalhar com a memória secundária com abstrações de alto nível.	As versões das bibliotecas utilizadas são as seguintes: libkdtree++ 0.7.0, tpie release '091905' e MySQL 5.0.51.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Geração das Bases de Dados}
+\label{database_generation}
 
-	Os dados de entrada utilizados nos experimentos não são originados de monitoramento de redes reais. São dados gerados randomicamente através de um programa, o qual coloca em arquivo em forma de texto ou binário para que sejam utilizados posteriormente pelas ferramentas de comparação. Mesmo que a origem dos dados seja randômica, isso não afetaria o resultado em nenhum aspecto, visto que seriam dados de mesma natureza.
+	Os dados de entrada utilizados nos experimentos não são originados de monitoramento de redes reais. São dados gerados randomicamente através de um programa, o qual coloca em arquivo na forma de texto ou binário para que sejam utilizados posteriormente pelas ferramentas de comparação. Mesmo que a origem dos dados seja randômica, isso não afetaria o resultado em nenhum aspecto, visto que seriam dados de mesma natureza.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvore \textit{K-D} vs MySQL}
+\label{kd_vs_mysql}
 
-\subsection{Decisão do Formato do Arquivo de Dados}
 
 	Nesse experimento foram utilizados dois tipos de arquivo: binário e texto. A escolha para o resto dos experimentos foi pelo formato que gerava menos carga sobre o sistema, ou seja, o arquivo texto. Para simplificação do experimento, os testes foram feitos somente com registros de 4 chaves. A figura \ref{img_insert_4keys_kd_mysql} mostra a comparação para a inserção entre a árvore \textit{K-D} e o MySQL, analogamente a figura \ref{img_search_4keys_kd_mysql} mostra a comparação para a busca.
 
@@ -79,6 +71,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvore \textit{K-D-B} vs MySQL}
+\label{kdb_vs_mysql}
 
 	Como o uso da biblioteca da árvore \textit{K-D-B} é mais restrita, os experimentos utilizam somente chaves de tamanho 10.
 

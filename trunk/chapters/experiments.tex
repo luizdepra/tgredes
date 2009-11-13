@@ -89,12 +89,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvore \textit{K-D-B} vs MySQL}
 \label{kdb_vs_mysql}
-
-	Monitoramento OFFLINE
-
+	
 	Como o uso da biblioteca da árvore \textit{K-D-B} é mais restrita, os experimentos utilizam somente chaves de tamanho 10.
 
+	O motivo para os experimentos de comparação entre árvores \textit{K-D-B} e MySQL é o monitoramento \textit{offline}. No monitoramento \textit{offline}, logs são estruturados para consultas que cobrem todo o período monitorado \cite{andreas}. A subseção \ref{kdb_vs_mysql_insert} discute os experimentos com a operação de inserção, e a subseção \ref{kdb_vs_mysql2_insert} mostra resultados dos experimentos utilizando uma otimização no MySQL. Terminando com a subseção \ref{kdb_vs_mysql_search} trata dos experimnetos com a operação de busca.
+
+
+	
 \subsection{Árvore \textit{K-D-B} vs MySQL: Inserção}
+\label{kdb_vs_mysql_insert}
 
 	A figura \ref{img_insert_10keys_kdb_mysql} mostra a comparação entre a árvore \textit{K-D-B} e o MySQL. Um detalhe é que foi utilizado de indexação variando de 0 a 10 no MySQL.
 
@@ -107,6 +110,7 @@
 \end{figure}
 
 \subsection{Árvore \textit{K-D-B} vs MySQL: Inserção Otimizada}
+\label{kdb_vs_mysql2_insert}
 
 	Nesse experimento foi utilizada uma forma de inserção otimizada do MySQL, através da operação LOAD IN FILE \cite{mysqlLIF}. A figura \ref{img_insert_10keys_kdb_mysql_2} mostra o resultado dessa otimização no MySQL.
 
@@ -119,6 +123,7 @@
 \end{figure}
 
 \subsection{Árvore \textit{K-D-B} vs MySQL: Busca}
+\label{kdb_vs_mysql_search}
 
 	A comparação da busca entre a árvore \textit{K-D-B} e o MySQL com índices estão na figura \ref{img_search_10keys_kdb_mysql}.
 

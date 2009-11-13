@@ -18,7 +18,7 @@
 
 	Os experimentos de comparação envolvem várias ferramentas distintas, e portanto, várias decisões de padronização foram tomadas. 
 	
-	A decisão inicial foi na estratégia de medição do tempo para as operações de inserção e busca. Como todas as ferramentas utilizam de \textit{C} ou \textit{C++}, foi escolhido um algoritmo para medição do tempo, o qual usa a função \textit{clock()} disponível na biblioteca \textit{time.h}. Com essa função é possível alcançar a precisão de milisegundos, porém essa medida não é totalmente precisa - visto que foi amostrada em um sistema linux multitarefas. O número de registros (dados multidimensionais) que foram usados nos experimentos variam de 16000, 100000, 250000, 500000, 1000000, 2000000, 4000000, e 8000000. 
+	A decisão inicial foi na estratégia de medição do tempo para as operações de inserção e busca. Como todas as ferramentas utilizam de \textit{C} ou \textit{C++}, foi escolhido um algoritmo para medição do tempo, o qual usa a função \textit{clock()} disponível na biblioteca \textit{time.h}. Com essa função é possível alcançar a precisão de milisegundos, porém essa medida não é totalmente precisa - visto que foi amostrada em um sistema linux multitarefas. O número de registros (dados multidimensionais) que foram usados nos experimentos variam de 16 mil, 100 mil, 250 mil, 500 mil, 1 milhão, 2 milhões, 4 milhões e 8 milhões.
 	
 	O tipo do arquivo de entrada a ser usado (texto ou binário) foi uma decisão tomada empiricamente. Nesse experimento, comparamos a árvore \textit{K-D} com o \textit{MySQL} tanto para a operação de inserção quanto de busca. Para a simplificação do experimento, os testes foram feitos somente com dados multidimensionais de 4 chaves. No MySQL, utilizamos somente arquivo de entrada texto e na árvore \textit{K-D} foram usados o arquivo de entrada texto e binário.
 			
@@ -89,17 +89,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvore \textit{K-D-B} vs MySQL}
 \label{kdb_vs_mysql}
+
+	A biblioteca TPIE \cite{tpie} consiste de um kernel e um conjunto de algoritmos de \textit{I/O} eficientes e estruturas de dados implementados no kernel. Entre as implementações de estruturas de dados, está a árvore {K-D-B}. A árvore \textit{K-D-B} implementada possui as operações de inserção e busca (exata, parcial e por intervalo). Porém, as versões que estão disponíveis não possuem mais essa implementação de árvore \textit{K-D-B}, e por isso a versão utilizada é uma antiga, tendo limitações quanto ao número de chaves. Com isso os experimentos utilizam somente chaves de tamanho 10.
 	
-	Como o uso da biblioteca da árvore \textit{K-D-B} é mais restrita, os experimentos utilizam somente chaves de tamanho 10.
+	O motivo para os experimentos de comparação entre árvores \textit{K-D-B} e MySQL é o monitoramento \textit{offline}. No monitoramento \textit{offline}, logs são estruturados para consultas que cobrem todo o período monitorado \cite{andreas}. A subseção \ref{kdb_vs_mysql_insert} discute os experimentos com a operação de inserção, e a subseção \ref{kdb_vs_mysql2_insert} mostra resultados dos experimentos utilizando uma otimização no MySQL. Terminando com a subseção \ref{kdb_vs_mysql_search} trata dos experimentos com a operação de busca.
 
-	O motivo para os experimentos de comparação entre árvores \textit{K-D-B} e MySQL é o monitoramento \textit{offline}. No monitoramento \textit{offline}, logs são estruturados para consultas que cobrem todo o período monitorado \cite{andreas}. A subseção \ref{kdb_vs_mysql_insert} discute os experimentos com a operação de inserção, e a subseção \ref{kdb_vs_mysql2_insert} mostra resultados dos experimentos utilizando uma otimização no MySQL. Terminando com a subseção \ref{kdb_vs_mysql_search} trata dos experimnetos com a operação de busca.
-
-
-	
 \subsection{Árvore \textit{K-D-B} vs MySQL: Inserção}
 \label{kdb_vs_mysql_insert}
 
-	A figura \ref{img_insert_10keys_kdb_mysql} mostra a comparação entre a árvore \textit{K-D-B} e o MySQL. Um detalhe é que foi utilizado de indexação variando de 0 a 10 no MySQL.
+	Experimento de comparação da inserção entre a árvore \textit{K-D-B} e o MySQL. No MySQL foram utilizados índices variando de 0 até 10.
 
 \begin{figure}[H]
 \begin{center}
@@ -109,10 +107,12 @@
 \end{center}
 \end{figure}
 
+	A figura \ref{img_insert_10keys_kdb_mysql} ilustra que a partir de 4 índices utilizados para a inserção, ocorre uma grande acentuação no tempo utilizado. A árvore \textit{K-D-B} por outro lado, mantém o melhor desempenho até o limite de 8 milhões de registros amostrados.
+
 \subsection{Árvore \textit{K-D-B} vs MySQL: Inserção Otimizada}
 \label{kdb_vs_mysql2_insert}
 
-	Nesse experimento foi utilizada uma forma de inserção otimizada do MySQL, através da operação LOAD IN FILE \cite{mysqlLIF}. A figura \ref{img_insert_10keys_kdb_mysql_2} mostra o resultado dessa otimização no MySQL.
+	Nesse experimento foi utilizada uma forma de inserção otimizada do MySQL, através da operação LOAD IN FILE \cite{mysqlLIF}. 
 
 \begin{figure}[H]
 \begin{center}
@@ -122,10 +122,12 @@
 \end{center}
 \end{figure}
 
+	A figura \ref{img_insert_10keys_kdb_mysql_2} mostra o resultado da otimização no MySQL. O resultado se torna o inverso do anterior, e o MySQL consegue tempos de inserção muito baixos (1 minuto e 39 segundos para 8 milhões de registros). Tornando comparável o MySQL com a árvore \textit{K-D}. Apesar de não ser visível no gráfico, a árvore \textit{K-D-B} utiliza 13 minutos e 24 segundos para inserir 8 milhões de registros.
+
 \subsection{Árvore \textit{K-D-B} vs MySQL: Busca}
 \label{kdb_vs_mysql_search}
 
-	A comparação da busca entre a árvore \textit{K-D-B} e o MySQL com índices estão na figura \ref{img_search_10keys_kdb_mysql}.
+	Experimento de comparação da busca na árvore \textit{K-D-B} e no MySQL. No MySQL foram utilizados índices variando de 0 até 10.
 
 \begin{figure}[H]
 \begin{center}
@@ -134,3 +136,5 @@
 \label{img_search_10keys_kdb_mysql}
 \end{center}
 \end{figure}
+
+	Os resultados, visualizados na figura \ref{img_search_10keys_kdb_mysql} mostram que a implementação da árvore \textit{K-D-B} e o MySQL sem a utilização de índices são os que permanecem constantes em tempo. No MySQL com índices, a busca tem a partir de certo ponto um crescimento extremamente alto.

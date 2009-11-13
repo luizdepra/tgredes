@@ -84,6 +84,8 @@
 
 	Na árvore \textit{K-D-B}, subregiões de um mesmo nível são mutuamente disjuntas, isto faz com que a busca por um ponto seja uma simples busca da raiz até a folha. Desta maneira é usado o mesmo algoritmo de busca da árvore \textit{K-D}. Como a árvore \textit{K-D-B} é balanceada, a complexidade do tempo de busca é sempre logarítimica em relação ao número total de elementos \cite{andreas}.
 
+	
+
 	A árvore \textit{K-D-B}, na presença de inserções e remoções pode forçar divisões dos blocos de dados. As divisões podem ser propagadas de um nó a seus descendentes, para garantir que as regiões permaneçam disjuntas. Uma divisão forçada ocorre quando há um \textit{overflow} ou \textit{underflow} de uma página, nas operações de inserções ou remoções. Este problema é resolvido utilizando a mesma técnica da árvore B, a reorganização. Existem dois tipos de reorganização possíveis: a união e a distribuição. No caso da união, as informações de duas páginas diferentes são combinadas em uma única. E no caso da distribuição, as informações de uma página são divididas em duas páginas \cite{andreas}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

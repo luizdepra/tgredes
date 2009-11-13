@@ -1,6 +1,6 @@
 \chapter{Experimentos}
 
-	Nesse capítulo são descritos os experimentos realizados para comparação do uso de árvores multidimensionais com o MySQL na manipulação de dados multidimensionais. Na seção \ref{config_experiments} é descrita a máquina utilizada para os experimentos, tanto em nível de hardware quanto de software. A seção \ref{impl_decisions} justifica e apresenta as decisões de implementação. E finalmente, os experimentos foram divididos em duas partes: a seção \ref{kd_vs_mysql} apresenta os experimentos de comparação entre árvores \textit{K-D} e MySQL para monitoramento \textit{online}, seguida da seção \ref{kdb_vs_mysql} a qual apresenta os experimentos de comparação entre árvores \textit{K-D-B} e MySQL para monitoramento \textit{offline}.
+	Nesse capítulo são descritos os experimentos realizados para comparação do uso de árvores multidimensionais com o MySQL na manipulação de dados multidimensionais. Na seção \ref{config_experiments} é descrita a máquina utilizada para os experimentos, tanto em nível de hardware quanto de software. A seção \ref{impl_decisions} apresenta e justifica as decisões de implementação. E finalmente, os experimentos foram divididos em duas partes: a seção \ref{kd_vs_mysql} apresenta os experimentos de comparação entre árvores \textit{K-D} e MySQL para monitoramento \textit{online}, seguida da seção \ref{kdb_vs_mysql} a qual apresenta os experimentos de comparação entre árvores \textit{K-D-B} e MySQL para monitoramento \textit{offline}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -18,9 +18,9 @@
 
 	Os experimentos de comparação envolvem várias ferramentas distintas, e portanto, várias decisões de padronização foram tomadas. 
 	
-	A decisão inicial foi na estratégia de medição do tempo para as operações de inserção e busca. Como todas as ferramentas utilizam de \textit{C} ou \textit{C++}, foi escolhido um algoritmo para medição do tempo, o qual usa a função \textit{clock()} disponível na biblioteca \textit{time.h}. Com essa função é possível alcançar a precisão de milisegundos, porém essa medida não é totalmente precisa - visto que foi amostrada em um sistema linux multitarefas. O número de registros (dados multidimensionais) que foram usados nos experimentos variam de 16 mil, 100 mil, 250 mil, 500 mil, 1 milhão, 2 milhões, 4 milhões e 8 milhões.
+	A decisão inicial foi na estratégia de medição do tempo para as operações de inserção e busca. Como todas as ferramentas utilizam de \textit{C} ou \textit{C++}, foi escolhido um algoritmo para medição do tempo, o qual usa a função \textit{clock()} disponível na biblioteca \textit{time.h}. Com essa função é possível alcançar a precisão de milisegundos, porém essa medida não é totalmente precisa - visto que foi amostrada em um sistema linux multitarefa. O número de registros (dados multidimensionais) que foram usados nos experimentos variam de 16 mil, 100 mil, 250 mil, 500 mil, 1 milhão, 2 milhões, 4 milhões e 8 milhões. Esses números foram escolhidos pela sua suficiência em retratar um ambiente de monitoramento de redes.
 	
-	O tipo do arquivo de entrada a ser usado (texto ou binário) foi uma decisão tomada empiricamente. Nesse experimento, comparamos a árvore \textit{K-D} com o \textit{MySQL} tanto para a operação de inserção quanto de busca. Para a simplificação do experimento, os testes foram feitos somente com dados multidimensionais de 4 chaves. No MySQL, utilizamos somente arquivo de entrada texto e na árvore \textit{K-D} foram usados o arquivo de entrada texto e binário.
+	O tipo do arquivo de entrada a ser usado (texto ou binário) foi uma decisão tomada empiricamente. Nesse experimento, comparamos a árvore \textit{K-D} com o MySQL tanto para a operação de inserção quanto de busca. Para a simplificação do experimento, os testes foram feitos somente com dados multidimensionais de 4 chaves. No MySQL, utilizamos somente arquivo de entrada texto e na árvore \textit{K-D} foram usados o arquivo de entrada texto e binário.
 			
 \begin{figure}[H]
 \begin{center}
@@ -30,7 +30,7 @@
 \end{center}
 \end{figure}
 
-	Na figura \ref{img_insert_4keys_kd_mysql} é possível visualizar os resultados obtidos na comparação entre árvore \textit{K-D} e MySQL para a inserção. Nesse gráfico de resultados, o MySQL possui um crescimento linear muito maior que a árvore \textit{K-D}. Além disso, é possível verificar que para a árvore \textit{K-D} a inserção de dados multidimensionais com arquivo texto tem um tempo levemente inferior em relação ao arquivo binário. Como o tempo é o parâmetro de comparação em todos os experimentos, a árvore \textit{K-D} com arquivo de entrada texto obteve desempenho superior.
+	Na figura \ref{img_insert_4keys_kd_mysql} é possível visualizar os resultados obtidos na comparação entre árvore \textit{K-D} e MySQL para a inserção. Nesse gráfico de resultados, o MySQL possui um crescimento linear muito maior que a árvore \textit{K-D}. Além disso, é possível verificar que para a árvore \textit{K-D} a inserção de dados multidimensionais com arquivo texto tem um tempo levemente inferior em relação ao arquivo binário. Como o tempo é o parâmetro de comparação em todos os experimentos, a árvore \textit{K-D} com arquivo de entrada texto obteve desempenho superior neste teste.
 
 \begin{figure}[H]
 \begin{center}
@@ -51,7 +51,7 @@
 \section{Árvore \textit{K-D} vs MySQL}
 \label{kd_vs_mysql}
 	
-	A libkdtree++ possui todas as operações de inserção e busca implementadas, sendo que para os experimentos de busca foi escolhido uma busca por intervalo. Esse intervalo é de 5, e o valor pelo qual varia é 50. Ou seja, valores de chaves entre 45 e 55 seriam filtrados. Porém, a operação é de pesquisa multidimensional e um exemplo de registro com 4 chaves que seria selecionado é \{45, 47, 54, 50\}.
+	A libkdtree++ possui todas as operações de inserção e busca implementadas, sendo que para os experimentos de busca foi escolhido a busca por intervalo. Esse intervalo é de 5, e o valor pelo qual varia é 50. Ou seja, valores de chaves entre 45 e 55 seriam filtrados. Porém, a operação é de pesquisa multidimensional e um exemplo de registro com 4 chaves que seria selecionado é \{45, 47, 54, 50\}.
 
 	A motivação para experimentos de comparação entre árvores \textit{K-D} e MySQL é o monitoramento \textit{online}. O monitoramento \textit{online} consiste em ir construindo a estrutura multidimensional na medida em que os dados são monitorados. Essa seção está dividida em duas partes: A subseção \ref{kd_vs_mysql_insert} trata dos experimentos envolvendo a operação de inserção, e a subseção \ref{kd_vs_mysql_search} trata dos experimentos envolvendo a operação de busca.
 

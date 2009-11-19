@@ -44,7 +44,7 @@
 \end{center}
 \end{figure}
 
-	Em árvores \textit{K-D} a operação de pesquisa pode ser feita de três formas distintas: pesquisando pelo conjunto de chaves exato, parcial ou dentro de um intervalo. A pesquisa exata consiste em percorrer a estrutura procurando um registro com exatamente todas as chaves iguais às da pesquisa. A pesquisa parcial procura por registro com uma ou mais chaves iguais. E a pesquisa por intervalo localiza todos os registros que tenham suas chaves entre os intervalos das chaves da pesquisa. Em todos os casos a forma com que o algoritmo percorre a árvore é semelhante ao mesmo algoritmo da árvore binária de busca, porém em cada nível da árvore uma chave diferente é usada para a comparação.
+	Em árvores \textit{K-D} a operação de pesquisa pode ser feita de três formas distintas: pesquisando pelo conjunto de chaves exato, parcial ou dentro de um intervalo. A pesquisa exata consiste em percorrer a estrutura procurando um registro com exatamente todas as chaves iguais às da pesquisa. A pesquisa parcial procura por registros com uma ou mais chaves iguais às da pesquisa. E a pesquisa por intervalo localiza todos os registros que tenham suas chaves entre os intervalos das chaves da pesquisa. Em todos os casos a forma com que o algoritmo percorre a árvore é semelhante ao mesmo algoritmo da árvore binária de busca, porém em cada nível da árvore uma chave diferente é usada para a comparação.
 
 	A inserção em árvores \textit{K-D} ocorre de forma similar a inserção em árvores binárias de pesquisa, o algoritmo percorre a estrutura usando os mesmo critérios de percurso da pesquisa em árvores \textit{K-D} até que seja encontrado um nodo folha. O nodo com os novos dados se torna filho do nodo folha encontrado. É inserido a esquerda se o valor da chave correspondente ao nível for \textit{menor que} a chave do nodo pai, ou a direita se a chave for \textit{maior ou igual que}.
 
@@ -64,7 +64,7 @@
 
 	A árvore K-D adaptativa é uma estrutura estática, sendo difícil mantê-la balanceada na presença constante de inserções e remoções. A estrutura funciona melhor se os dados são conhecidos a priori e se as atualizações forem raras, dependendo assim da ordem de inserção dos dados.
 
-	O algoritmo de pesquisa é executado de maneira parecida com o algoritmo de pesquisa da árvore \textit{K-D}. A única diferença é que ao invés de utilizar a chave do nodo atual para a comparação, é usado a mediana entre todos os pontos daquela plano. O algoritmo de inserção para as árvores \textit{K-D adaptativas} segue esse mesmo raciocínio, o que faz com que a árvore se comporte melhor quando os dados são pouco atualizados.
+	O algoritmo de pesquisa é executado de maneira parecida com o algoritmo de pesquisa da árvore \textit{K-D}. A única diferença é que ao invés de utilizar a chave do nodo atual para a comparação, é usada a mediana entre todos os pontos daquele plano. O algoritmo de inserção para as árvores \textit{K-D adaptativas} segue esse mesmo raciocínio, o que faz com que a árvore se comporte melhor quando os dados são pouco atualizados.
 
 	As árvores \textit{K-D} são estruturas de dados armazenadas em memória primária. Desta forma, não são adequadas para uso em um ambiente com armazenamento secundário, onde a estrutura de dados precisa ser paginada para ser transferida para a memória primária. Além disso, tanto a árvore \textit{K-D} quanto a árvore \textit{K-D adaptativa} tornam-se desbalanceadas na presença frequente de inserções e remoções, o que degrada o desempenho de busca nessas árvores \cite{andreas}.
 
@@ -116,7 +116,7 @@
 
 	O método de inserção para inserir um ponto $p$ na árvore \textit{K-D-B} consiste em localizar a página folha apropriada para o ponto, se existe espaço na página folha, $p$ é inserido, caso contrário a página é dividida em duas outras.
 
-	A árvore \textit{K-D-B}, na presença de inserções e remoções pode forçar divisões dos blocos de dados. As divisões podem ser propagadas de um nó a seus descendentes, para garantir que as regiões permaneçam disjuntas. Uma divisão forçada ocorre quando há um \textit{overflow} ou \textit{underflow} de uma página, nas operações de inserções ou remoções. Este problema é resolvido utilizando a mesma técnica da árvore B, a reorganização. Existem dois tipos de reorganização possíveis: a união e a distribuição. No caso da união, as informações de duas páginas diferentes são combinadas em uma única. E no caso da distribuição, as informações de uma página são divididas em duas páginas \cite{andreas}.
+	A árvore \textit{K-D-B}, na presença de inserções e remoções, pode forçar divisões dos blocos de dados. As divisões podem ser propagadas de um nó a seus descendentes, para garantir que as regiões permaneçam disjuntas. Uma divisão forçada ocorre quando há um \textit{overflow} ou \textit{underflow} de uma página, nas operações de inserções ou remoções. Este problema é resolvido utilizando a mesma técnica da árvore B, a reorganização. Existem dois tipos de reorganização possíveis: a união e a distribuição. No caso da união, as informações de duas páginas diferentes são combinadas em uma única. E no caso da distribuição, as informações de uma página são divididas em duas páginas \cite{andreas}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pesquisa Multidimensional em Banco de Dados}

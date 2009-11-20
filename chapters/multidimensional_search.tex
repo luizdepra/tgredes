@@ -2,7 +2,7 @@
 
 	O objetivo da \textit{busca} ou \textit{pesquisa} é recuperar informação a partir de uma grande massa de dados previamente armazenada \cite{ziviani}. A informação é dividida em registros, sendo que cada registro possui uma chave que é usada como critério de pesquisa. Um algoritmo de busca ou pesquisa é aquele que recebe uma chave de pesquisa como entrada, retornando os registros com chaves iguais à chave de pesquisa. Quando múltiplas chaves de pesquisa são utilizadas simultaneamente, a pesquisa é dita multidimensional.
 
-	Este capítulo está organizado da seguinte maneira. Uma visão geral sobre pesquisa multidimensional é apresentada na seção \ref{definicoes}. A seção \ref{binarias} apresenta as árvores binárias de pesquisa. Logo depois serão apresentadas a árvore \textit{K-D} na seção \ref{kd}, a árvore \textit{K-D adaptativa} na seção \ref{kdadaptativa} e a árvore \textit{K-D-B} na seção \ref{kdb}. Por fim é apresentada a utilização de um banco de dados tradicional, o \textit{MySQL}, para a implementação de pesquisa multidimensional na seção \ref{pesquisamultidb}.
+	Este capítulo está organizado da seguinte maneira. Uma visão geral sobre pesquisa multidimensional é apresentada na seção \ref{definicoes}. A seção \ref{binarias} apresenta as árvores binárias de pesquisa. Logo depois serão apresentadas a árvore \textit{K-D} na seção \ref{kd}, a árvore \textit{K-D adaptativa} na seção \ref{kdadaptativa} e a árvore \textit{K-D-B} na seção \ref{kdb}. Por fim é apresentada a utilização de um banco de dados tradicional, o MySQL, para a implementação de pesquisa multidimensional na seção \ref{pesquisamultidb}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Definições Preliminares}
@@ -46,7 +46,7 @@
 
 	Em árvores \textit{K-D} a operação de pesquisa pode ser feita de três formas distintas: pesquisando pelo conjunto de chaves exato, parcial ou dentro de um intervalo. A pesquisa exata consiste em percorrer a estrutura procurando um registro com exatamente todas as chaves iguais às da pesquisa. A pesquisa parcial procura por registros com uma ou mais chaves iguais às da pesquisa. E a pesquisa por intervalo localiza todos os registros que tenham suas chaves entre os intervalos das chaves da pesquisa. Em todos os casos a forma com que o algoritmo percorre a árvore é semelhante ao mesmo algoritmo da árvore binária de busca, porém em cada nível da árvore uma chave diferente é usada para a comparação.
 
-	A inserção em árvores \textit{K-D} ocorre de forma similar a inserção em árvores binárias de pesquisa, o algoritmo percorre a estrutura usando os mesmo critérios de percurso da pesquisa em árvores \textit{K-D} até que seja encontrado um nodo folha. O nodo com os novos dados se torna filho do nodo folha encontrado. É inserido a esquerda se o valor da chave correspondente ao nível for \textit{menor que} a chave do nodo pai, ou a direita se a chave for \textit{maior ou igual que}.
+	A inserção em árvores \textit{K-D} ocorre de forma similar à inserção em árvores binárias. O algoritmo percorre a estrutura usando os mesmo critérios de percurso do algoritmo de pesquisa até que seja encontrado um nó folha. O nó com os novos dados se torna filho do nó folha encontrado, chamado pai. É inserido à esquerda se o valor da chave correspondente ao nível for \textit{menor que} a chave do nó pai, ou à direita se a chave for \textit{maior ou igual que} à chave correspondente do nó pai.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvores \textit{K-D Adaptativas}}
@@ -64,7 +64,7 @@
 
 	A árvore K-D adaptativa é uma estrutura estática, sendo difícil mantê-la balanceada na presença constante de inserções e remoções. A estrutura funciona melhor se os dados são conhecidos a priori e se as atualizações forem raras, dependendo assim da ordem de inserção dos dados.
 
-	O algoritmo de pesquisa é executado de maneira parecida com o algoritmo de pesquisa da árvore \textit{K-D}. A única diferença é que ao invés de utilizar a chave do nodo atual para a comparação, é usada a mediana entre todos os pontos daquele plano. O algoritmo de inserção para as árvores \textit{K-D adaptativas} segue esse mesmo raciocínio, o que faz com que a árvore se comporte melhor quando os dados são pouco atualizados.
+	O algoritmo de pesquisa é executado de maneira parecida com o algoritmo de pesquisa da árvore \textit{K-D}. A única diferença é que ao invés de utilizar a chave do nó atual para a comparação, é usada a mediana entre todos os pontos daquele plano. O algoritmo de inserção para as árvores \textit{K-D adaptativas} segue esse mesmo raciocínio, o que faz com que a árvore se comporte melhor quando os dados são pouco atualizados.
 
 	As árvores \textit{K-D} são estruturas de dados armazenadas em memória primária. Desta forma, não são adequadas para uso em um ambiente com armazenamento secundário, onde a estrutura de dados precisa ser paginada para ser transferida para a memória primária. Além disso, tanto a árvore \textit{K-D} quanto a árvore \textit{K-D adaptativa} tornam-se desbalanceadas na presença frequente de inserções e remoções, o que degrada o desempenho de busca nessas árvores \cite{andreas}.
 
@@ -137,5 +137,5 @@ O SGBD (Sistema Gerenciador de Banco de Dados) é um conjunto de programas respon
 
 O MySQL \cite{sunmysql} é um SGBD bastante popular, distribuído como software livre, que utiliza a linguagem SQL como interface. Nele é possível utilizar diversas estratégias para o armazenamento dos dados, estas estratégias são chamadas de \textit{Storage Engine} \cite{StorageEngine} estão entre elas o \textit{MyISAM} (padrão do MySQL) ambas possibilitam a criação de índices com múltiplas chaves (até 15 chaves).
 
-Como todo SGBD o MySQL utiliza índices para otimizar as buscas, do contrario seria necessário realizar uma busca seqüencial dos dados iniciando pelo primeiro registro e lendo seqüencialmente através de toda a tabela até encontrar todos os registros relevantes. Se a tabela possuir índices para as colunas em questão, o \textit{MySQL} pode rapidamente obter uma posição para procurar no meio do arquivo de dados sem ter que varrer todos os registros \cite{indicesMysql}.
+Como todo SGBD o MySQL utiliza índices para otimizar as buscas, do contrario seria necessário realizar uma busca seqüencial dos dados iniciando pelo primeiro registro e lendo seqüencialmente através de toda a tabela até encontrar todos os registros relevantes. Se a tabela possuir índices para as colunas em questão, o MySQL pode rapidamente obter uma posição para procurar no meio do arquivo de dados sem ter que varrer todos os registros \cite{indicesMysql}.
 

@@ -113,7 +113,7 @@
 \subsection{Árvore \textit{K-D-B} vs MySQL: Inserção Otimizada}
 \label{kdb_vs_mysql2_insert}
 
-	Nesse experimento foi utilizada uma forma de inserção otimizada do MySQL, através da operação LOAD IN FILE \cite{mysqlLIF}. 
+	Nesse experimento foi utilizada uma forma de inserção otimizada do MySQL, através da operação LOAD DATA INFILE \cite{mysqlLIF}. 
 
 \begin{figure}[H]
 \begin{center}
@@ -124,6 +124,8 @@
 \end{figure}
 
 	A figura \ref{img_insert_10keys_kdb_mysql_2} mostra o resultado da otimização no MySQL. O resultado se torna o inverso do anterior, e o MySQL consegue tempos de inserção muito baixos (1 minuto e 39 segundos para 8 milhões de registros). Tornando comparável o MySQL com a árvore \textit{K-D}. Apesar de não ser visível no gráfico, a árvore \textit{K-D-B} utiliza 13 minutos e 24 segundos para inserir 8 milhões de registros.
+
+	Para a inserção de uma linha o tempo é determinado pelos seguintes fatores, onde os números indicam proporções aproximadas: conexão: (3), enviando consulta ao servidor: (2), analisar a consulta (2), inserir o registro: (1 x tamanho do registro), inserir os índices: (1 x número de índices), Encerramento: (1). Não é levado em consideração a sobrecarga inicial para abrir tabelas. Além disso o tamanho da tabela retarda a inserção de índices em \textit{Log N} assumindo índices em árvore B. Para acelerar as inserções foi utilizado o LOAD DATA INFILE \cite{LoadDataInfile} que é normalmente 20 vezes mais rápido do que usando declarações de INSERT.
 
 \subsection{Árvore \textit{K-D-B} vs MySQL: Busca}
 \label{kdb_vs_mysql_search}

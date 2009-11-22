@@ -84,7 +84,7 @@
 \end{center}
 \end{figure}
 
-	O gráfico de busca da árvore \textit{K-D} foi omitido pois, em todos os testes, o tempo de retorno foi de 0ms até 2ms. Ou seja, não apareceria nenhuma linha no gráfico de comparação. A figura \ref{img_search_Xkeys_mysql} mostra o tempo para a busca no MySQL, com chaves variando entre 4, 8 e 16. Observa-se que a partir de 2 milhões de registros e 16 chaves, o MySQL acentua a sua curva de crescimento em muito mais do que seria o padrão esperado.
+	O gráfico de busca da árvore \textit{K-D} foi omitido pois, em todos os testes, o tempo de retorno foi de 0 milisegundos até 2 milisegundos. Ou seja, não apareceria nenhuma linha no gráfico de comparação. A figura \ref{img_search_Xkeys_mysql} mostra o tempo para a busca no MySQL, com chaves variando entre 4, 8 e 16. Observa-se que a partir de 2 milhões de registros e 16 chaves, o MySQL acentua a sua curva de crescimento em muito mais do que seria o padrão esperado.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -125,7 +125,7 @@
 
 	A figura \ref{img_insert_10keys_kdb_mysql_2} mostra o resultado da otimização no MySQL. O resultado se torna o inverso do anterior, e o MySQL consegue tempos de inserção muito baixos (1 minuto e 39 segundos para 8 milhões de registros). Tornando comparável o MySQL com a árvore \textit{K-D}. Apesar de não ser visível no gráfico, a árvore \textit{K-D-B} utiliza 13 minutos e 24 segundos para inserir 8 milhões de registros.
 
-	Para a inserção de uma linha o tempo é determinado pelos seguintes fatores, onde os números indicam proporções aproximadas: conexão: (3), enviando consulta ao servidor: (2), analisar a consulta (2), inserir o registro: (1 x tamanho do registro), inserir os índices: (1 x número de índices), Encerramento: (1). Não é levado em consideração a sobrecarga inicial para abrir tabelas. Além disso o tamanho da tabela retarda a inserção de índices em \textit{Log N} assumindo índices em árvore B. Para acelerar as inserções foi utilizado o LOAD DATA INFILE \cite{LoadDataInfile} que é normalmente 20 vezes mais rápido do que usando declarações de INSERT.
+	Para a inserção de um registro noa rquivo o tempo é determinado pelos seguintes fatores, onde os números indicam proporções aproximadas: conexão: (peso 3), envio da consulta ao servidor: (peso 2), análise de consulta (peso 2), inseção de registro: (peso proporcional ao tamanho do registro), inseção de índices: (peso proporcional ao número de índices), encerramento de consulta: (peso 1). Não é levada em consideração a sobrecarga inicial para abrir tabelas. Além disso o tamanho da tabela retarda a inserção de índices em \textit{Log N} assumindo índices em árvore B. Para acelerar as inserções foi utilizado o LOAD DATA INFILE \cite{LoadDataInfile} que é normalmente 20 vezes mais rápido do que usando declarações de INSERT.
 
 \subsection{Árvore \textit{K-D-B} vs MySQL: Busca}
 \label{kdb_vs_mysql_search}

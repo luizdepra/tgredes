@@ -1,17 +1,79 @@
 \chapter{Introdução}
 
-  As redes de computadores e aplicações distribuídas têm se tornado ferramentas indispensáveis para as organizações e pessoas. Com o aumento exponencial do tráfego de informações devido ao surgimento de novas aplicações, é fundamental manter a qualidade dos serviços de rede. Além disso, novas tecnologias e padrões têm aumentado a heterogeneidade dos dispositivos conectados às redes. Por esses motivos, controlar e monitorar um ambiente de rede é uma tarefa cada vez mais complexa e necessária.
+  As redes de computadores e aplicações distribuídas têm se tornado ferramentas
+  indispensáveis para as organizações e pessoas. Com o aumento exponencial do
+  tráfego de informações devido ao surgimento de novas aplicações, é fundamental
+  manter a qualidade dos serviços de rede. Além disso, novas tecnologias e
+  padrões têm aumentado a heterogeneidade dos dispositivos conectados às redes.
+  Por esses motivos, controlar e monitorar um ambiente de rede é uma tarefa cada
+  vez mais complexa e necessária.
 	
-  A gerência de redes \cite{NetworkManagement} consiste no controle e monitoramento dos componentes de uma rede, que podem ser físicos ou lógicos, para atingir uma melhor utilização dos  recursos de rede e assegurar um certo nível de serviço. Os níveis de serviço são definidos como contratos de níveis de serviços (SLA - \textit{Service Level Agreements}) \cite{sla}. Esses contratos são assinados entre provedores e clientes de serviços. Os SLAs explicitam formalmente o que um provedor de serviço irá entregar aos seus clientes. Além disso, os SLAs definem os critérios de aceitabilidade de um serviço, as formas de verificar se os critérios de aceitabilidade estão sendo assegurados, além de incluir os compromissos tanto do provedor como do cliente.
+  A gerência de redes \cite{NetworkManagement} consiste no controle e
+  monitoramento dos componentes de uma rede, que podem ser físicos ou lógicos,
+  para atingir uma melhor utilização dos  recursos de rede e assegurar um certo
+  nível de serviço. Os níveis de serviço são definidos como contratos de níveis
+  de serviços (SLA - \textit{Service Level Agreements}) \cite{sla}. Esses
+  contratos são assinados entre provedores e clientes de serviços. Os SLAs
+  explicitam formalmente o que um provedor de serviço irá entregar aos seus
+  clientes. Além disso, os SLAs definem os critérios de aceitabilidade de um
+  serviço, as formas de verificar se os critérios de aceitabilidade estão sendo
+  assegurados, além de incluir os compromissos tanto do provedor como do
+  cliente.
 
-  A arquitetura geral dos sistemas de gerência de rede é dividida em quatro partes básicas: elementos gerenciados, estações de gerência, protocolos de gerência e informações de gerência \cite{GerenciaRede}. Os elementos gerenciados são os componentes da rede que precisam operar adequadamente para que toda a rede ofereça os serviços para quais foi projetada. Cada um dos elementos gerenciados possui um software especial chamado agente, o qual permite que os elementos gerenciados sejam controlados e a monitorados remotamente. As estações de gerência são responsáveis pelo controle e monitoramento dos elementos gerenciados. Também munidas de um software especial, chamado gerente. As informações trocadas entre os agentes e gerentes são chamadas de informações de gerência, e a transmissões desses dados é feita através dos protocolos de gerência. Um protocolo de gerência de rede bastante utilizado em redes TCP/IP é o SNMP (\textit{Simple Network Management Protocol}) \cite{snmp}.
+  A arquitetura geral dos sistemas de gerência de rede é dividida em quatro
+  partes básicas: elementos gerenciados, estações de gerência, protocolos de
+  gerência e informações de gerência \cite{GerenciaRede}. Os elementos
+  gerenciados são os componentes da rede que precisam operar adequadamente para
+  que toda a rede ofereça os serviços para quais foi projetada. Cada um dos
+  elementos gerenciados possui um software especial chamado agente, o qual
+  permite que os elementos gerenciados sejam controlados e a monitorados
+  remotamente. As estações de gerência são responsáveis pelo controle e
+  monitoramento dos elementos gerenciados. Também munidas de um software
+  especial, chamado gerente. As informações trocadas entre os agentes e gerentes
+  são chamadas de informações de gerência, e a transmissões desses dados é feita
+  através dos protocolos de gerência. Um protocolo de gerência de rede bastante
+  utilizado em redes TCP/IP é o SNMP (\textit{Simple Network Management
+  Protocol}) \cite{snmp}.
   
-  No SNMP, os elementos gerenciados podem ser computadores, protocolos, aplicações, roteadores ou qualquer componente que possa disponibilizar informações através de agentes. Os agentes mantém as informações sobre o dispositivo gerenciado em variáveis chamadas objetos, que são armazenadas em uma base de dados, a \textit{Management Information Base} (MIB). Os objetos são referenciados por identificadores únicos, chamados \textit{Object IDentifier} (OID). Essas informações são organizadas de forma hierárquica na MIB, que pode ser representada por uma árvore, definida com a linguagem \textit{Bstract Syntax Notation One} (ASN.1). Já as estações de gerência ou \textit{Network Management Station} (NMS) executam um ou mais gerentes, que são coleções de aplicações em nível de usuários que podem ser voltados para a avaliação de desempenho ou diagnóstico de falhas. Os gerentes das NMSs monitoram os elementos gerenciáveis através da leitura dos objetos das MIBs de cada agente. Essa troca de informações de gerência, entre gerentes e agentes, é feita através do envio e recepção de \textit{Protocol Data Units} (PDUs) \cite{tcpip}. Existem três categorias dessa mensagens definidas pelo protocolo: \textit{snmpget}, do tipo leitura, que permitem a recuperação de valores armazenados em um objeto; \textit{snmpset}, do tipo modificação, que atribui um valor a um objeto; e \textit{trap}, do tipo alarme, que é uma mensagem do agente para o gerente informando uma condição anormal. Existem ainda outras categorias de mensagens que são composições das primitivas \cite{snmp}.
+  No SNMP, os elementos gerenciados podem ser computadores, protocolos,
+  aplicações, roteadores ou qualquer componente que possa disponibilizar
+  informações através de agentes. Os agentes mantém as informações sobre o
+  dispositivo gerenciado em variáveis chamadas objetos, que são armazenadas em
+  uma base de dados, a \textit{Management Information Base} (MIB). Os objetos
+  são referenciados por identificadores únicos, chamados \textit{Object
+  IDentifier} (OID). Essas informações são organizadas de forma hierárquica na
+  MIB, que pode ser representada por uma árvore, definida com a linguagem
+  \textit{Bstract Syntax Notation One} (ASN.1). Já as estações de gerência ou
+  \textit{Network Management Station} (NMS) executam um ou mais gerentes, que
+  são coleções de aplicações em nível de usuários que podem ser voltados para a
+  avaliação de desempenho ou diagnóstico de falhas. Os gerentes das NMSs
+  monitoram os elementos gerenciáveis através da leitura dos objetos das MIBs de
+  cada agente. Essa troca de informações de gerência, entre gerentes e agentes,
+  é feita através do envio e recepção de \textit{Protocol Data Units} (PDUs)
+  \cite{tcpip}. Existem três categorias dessa mensagens definidas pelo
+  protocolo: \textit{snmpget}, do tipo leitura, que permitem a recuperação de
+  valores armazenados em um objeto; \textit{snmpset}, do tipo modificação, que
+  atribui um valor a um objeto; e \textit{trap}, do tipo alarme, que é uma
+  mensagem do agente para o gerente informando uma condição anormal. Existem
+  ainda outras categorias de mensagens que são composições das primitivas
+  \cite{snmp}.
   
-  Um fator importante para a gerência de redes
-  
-  O objetivo deste trabalho é comparar o desempenho do uso de árvores multidimensionais com o uso de bancos de dados relacionais, em especial o MySQL, no armazenamento de que representam as informações de monitoramento. Porém, nos experimentos utilizamos dados não reais, mas de mesma natureza dos de monitoramento. Para isso, foram realizados experimentos de busca e inserção em árvore \textit{K-D}, árvore \textit{K-D-B} e banco de dados MySQL.
+  O objetivo deste trabalho é comparar o desempenho do uso de árvores
+  multidimensionais com o uso de bancos de dados relacionais, em especial o
+  MySQL, no armazenamento de que representam as informações de monitoramento.
+  Porém, nos experimentos utilizamos dados não reais, mas de mesma natureza dos
+  de monitoramento. Para isso, foram realizados experimentos de busca e inserção
+  em árvore \textit{K-D}, árvore \textit{K-D-B} e banco de dados MySQL.
 
-  Os resultados obtidos a partir dos experimentos de comparação entre a árvore K-D e o MySQL mostraram a árvore foi mais eficiente tanto na inserção quanto na busca. O mesmo ocorreu inicialmente com a comparação entre a árvore K-D-B e o MySQL. Mas com uso de índices e do LOAD DATA INFILE no MySQL, os experimentos mostraram que o banco de dados teve melhores resultados na inserção de grandes volumes de dados.
+  Os resultados obtidos a partir dos experimentos de comparação entre a árvore
+  \textit{K-D} e o MySQL mostraram a árvore foi mais eficiente tanto na
+  inserção quanto na busca. O mesmo ocorreu inicialmente com a comparação entre
+  a árvore \textit{K-D-B} e o MySQL. Mas com uso de índices e do LOAD DATA
+  INFILE no MySQL, os experimentos mostraram que o banco de dados teve melhores
+  resultados na inserção de grandes volumes de dados.
 
-  Este trabalho está organizado da seguinte forma. O capítulo 2 apresenta a pesquisa multidimensional incluindo definições básicas e as estruturas de dados utilizadas no trabalho. O capítulo 3 descreve os experimentos realizados, e resultados obtidos. O trabalho finaliza no capítulo 4 com a conclusão.  
+  Este trabalho está organizado da seguinte forma. O capítulo 2 apresenta a
+  pesquisa multidimensional incluindo definições básicas e as estruturas de
+  dados utilizadas no trabalho. O capítulo 3 descreve os experimentos
+  realizados, e resultados obtidos. O trabalho finaliza no capítulo 4 com a
+  conclusão.  

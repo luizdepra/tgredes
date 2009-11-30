@@ -18,7 +18,7 @@
 
 	Os experimentos de comparação envolvem várias ferramentas distintas, e portanto, várias decisões de padronização foram tomadas.
 
-	A decisão inicial foi na estratégia de medição do tempo para as operações de inserção e busca. Como todas as ferramentas utilizam de \textit{C} ou \textit{C++}, foi escolhido um algoritmo para medição do tempo, o qual usa a função \textit{clock()} disponível na biblioteca \textit{time.h}. Com essa função é possível alcançar a precisão de milisegundos, porém essa medida não é totalmente precisa - visto que foi amostrada em um sistema Linux multitarefa. O número de registros (dados multidimensionais) que foram usados nos experimentos variam de 16 mil, 100 mil, 250 mil, 500 mil, 1 milhão, 2 milhões, 4 milhões e 8 milhões. Esses números foram escolhidos pela sua suficiência em retratar um ambiente de monitoramento de redes.
+	A decisão inicial foi na estratégia de medição do tempo para as operações de inserção e busca. Como todas as ferramentas utilizam de \textit{C} ou \textit{C++}, foi escolhido um algoritmo para medição do tempo, o qual usa a função \textit{clock()} disponível na biblioteca \textit{time.h}. Com essa função é possível alcançar a precisão de milissegundos, porém essa medida não é totalmente precisa - visto que foi amostrada em um sistema Linux multitarefa. O número de registros (dados multidimensionais) que foram usados nos experimentos variam de 16 mil, 100 mil, 250 mil, 500 mil, 1 milhão, 2 milhões, 4 milhões e 8 milhões. Esses números foram escolhidos pela sua suficiência em retratar um ambiente de monitoramento de redes.
 
 	O tipo do arquivo de entrada a ser usado (texto ou binário) foi uma decisão tomada empiricamente. Nesse experimento, comparamos a árvore \textit{K-D} com o MySQL tanto para a operação de inserção quanto de busca. Para a simplificação do experimento, os testes foram feitos somente com dados multidimensionais de 4 chaves. No MySQL, utilizamos somente arquivo de entrada texto e na árvore \textit{K-D} foram usados o arquivo de entrada texto e binário.
 
@@ -84,7 +84,7 @@
 \end{center}
 \end{figure}
 
-	O gráfico de busca da árvore \textit{K-D} foi omitido pois, em todos os testes, o tempo de retorno foi de 0 milisegundos até 2 milisegundos. Ou seja, não apareceria nenhuma linha no gráfico de comparação. A figura \ref{img_search_Xkeys_mysql} mostra o tempo para a busca no MySQL, com chaves variando entre 4, 8 e 16. Observa-se que a partir de 2 milhões de registros e 16 chaves, o MySQL acentua a sua curva de crescimento em muito mais do que seria o padrão esperado.
+	O gráfico de busca da árvore \textit{K-D} foi omitido pois, em todos os testes, o tempo de retorno foi de 0 milissegundos até 2 milissegundos. Ou seja, não apareceria nenhuma linha no gráfico de comparação. A figura \ref{img_search_Xkeys_mysql} mostra o tempo para a busca no MySQL, com chaves variando entre 4, 8 e 16. Observa-se que a partir de 2 milhões de registros e 16 chaves, o MySQL acentua a sua curva de crescimento em muito mais do que seria o padrão esperado.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -108,7 +108,7 @@
 \end{center}
 \end{figure}
 
-	A figura \ref{img_insert_10keys_kdb_mysql} ilustra que a partir de 4 índices utilizados para a inserção, ocorre uma grande acentuação no tempo utilizado. A árvore \textit{K-D-B} por outro lado, mantém o melhor desempenho até o limite de 8 milhões de registros amostrados.
+	A figura \ref{img_insert_10keys_kdb_mysql} ilustra que o custo para operação de inserção de cada registro é proporcional ao número de índices utilizados acarretando diretamente uma grande acentuação no tempo utilizado. A árvore \textit{K-D-B} por outro lado, mantém o melhor desempenho até o limite de 8 milhões de registros amostrados.
 
 %\subsection{Árvore \textit{K-D-B} vs MySQL: Inserção Otimizada}
 %\label{kdb_vs_mysql2_insert}
@@ -140,4 +140,4 @@
 \end{center}
 \end{figure}
 
-	Os resultados, visualizados na figura \ref{img_search_10keys_kdb_mysql} mostram que a implementação da árvore \textit{K-D-B} e o MySQL sem a utilização de índices são os que permanecem constantes em tempo. No MySQL com índices, a busca tem a partir de certo ponto um crescimento extremamente alto.
+	Os resultados, visualizados na figura \ref{img_search_10keys_kdb_mysql} mostram que a comparação entre a implementação da árvore \textit{K-D-B} e o MySQL sem a utilização de índices é inviável, pois possuem tempos de busca bem distintos, enquanto a árvore \textit{K-D-B} leva 5.6 milissegundos para retornar o resultado em uma base de 8 milhões de registros, o MySQL leva aproximadamente 2,8 segundos para efetuar a mesma busca. Entretanto com a utilização de índices, o tempo de busca no MySQL passa a ser menor ao da árvore \textit{K-D-B}, porém a partir de um certo número de registros fica claro uma curva de crescimento no tempo de busca. Essa curva esta linear neste gráfico porque nos experimentos não foram realizados testes para valores entre 4 e 8 milhões de registros.

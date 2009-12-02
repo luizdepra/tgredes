@@ -75,13 +75,22 @@
 	sobre os experimentos é a não utilização de dados de monitoramento reais,
 	porém que possuem a mesma natureza (formação).
 
-
-	Os resultados obtidos a partir dos experimentos de comparação entre a árvore
-	\textit{K-D} e o MySQL mostraram a árvore foi mais eficiente tanto na
-	inserção quanto na busca. O mesmo ocorreu inicialmente com a comparação
-	entre a árvore \textit{K-D-B} e o MySQL. Mas com uso de índices e do LOAD
-	DATA INFILE no MySQL, os experimentos mostraram que o banco de dados teve
-	melhores resultados na inserção de grandes volumes de dados.  
+	O experimento inicial foi uma comparação de tempos entre a árvore
+	\textit{K-D} e o MySQL para inserção e busca de até 8 milhões de registros.
+	Nesse experimento foram usados arquivos de tipo texto e binário.  Os
+	resultados mostraram um pequeno ganho utilizando o arquivo texto, o qual foi
+	escolhido como padrão para os outros experimentos. O segundo experimento
+	mostra novamente uma comparação entre a árvore \textit{K-D} e o MySQL para
+	inserção e busca de até 8 milhões de registros, porém com chaves variando de
+	4 a 16. Resultados mostraram uma diferença significativa nos tempos obtidos
+	usando as duas estruturas. Além disso, mostraram que o número de chaves tem
+	pouca influência nos tempos de inserção e busca. O último experimento 
+	mostra uma comparação do MySQL com a árvore \textit{K-D-B}, que também é
+	baseada em mémoria secundária. Foram medidos os tempos de inserção e busca
+	para até 8 milhões de registros, usando 10 chaves de pesquisa. Resultados
+	inicias apontaram grande vantagem da árvore \textit{K-D-B}, mas com a
+	otimização na inserção e utilização de índices esta diferença desapareceu,
+	inclusive com ganho para o MySQL.
 	
 	Este trabalho está organizado da seguinte forma. O capítulo 2 apresenta a
 	pesquisa multidimensional incluindo definições básicas e as estruturas de

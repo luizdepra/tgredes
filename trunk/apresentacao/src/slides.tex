@@ -1,0 +1,56 @@
+\documentclass{beamer}
+
+%\usepackage{beamerthemesplit}
+\usepackage[brazil]{babel}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T2A]{fontenc}
+%descomente para ISO e comente as duas de cima
+\usepackage[latin1]{inputenc}
+\usetheme{Frankfurt}
+%\usetheme{Singapore}
+%\usetheme{Boadilla}
+%\usetheme{Berkeley}
+\useinnertheme{rounded}
+\usefonttheme{structurebold}
+\usepackage{latexsym}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{epsfig}
+
+%transparenz
+\setbeamercovered{
+still covered={\opaqueness<1>{15}\opaqueness<2>{10}
+\opaqueness<3>{5}\opaqueness<4->{2}},
+again covered={\opaqueness<1->{15}}
+}
+\setbeamertemplate{navigation symbols}{}
+
+
+\title[Trabalho de Graduação]{ Experimentos de Pesquisa Multidimensional em Árvores \textit{K-D} e \textit{K-D-B} versus Banco de Dados Relacional }
+\author[UFPR]{Luiz Francisco Artigas de Prá\\ Renato Yamazaki \\ Saulo Quinteiro dos Santos}
+\institute[DINF]{Universidade Federal do Paraná \\ \today}
+\date[\today]{Orientador: Elias Procópio Duarte Jr. \\ Co-orientador: Andreas Kiefer}
+
+\begin{document}
+
+\frame{\titlepage}
+
+%\section[Roteiro]{}
+%\frame{\tableofcontents}
+
+\AtBeginSection[]
+{
+    \begin{frame}
+    	\frametitle{Roteiro}
+	\tableofcontents[currentsection]
+    \end{frame}
+}
+
+\input{../input/01_motivacao.tex}
+\input{../input/02_arvores.tex}
+\input{../input/03_mysql.tex}
+\input{../input/04_experimentos.tex}
+\input{../input/05_conclusao.tex}
+\input{../input/06_trabfuturos.tex}
+
+\end{document}

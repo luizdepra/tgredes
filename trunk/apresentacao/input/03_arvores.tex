@@ -1,12 +1,13 @@
 \section{Árvores Multidimensionais}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 	\frametitle{Árvore \textit{K-D}}
 	\begin{itemize}
 		\item Semelhante à árvore binária, porém possibilita a pesquisa por múltiplos atributos.
 		\item Na árvore \textit{K-D} os registros são definidos por \textit{K} chaves.
-		\item A chave que determina s sub-árvore que será acessada, varia a cada nível.
-		\item No nível $L$ a chave $L mod(K+1)$ é utilizada.
+		\item A chave que determina a sub-árvore que será acessada, varia a cada nível.
+		\item No nível $L$ a chave $L\ mod\ (K+1)$ é utilizada.
 	\end{itemize}
 \end{frame}
 
@@ -21,8 +22,8 @@
 \begin{frame}
 	\frametitle{Árvore \textit{K-D}: Pesquisa}
 	\begin{itemize}
-		\item Percorre a estrutura usando os critérios escolhidos.
-		\item Esses critérios diferenciam a pesquisa em exata, parcial ou por intervalo.
+		\item Pode ser classificada em pesquisa em exata, parcial ou por intervalo.
+		\item Percorre a estrutura usando os critérios escolhidos (de acordo com o tipo de pesquisa).		
 	\end{itemize}
 \end{frame}
 
@@ -33,5 +34,72 @@
 		\item Ao encontrar um nó folha, cria um nó com os novos dados e se torna filho do nó folha encontrado.
 	\end{itemize}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{Árvore \textit{K-D Adaptativa}}
+	\begin{itemize}
+		\item Variação da árvore \textit{K-D}, resolve o problema do desbalanceamento utilizando o algoritmo de Hoare.
+		\item O algoritmo encontra a mediana sobre os pontos da partição, para que a nova partição tenha o mesmo número de pontos.
+		\item Funciona melhor se os dados são conhecidos a priori.
+	\end{itemize}
+\end{frame}
 
+\begin{frame}
+	\frametitle{Árvore \textit{K-D Adaptativa}}
+	\begin{figure}[h]
+	\center
+	\includegraphics[width=10cm]{../images/kd_adaptative.jpg}
+	\end{figure}
+\end{frame}
 
+\begin{frame}
+	\frametitle{Árvore \textit{K-D Adaptativa}: Pesquisa}
+	\begin{itemize}
+		\item Semelhante ao algoritmo de pesquisa da árvore \textit{K-D}. Possui os mesmos tipos de pesquisa: exata, parcial e por intervalo.
+		\item Porém, utiliza a mediana entre os pontos do plano atual, ao invés da chave do nó atual.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Árvore \textit{K-D Adaptativa}: Inserção}
+	\begin{itemize}
+		\item Segue o mesmo raciocínio da pesquisa, utilizando a pesquisa exata.
+		\item Ao encontrar um nó folha, cria um nó com os novos dados e se torna filho do nó folha encontrado.
+		\item Com a presença constante de inserções e remoções, a estrutura fica desbalanceada.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{Árvore \textit{K-D-B}}
+	\begin{itemize}
+		\item Possui características de árvore \textit{K-D adaptativa} e árvore \textit{B}.
+		\item Os nós internos são apontadores e representam determinada região. São chamados de \textit{páginas de regiões} e contém o endereço para o nó filho.
+		\item Os dados (pontos) são armazenados somente nas \textit{páginas de pontos} (folhas).
+		\item As folhas estão sempre em um mesmo nível, e isso garante que a árvore esteja balanceada.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Árvore \textit{K-D-B}}
+	\begin{figure}[h]
+	\center
+	\includegraphics[width=10cm]{../images/kdb.jpg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Árvore \textit{K-D-B}: Pesquisa}
+	\begin{itemize}
+		\item Pode ser classificada em pesquisa exata, parcial e por intervalo.
+		\item Porém, utiliza a mediana entre os pontos do plano atual, ao invés da chave do nó atual.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Árvore \textit{K-D-B}: Inserção}
+	\begin{itemize}
+		\item Segue o mesmo raciocínio da pesquisa, utilizando a pesquisa exata.
+		\item Ao encontrar um nó folha, cria um nó com os novos dados e se torna filho do nó folha encontrado.
+		\item Com a presença constante de inserções e remoções, a estrutura fica desbalanceada.
+	\end{itemize}
+\end{frame}

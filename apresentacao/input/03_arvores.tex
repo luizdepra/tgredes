@@ -20,15 +20,13 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Árvore \textit{K-D}: Pesquisa}
+	\frametitle{Árvore \textit{K-D}: Operações}
+	\textbf{Pesquisa}
 	\begin{itemize}
 		\item Pode ser classificada em pesquisa em exata, parcial ou por intervalo.
 		\item Percorre a estrutura usando os critérios escolhidos (de acordo com o tipo de pesquisa).		
 	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Árvore \textit{K-D}: Inserção}
+	\textbf{Inserção}
 	\begin{itemize}
 		\item Percorre a estrutura usando da pesquisa exata.
 		\item Ao encontrar um nó folha, cria um nó com os novos dados e se torna filho do nó folha encontrado.
@@ -53,19 +51,16 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Árvore \textit{K-D Adaptativa}: Pesquisa}
+	\frametitle{Árvore \textit{K-D Adaptativa}: Operações}
+	\textbf{Pesquisa}
 	\begin{itemize}
 		\item Semelhante ao algoritmo de pesquisa da árvore \textit{K-D}. Possui os mesmos tipos de pesquisa: exata, parcial e por intervalo.
 		\item Porém, utiliza a mediana entre os pontos do plano atual, ao invés da chave do nó atual.
 	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Árvore \textit{K-D Adaptativa}: Inserção}
+	\textbf{Inserção}
 	\begin{itemize}
 		\item Segue o mesmo raciocínio da pesquisa, utilizando a pesquisa exata.
 		\item Ao encontrar um nó folha, cria um nó com os novos dados e se torna filho do nó folha encontrado.
-		\item Com a presença constante de inserções e remoções, a estrutura fica desbalanceada.
 	\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -88,18 +83,14 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Árvore \textit{K-D-B}: Pesquisa}
+	\frametitle{Árvore \textit{K-D-B}: Operações}
+	\textbf{Pesquisa}
 	\begin{itemize}
 		\item Pode ser classificada em pesquisa exata, parcial e por intervalo.
-		\item Porém, utiliza a mediana entre os pontos do plano atual, ao invés da chave do nó atual.
+		\item Os algoritmos de pesquisa fazem um caminho sobre a árvore até achar a página de folha, usando a divisão dos planos.
 	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Árvore \textit{K-D-B}: Inserção}
+	\textbf{Inserção}
 	\begin{itemize}
-		\item Segue o mesmo raciocínio da pesquisa, utilizando a pesquisa exata.
-		\item Ao encontrar um nó folha, cria um nó com os novos dados e se torna filho do nó folha encontrado.
-		\item Com a presença constante de inserções e remoções, a estrutura fica desbalanceada.
+		\item Para inserir um ponto $p$ na árvore, é localizada a página folha apropriada para o ponto. Se existe espaço na página folha, $p$ é inserido, caso não, a página é dividida em duas.
 	\end{itemize}
 \end{frame}

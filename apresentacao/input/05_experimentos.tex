@@ -4,9 +4,115 @@
 	\frametitle{Decisões de Implementação}
 	\begin{itemize}
 		\item Para a medição do tempo foi utilizada a função \textit{clock()} da biblioteca \textit{time.h}.
-		\item Arquivos de entrada texto. Cada linha representa um dado multidimensional, e cada coluna uma dimensão desse dado.
-		\item 
+		\item Experimento de comparação entre arquivo de entrada binário e texto.
+		\item Nos arquivos de entrada texto, cada linha representa um dado multidimensional, e cada coluna uma dimensão desse dado.
+		\item Número de registros variam entre 16 mil, 100 mil, 250 mil, 500 mil, 1 milhão, 2 milhões, 4 milhóes e 8 milhões. 
 	\end{itemize}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Comparação da árvore K-D com o MySQL}
+	\begin{itemize}
+		\item Motivação: monitoramento \textit{online}.
+		\item Biblioteca libkdtree++.
+		\item Registro de 4, 8 e 16 chaves.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Comparação da árvore K-D com o MySQL: Inserção}
+	\begin{figure}[h]
+	\center
+	\includegraphics[width=10cm]{../images/experiments/Xkeys_insertion_kdtree_mysql.jpg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Comparação da árvore K-D com o MySQL: Inserção}
+	\textbf{Resultados}\\
+	\begin{itemize}
+		\item Crescimento linear mais acentuado para o MySQL. 
+		\item Pouca variação entre diferentes números de chaves.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Comparação da árvore K-D com o MySQL: Pesquisa}
+	\begin{figure}[h]
+	\center
+	\includegraphics[width=10cm]{../images/experiments/Xkeys_search_mysql.jpg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Comparação da árvore K-D com o MySQL: Pesquisa}
+	\textbf{Resultados}\\
+	\begin{itemize}
+		\item Tempo de pesquisa da árvore \textit{K-D}, menor que 2 milisegundos, não foi representado no gráfico. 
+		\item A partir de 2 milhões de registros e 16 chaves, a curva do MySQL tem um crescimento acentuado. 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Comparação da árvore K-D-B com o MySQL}
+	\begin{itemize}
+		\item Motivação: monitoramento \textit{offline}.
+		\item Biblioteca TPIE.
+		\item Registro de 10 chaves.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Comparação da árvore K-D-B com o MySQL: Inserção}
+	\begin{figure}[h]
+	\center
+	\includegraphics[width=8cm]{../images/experiments/10keys_insertion_kdbtree_mysql.jpg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Comparação da árvore K-D-B com o MySQL: Inserção}
+	\textbf{Resultados}\\
+	\begin{itemize}
+		\item Para o MySQL, custo da operação acentuado proporcional ao número de índices utilizados. 
+		\item A árvore \textit{K-D-B} mantém o melhor desempenho.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Comparação da árvore K-D-B com o MySQL: Inserção}
+	\begin{figure}[h]
+	\center
+	\includegraphics[width=8cm]{../images/experiments/10keys_insertion_kdbtree_mysql2.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Comparação da árvore K-D-B com o MySQL: Inserção}
+	\textbf{Resultados}\\
+	\begin{itemize}
+		\item O MySQL consegue tempos de inserção muito baixos (1 minuto e 3 segundos para 8 milhões de registros).
+		\item A árvore \textit{K-D-B} fez a inserção de 8 milhões de registros em em 13 minutos e 24 segundos. 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Comparação da árvore K-D-B com o MySQL: Pesquisa}
+	\begin{figure}[h]
+	\center
+	\includegraphics[width=8cm]{../images/experiments/10keys_search_kdbtree_mysql.jpg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Comparação da árvore K-D-B com o MySQL: Pesquisa}
+	\textbf{Resultados}\\
+	\begin{itemize}
+		\item Sem índices o MySQL leva 2,8 segundos para pesquisar em uma base de 8 milhões de resitros.
+		\item Para a mesma base, a árvore \textit{K-D-B} retorna o resultado em 5,6 milisegundos.
+		\item O desempenho do MySQL melhorar com o aumento do número de índices.
+		\item Com índice de 10 chaves, o MySQL se torna mais rápido que a árvore \textit{K-D-B}.
+		\item Com menos chaves, o MySQL tem um crescimento acentuado a partir de 4 milhões de registros. 
+	\end{itemize}
+\end{frame}
 

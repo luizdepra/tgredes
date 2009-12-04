@@ -17,7 +17,7 @@
 	\frametitle{SGBD Sistema Gerenciador de Bando de Dados}
 	\begin{itemize}
 		\item É um conjunto de programas responsável pelo gerencialmento de uma base de dados que disponibiliza uma interface para incluir, alterar ou consultar dados.
-		\item Essa interface é constituída pelas APIs ou drivers do SGBD, que executam comandos na linguegem SQL
+		\item Essa interface é constituída pelas APIs ou drivers do SGBD, que executam comandos na linguagem SQL
 	\end{itemize}
 \end{frame}
 
@@ -27,5 +27,42 @@
 	\begin{itemize}
 		\item O MySQL é um SGBD bastante popular, distribuído como
 	software livre, que utiliza a linguagem SQL como interface.
+		\item Possui diversas estratégias de armazenamento dos dados, esta estratégias são chamadas de \textit{Storage Engine}, estão entre elas \textit{MyISAM} e o \textit{InnoDB}.
+		\item Ambas as \textit{Storage Engine} possibilitam a criação de índices com múltiplas chaves (até 15 chaves).
 	\end{itemize}
 \end{frame}
+
+
+\begin{frame}
+	\frametitle{Índices}	
+	\begin{itemize}
+		\item São estruturas de dados independentes que armazenam informações referentes às chaves indexadas, de forma a referenciar o local onde estão armazenados os dados.
+		\item É comumente utilizada a árvore B+ para armazenar os índices, pois ela apresenta a forma de uma árvore balanceada e tem a possíbilidade de acesso sequencial aos dados.
+	\end{itemize}
+	
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Índices: Árvore \textit{B+}}
+	\begin{figure}[h]
+	\center
+	\includegraphics[width=10cm]{../images/arvorebmais.jpg}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{MySQL: Operações}
+	\textbf{Pesquisa}
+	\begin{itemize}
+		\item É possível realizar diversos tipos de consulta no MySQL utilizando o comando SELECT da linguagem SQL.
+		\item As consultas podem ser otimizadas, associando índices relacionados a chaves de busca à tabela.
+	\end{itemize}
+	\textbf{Inserção}
+	\begin{itemize}
+		\item È feita atrávez de do comando INSERT da linguagem SQL.
+		\item Para inserir dados carregados de um arquivo texto é possível otimizar a inserção de dados utilizando o LOAD DATA INFILE. 
+	\end{itemize}
+\end{frame}
+

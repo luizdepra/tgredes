@@ -18,7 +18,7 @@
 	Para a realização dos experimentos de comparação, foi utilizada uma máquina
 	dedicada somente para esta atividade. A configuração de hardware dessa
 	maquina é a seguinte: processador AMD Athlon XP 1800+, dois módulos de
-	memória DDR 400 de 512MB e disco \textit{Samsung} 40GB, 7200RPM.
+	memória DDR 400 de 512MB e disco IDE \textit{Samsung} 40GB, 7200RPM.
 
 	O sistema operacional utilizado é o Debian Lenny, com \textit{kernel} Linux
 	2.6.26. Todas as implementações relativas aos experimentos utilizam-se de
@@ -73,8 +73,11 @@
 	são originados de monitoramento de redes reais. São dados gerados
 	randomicamente através de um programa, que os armazena em arquivo na forma
 	de texto ou binário para que sejam utilizados posteriormente pelas
-	ferramentas. Mesmo que a origem dos dados seja randômica, isso não afetaria
-	o resultado em nenhum aspecto, visto que seriam dados de mesma natureza.
+	ferramentas. Esses dados já estão normalizados, ou seja, dentro de um intervalo
+	definido entre 0 até 100, representando valores de recursos utilizados caso fossem
+	valores reais. Isso facilita a sua manipulação (inserção e busca) nas bases de 
+	dados. Mesmo que a origem dos dados seja randômica, isso não afetaria o resultado 
+	em nenhum aspecto, visto que seriam dados de mesma natureza.
 
 \begin{figure}[H] \begin{center}
 \includegraphics[scale=0.6]{images/experiments/4keys_insertion_kdtree_mysql.jpg}
@@ -108,7 +111,7 @@
 
 	A biblioteca libkdtree++ possui todas as operações de inserção e busca para
 	árvore \textit{K-D}, sendo que para os experimentos de busca foi escolhida a
-	busca por intervalo. Esse intervalo é de 5, e o valor pelo qual varia é 50.
+	busca por intervalo. Esse intervalo é 5, e o valor pelo qual varia é 50.
 	Ou seja, valores de chaves entre 45 e 55 seriam filtrados. Porém, a operação
 	é de pesquisa multidimensional e um exemplo de registro com 4 chaves que
 	seria selecionado é \{45, 47, 54, 50\}.
@@ -116,7 +119,11 @@
 	A motivação para experimentos de comparação entre árvores \textit{K-D} e
 	MySQL é o monitoramento \textit{online}. O monitoramento \textit{online}
 	consiste em ir construindo a estrutura multidimensional na medida em que os
-	dados são obtidos no monitoramento.
+	dados são obtidos no monitoramento. Permitindo que requisições sejam 
+	respondidas em tempo real, a medida em que chegam ao sistema. Sendo assim,
+	possível indentificar as tendências de utilização de recursos e 
+	remanejar os recursos de maneira a atender a demanda crescente ou minimizar 
+	a ociosidade de recursos.
 
   Essa seção está dividida em duas partes: A subseção \ref{kd_vs_mysql_insert}
   trata dos experimentos envolvendo a operação de inserção, e a subseção
@@ -141,7 +148,9 @@
 	é possível visualizar a grande diferença absoluta entre a árvore
 	\textit{K-D} e o MySQL. Por exemplo, com 8 milhões de registros e 16 chaves,
 	o MySQL fez a inserção em 20 minutos enquanto que a árvore \textit{K-D} fez
-	a inserção em 1 minuto e 43 segundos.
+	a inserção em 1 minuto e 43 segundos. A diferença de tempo representa uma
+	ordem de grandeza de aproximadamente 92\%, ou seja, o MySQL demora
+	aproximadamente 92\% a mais de tempo que a árvore \textit{K-D}.
 
 \subsection{Comparação da árvore \textit{K-D} com o MySQL: Busca}
 \label{kd_vs_mysql_search}
@@ -156,11 +165,12 @@
 
 	O gráfico de busca da árvore \textit{K-D} foi omitido pois, em todos os
 	testes, o tempo de retorno foi de 0 milissegundos até 2 milissegundos. Ou
-	seja, não apareceria nenhuma linha no gráfico de comparação. A figura
-	\ref{img_search_Xkeys_mysql} mostra o tempo para a busca no MySQL, com
-	chaves variando entre 4, 8 e 16. Observa-se que a partir de 2 milhões de
-	registros e 16 chaves, o MySQL acentua a sua curva de crescimento em muito
-	mais do que seria o padrão esperado.
+	seja, não seria possível visualizar no gráfico a linha que representa a
+	busca na árvore \textit{K-D}. A figura \ref{img_search_Xkeys_mysql} mostra 
+	o tempo para a busca no MySQL, com chaves variando entre 4, 8 e 16. 
+	Observa-se que a partir de 2 milhões de	registros e 16 chaves, o MySQL 
+	acentua a sua curva de crescimento em muito	mais do que seria o padrão 
+	esperado.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -179,8 +189,14 @@
 	O motivo para os experimentos de comparação entre árvores \textit{K-D-B} e
 	MySQL é o monitoramento \textit{offline}. No monitoramento \textit{offline},
 	logs são estruturados para consultas que cobrem todo o período monitorado
-	\cite{andreas}. A subseção \ref{kdb_vs_mysql_insert} discute os experimentos
-	com a operação de inserção. Terminando com a subseção
+	\cite{andreas}. Os recursos são permanentemente monitorados e alarmes podem
+	ser configurados informando que determinados recursos estão atingindo a sua capacidade
+	máxima ou não estão cumprindo metas previamente definidas. A partir daí, 
+	pode-se tomar decisões como, por exemplo, aumentar a capacidade do sistema ou
+	dos recursos que estão atingindo limites estipulados, assegurando a 
+	disponibilidade e desempenho de um serviço, ou alterar a alocação de novas 
+	requisições de serviços. A subseção \ref{kdb_vs_mysql_insert} discute os 
+	experimentos com a operação de inserção. Terminando com a subseção 
 	\ref{kdb_vs_mysql_search} trata dos experimentos com a operação de busca.
 
 \subsection{Comparação da árvore \textit{K-D-B} com o MySQL: Inserção}
@@ -252,6 +268,6 @@
 	índice de busca. Ao utilizar 10 chaves no índice, a busca o MySQL passa a
 	ser mais rápida que a busca com a árvore \textit{K-D-B}. Para os índices com
 	menos chaves, o gráfico mostra um crescimento linear acentuado a partir de 4
-	milhões de registros, isso ocorre porque nesses experimentos porque foram
+	milhões de registros, isso ocorre porque nesses experimentos foram
 	realizados testes apenas para 4 e 8 milhões de registros, sem valores
 	intermediários.

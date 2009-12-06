@@ -159,7 +159,7 @@ $(k_{0},k_{1},k_{2})$.} \end{center} \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvores \textit{K-D-B}} \label{kdb}
 
-	A árvore \textit{K-D-B} \cite{andreas} é utilizada principalmente para
+	A árvore \textit{K-D-B} \cite{robinson} é utilizada principalmente para
 	armazenamento em memória secundária, possuindo características de árvore
 	\textit{K-D adaptativa} e árvore \textit{B} \cite{comer}. A estrutura da
 	árvore \textit{K-D-B} segue o mesmo princípio de divisão em planos da árvore
@@ -194,14 +194,16 @@ $(k_{0},k_{1},k_{2})$.} \end{center} \end{figure}
 	O algoritmo de pesquisa exata acha um ponto $p$ especificado por $K$
 	coordenadas. Esse algoritmo faz  um caminho sobre a árvore até achar a
 	página de folha, usando das divisões dos planos até achar ou não o ponto
-	exato de pesquisa. Os passos desse algoritmo esão descritos a seguir:
+	exato de pesquisa. Os passos desse algoritmo estão descritos a seguir:
 
-	\begin{verbatim} (L1) Iniciando na página raiz, visitar a página; (L2) Se a
-	página visitada é página folha, então retorna o ponto na página ou falso
-	caso o ponto não esteja na página; (L3) Senão, enquanto a página visitada
-	for página de região faça: recupera a página visitada da memória, localiza a
-		página descendente que intercepta o ponto, faz essa a página a ser
-		visitada e vai para (L2); \end{verbatim}
+	\begin{verbatim} 
+	(L1) Iniciando na página raiz, visitar a página; 
+	(L2) Se a página visitada é página folha, então retorna o ponto na página 
+	     ou falso caso o ponto não esteja na página; 
+	(L3) Senão, enquanto a página visitada for página de região faça: recupera 
+	     a página visitada da memória, localiza a página descendente que 
+	     intercepta o ponto, faz essa a página a ser visitada e vai para (L2); 
+	\end{verbatim}
 
 	O algoritmo de pesquisa por intervalo procura por todos os pontos que
 	possuem suas $K$ coordenadas especificadas dentro de um intervalo de
@@ -209,12 +211,15 @@ $(k_{0},k_{1},k_{2})$.} \end{center} \end{figure}
 	vários pontos dependendo do intervalo escolhido. Os passos para esse
 	algoritmo estão descritos abaixo:
 
-	\begin{verbatim} (L1) Iniciando na página raiz, visitar a página; (L2) Se a
-	página visitada é página folha, então retorna todos os pontos na página que
-	pertencem ao intervalo especificado; (L3) Senão, enquanto a página visitada
-	for página de região faça: recupera a página visitada da memória, para cada
-		página que intercepta o intervalo especificado, e caso não seja vazio,
-		faz essa a página a ser visitada e vai para (L2); \end{verbatim}
+	\begin{verbatim} 
+	(L1) Iniciando na página raiz, visitar a página; 
+	(L2) Se a página visitada é página folha, então retorna todos os pontos na 
+	     página que pertencem ao intervalo especificado; 
+	(L3) Senão, enquanto a página visitada for página de região faça: recupera 
+	     a página visitada da memória, para cada página que intercepta o 
+	     intervalo especificado, e caso não seja vazio, faz essa a página a ser 
+	     visitada e vai para (L2); 
+	\end{verbatim}
 
 	O método de inserção para inserir um ponto $p$ na árvore \textit{K-D-B}
 	consiste em localizar a página folha apropriada para o ponto, se existe
@@ -281,8 +286,8 @@ $(k_{0},k_{1},k_{2})$.} \end{center} \end{figure}
 	software livre, que utiliza a linguagem SQL como interface. Nele é possível
 	utilizar diversas estratégias para o armazenamento dos dados, estas
 	estratégias são chamadas de \textit{Storage Engine} \cite{StorageEngine}
-	estão entre elas o \textit{MyISAM} (padrão do MySQL) ambas possibilitam a
-	criação de índices com múltiplas chaves (até 15 chaves).
+	estão entre elas o \textit{MyISAM} (padrão do MySQL). Com o \textit{MyISAM} 
+	é possível a criação de índices com múltiplas chaves (até 15 chaves).
 
 	Como todo SGBD, o MySQL utiliza índices para otimizar as buscas, do
 	contrário seria necessário realizar uma busca seqüencial dos dados,

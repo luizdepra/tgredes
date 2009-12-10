@@ -7,7 +7,7 @@
 		\item Semelhante à árvore binária, porém possibilita a pesquisa por múltiplos atributos.
 		\item Na árvore \textit{K-D} os registros são definidos por \textit{K} chaves.
 		\item A chave que determina a sub-árvore que será acessada, varia a cada nível.
-		\item No nível $L$ a chave $L\ mod\ (K+1)$ é utilizada.
+		\item No nível $L$ a chave $(L\ mod\ K) + 1$ é utilizada.
 	\end{itemize}
 \end{frame}
 
@@ -88,9 +88,9 @@
 	\frametitle{Árvore \textit{K-D Adaptativa}}
 	\begin{figure}[h]
 	\center
-	\subfigure{\includegraphics[width=5cm]{../images/algorithm/kda_plano.png}}
+	\subfigure{\includegraphics[width=4cm]{../images/algorithm/kda_plano.png}}
 	\qquad
-	\subfigure{\includegraphics[width=5cm]{../images/algorithm/kda_1.png}}
+	\subfigure{\includegraphics[width=6cm]{../images/algorithm/kda_1.png}}
 	\end{figure}
 \end{frame}
 

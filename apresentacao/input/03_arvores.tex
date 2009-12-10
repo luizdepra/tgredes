@@ -25,13 +25,13 @@
 	\frametitle{Árvore \textit{K-D}: Operações}
 	\textbf{Pesquisa}
 	\begin{itemize}
-		\item Pode ser classificada em pesquisa em exata, parcial ou por intervalo.
+		\item Pode ser classificada em pesquisa exata, parcial ou por intervalo.
 		\item Percorre a estrutura usando os critérios escolhidos (de acordo com o tipo de pesquisa).		
 	\end{itemize}
 	\textbf{Inserção}
 	\begin{itemize}
 		\item Percorre a estrutura usando da pesquisa exata.
-		\item Ao encontrar um nó folha, cria um nó com os novos dados e se torna filho do nó folha encontrado.
+		\item Ao econtrar o nó mais profundo seguindo o algoritmo da pesquisa, insere os novos dados como filho do nó econtrado.
 	\end{itemize}
 \end{frame}
 
@@ -103,8 +103,8 @@
 	\end{itemize}
 	\textbf{Inserção}
 	\begin{itemize}
-		\item Segue o mesmo raciocínio da pesquisa, utilizando a pesquisa exata.
-		\item Ao encontrar um nó folha, cria um nó com os novos dados e se torna filho do nó folha encontrado.
+		\item Segue o mesmo raciocínio da árvore \textit{K-D}. Porém, ao encontrar o nó mais profundo, calcula a mediana entre o nó a ser inserido e o nó encontrado.
+		\item Cria então um nó com a mediana. Sendo esse o nó pai do nó a ser inserido e do nó encontrado.
 	\end{itemize}
 \end{frame}
 

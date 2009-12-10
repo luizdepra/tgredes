@@ -6,7 +6,7 @@
 		\item Para a medição do tempo foi utilizada a função \textit{clock()} da biblioteca \textit{time.h}.
 		\item Experimento de comparação entre arquivo de entrada binário e texto.
 		\item Nos arquivos de entrada texto, cada linha representa um dado multidimensional, e cada coluna uma dimensão desse dado.
-		\item Número de registros variam entre 16 mil, 100 mil, 250 mil, 500 mil, 1 milhão, 2 milhões, 4 milhóes e 8 milhões. 
+		\item Número de registros variam entre 16 mil, 100 mil, 250 mil, 500 mil, 1 milhão, 2 milhões, 4 milhões e 8 milhões. 
 	\end{itemize}
 \end{frame}
 
@@ -92,7 +92,7 @@
 	\textbf{Resultados}\\
 	\begin{itemize}
 		\item O MySQL consegue tempos de inserção muito baixos (1 minuto e 3 segundos para 8 milhões de registros).
-		\item A árvore \textit{K-D-B} fez a inserção de 8 milhões de registros em em 13 minutos e 24 segundos. 
+		\item A árvore \textit{K-D-B} fez a inserção de 8 milhões de registros em 13 minutos e 24 segundos. 
 	\end{itemize}
 \end{frame}
 
@@ -110,7 +110,7 @@
 	\begin{itemize}
 		\item Sem índices o MySQL leva 2,8 segundos para pesquisar em uma base de 8 milhões de resitros.
 		\item Para a mesma base, a árvore \textit{K-D-B} retorna o resultado em 5,6 milisegundos.
-		\item O desempenho do MySQL melhorar com o aumento do número de índices.
+		\item O desempenho do MySQL melhora com o aumento do número de índices.
 		\item Com índice de 10 chaves, o MySQL se torna mais rápido que a árvore \textit{K-D-B}.
 		\item Com menos chaves, o MySQL tem um crescimento acentuado a partir de 4 milhões de registros. 
 	\end{itemize}

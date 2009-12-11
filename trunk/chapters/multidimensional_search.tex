@@ -74,11 +74,11 @@
 	perpendicularmente entre os eixos $x$, $y$ e $z$ \cite{andreas}.
 
 	Em termos de pesquisa, na árvore \textit{K-D}, registros são definidos por
-	$K$ chaves. Semelhante ao que ocorre na árvore binária de pesquisa,
+	$K$ chaves. Semelhante ao que ocorre na árvore binária de pesquisa, os
 	registros são acessados usando as comparações lógicas \textit{menor que} ou
 	\textit{maior ou igual que}. Entretando, a chave que determina a sub-árvore
 	que será acessada (por exemplo, esquerda ou direita, na árvore binária),
-	varia a cada nível da árvore. No nível $L$, a chave $L\ mod (K+1)$ é
+	varia a cada nível da árvore. No nível $L$, a chave ($L\ mod K) + 1$ é
 	utilizada, sendo que a raiz está no nível 0. Desta maneira, a primeira chave
 	de pesquisa é utilizada na raiz, a segunda no nível 1, e assim
 	sucessivamente, até que todas as chaves são utilizadas. O processo continua,
@@ -113,7 +113,7 @@ $(k_{0},k_{1},k_{2})$.} \end{center} \end{figure}
 	nó com os novos dados se torna filho do nó folha encontrado, chamado pai. É
 	inserido à esquerda se o valor da chave correspondente ao nível for
 	\textit{menor que} a chave do nó pai, ou à direita se a chave for
-	\textit{maior ou igual que} à chave correspondente do nó pai.
+	\textit{maior ou igual que} a chave correspondente do nó pai.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Árvores \textit{K-D Adaptativas}} \label{kdadaptativa}
@@ -189,7 +189,8 @@ $(k_{0},k_{1},k_{2})$.} \end{center} \end{figure}
 	\cite{andreas}.
 
 	Os algoritmos de pesquisa para a árvore \textit{K-D-B} se dividem em
-	pesquisa exata, parcial, por intervalo e por proximidade.
+	pesquisa exata, parcial, por intervalo e por proximidade. Os algoritmos principais
+	e que serão detalhados a seguir são de pesquisa exata e por intervalo.
 
 	O algoritmo de pesquisa exata acha um ponto $p$ especificado por $K$
 	coordenadas. Esse algoritmo faz  um caminho sobre a árvore até achar a
@@ -284,9 +285,9 @@ $(k_{0},k_{1},k_{2})$.} \end{center} \end{figure}
 
 	O MySQL \cite{sunmysql} é um SGBD bastante popular, distribuído como
 	software livre, que utiliza a linguagem SQL como interface. Nele é possível
-	utilizar diversas estratégias para o armazenamento dos dados, estas
-	estratégias são chamadas de \textit{Storage Engine} \cite{StorageEngine}
-	estão entre elas o \textit{MyISAM} (padrão do MySQL). Com o \textit{MyISAM} 
+	utilizar diversas estratégias para o armazenamento dos dados. Estas
+	estratégias são chamadas de \textit{Storage Engine} \cite{StorageEngine}.
+	Estão entre elas o \textit{MyISAM} (padrão do MySQL). Com o \textit{MyISAM} 
 	é possível a criação de índices com múltiplas chaves (até 15 chaves).
 
 	Como todo SGBD, o MySQL utiliza índices para otimizar as buscas, do

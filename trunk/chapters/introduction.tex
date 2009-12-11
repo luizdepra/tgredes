@@ -22,7 +22,7 @@
 
 	A arquitetura geral dos sistemas de gerência de redes apresenta quatro
 	componentes básicos: elementos gerenciados, estações de gerência, protocolos
-	de gerência e informações de gerência \cite{GerenciaRede}. Os elementos de
+	de gerência e informações de gerência \cite{GerenciaRede}. Os elementos 
 	gerenciados podem ser computadores, protocolos, aplicativos ou qualquer
 	outra entidade que disponibilize informações à rede. O agente é um software
 	executado nos elementos gerenciados e que responde a requisições de
@@ -43,8 +43,8 @@
 	dados diferentes. Essas informações gerenciais podem representar as
 	diferentes características computacionais, sendo mapeadas cada uma para uma
 	dimensão em um espaço multidimensional \cite{bentley}. Por exemplo, o
-	processamento consumido e a memória consumida podem ser duas dimensões
-	desse espaço.  Sendo, um exemplo de consulta: retornar todas as máquinas
+	processamento consumido e a memória consumida em um determinado instante podem ser duas dimensões
+	desse espaço.  Como um exemplo de consulta, pode ser citado: retornar todas as máquinas
 	com $40\%$ ou mais de processamento consumido e $15\%$ ou mais de memória
 	consumida.	
 	
@@ -64,7 +64,7 @@
 	\cite{sunmysql} nos experimentos. A implementação de árvore \textit{K-D}
 	utilizada trabalha somente com a memória primária, sendo mais adequada para
 	o monitoramento \textit{online}. No monitoramento \textit{online}
-	\cite{andreas} a estrutura multidimensional é construída a medida em que
+	\cite{andreas} a estrutura multidimensional é construída à medida em que
 	dados são obtidos no monitoramento. A implementação de árvore
 	\textit{K-D-B} utilizada trabalha tanto com a memória primária quanto a
 	secundária, sendo mais propícia para o monitoramento \textit{offline}. No
@@ -72,7 +72,7 @@
 	consultas que cobrem todo o período monitorado. A estrutura padrão
 	utilizada como base no armazenamento no MySQL é a árvore B+, sendo adequada
 	para o monitoramento \textit{offline}. Um detalhe que vale a pena citar
-	sobre os experimentos é a não utilização de dados de monitoramento reais,
+	sobre os experimentos é que não foram utilizados dados de monitoramento reais,
 	porém que possuem a mesma natureza (formação).
 
 	O experimento inicial foi uma comparação de tempos entre a árvore
@@ -81,9 +81,9 @@
 	resultados mostraram um pequeno ganho utilizando o arquivo texto, o qual foi
 	escolhido como padrão para os outros experimentos. O segundo experimento
 	mostra novamente uma comparação entre a árvore \textit{K-D} e o MySQL para
-	inserção e busca de até 8 milhões de registros, porém com chaves variando de
-	4 a 16. Resultados mostraram uma diferença significativa nos tempos obtidos
-	usando as duas estruturas. Além disso, mostraram que o número de chaves tem
+	inserção e busca de até 8 milhões de registros, porém com número de chaves variando entre
+	4, 8 e 16. Resultados mostraram uma diferença significativa nos tempos obtidos
+	usando as duas estruturas. Além disso, os experimentos mostraram que o número de chaves tem
 	pouca influência nos tempos de inserção e busca. O último experimento 
 	mostra uma comparação do MySQL com a árvore \textit{K-D-B}, que também é
 	baseada em mémoria secundária. Foram medidos os tempos de inserção e busca

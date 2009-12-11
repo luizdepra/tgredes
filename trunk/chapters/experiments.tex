@@ -49,10 +49,10 @@
 	pela sua suficiência em retratar um ambiente de monitoramento de redes.
 
 	O tipo do arquivo de entrada a ser usado (texto ou binário) foi uma decisão
-	tomada empiricamente. Nesse experimento, comparamos a árvore \textit{K-D}
+	tomada empiricamente. Nesse experimento, foram comparados a árvore \textit{K-D}
 	com o MySQL tanto para a operação de inserção quanto de busca. Para a
 	simplificação do experimento, os testes foram feitos somente com dados
-	multidimensionais de 4 chaves. No MySQL, utilizamos somente arquivo de
+	multidimensionais de 4 chaves. No MySQL, foi utilizado somente arquivo de
 	entrada texto e na árvore \textit{K-D} foram usados o arquivo de entrada
 	texto e binário.
 
@@ -65,7 +65,7 @@
 	no MySQL. O formato do arquivo de entrada também foi definido nesse mesmo
 	experimento - cada linha representa um dado multidimensional, sendo que cada
 	coluna representa uma dimensão desse dado. A partir desse ponto, todos os
-	experimentos foram feitos com cinco bases diferentes, sendo que o valores
+	experimentos foram feitos com cinco bases diferentes, sendo que os valores
 	que aparecem nos gráficos são uma média das cinco medições.
 
 	As bases de arquivos, que possuem os dados multidimensionais são comuns
@@ -118,9 +118,9 @@
 
 	A motivação para experimentos de comparação entre árvores \textit{K-D} e
 	MySQL é o monitoramento \textit{online}. O monitoramento \textit{online}
-	consiste em ir construindo a estrutura multidimensional na medida em que os
-	dados são obtidos no monitoramento. Permitindo que requisições sejam 
-	respondidas em tempo real, a medida em que chegam ao sistema. Sendo assim,
+	consiste em construir a estrutura multidimensional na medida em que os
+	dados são obtidos no monitoramento, e permitir que requisições sejam 
+	respondidas em tempo real, à medida em que chegam ao sistema. Desta forma, é
 	possível indentificar as tendências de utilização de recursos e 
 	remanejar os recursos de maneira a atender a demanda crescente ou minimizar 
 	a ociosidade de recursos.
@@ -134,7 +134,7 @@
 \label{kd_vs_mysql_insert}
 
 	Para o experimento de comparação da inserção entre a árvore \textit{K-D} e o
-	MySQL, as chaves variam de 4, 8 a 16.
+	MySQL, as chaves variam de 4, 8 e 16.
 
 \begin{figure}[H] \begin{center}
 \includegraphics[scale=0.6]{images/experiments/Xkeys_insertion_kdtree_mysql.jpg}
@@ -184,7 +184,8 @@
 	versões que estão disponíveis não possuem mais essa implementação de árvore
 	\textit{K-D-B}, e por isso a versão utilizada é uma antiga, tendo limitações
 	quanto ao número de chaves. Com isso os experimentos utilizam somente chaves
-	de tamanho 10.
+	de tamanho 10. Apesar dessas limitações, a biblioteca TPIE é utilizada, pela
+	inexistência de outra ferramenta que implemente a árvore \textit{K-D-B}.
 
 	O motivo para os experimentos de comparação entre árvores \textit{K-D-B} e
 	MySQL é o monitoramento \textit{offline}. No monitoramento \textit{offline},
@@ -196,7 +197,7 @@
 	dos recursos que estão atingindo limites estipulados, assegurando a 
 	disponibilidade e desempenho de um serviço, ou alterar a alocação de novas 
 	requisições de serviços. A subseção \ref{kdb_vs_mysql_insert} discute os 
-	experimentos com a operação de inserção. Terminando com a subseção 
+	experimentos com a operação de inserção, e a subseção 
 	\ref{kdb_vs_mysql_search} trata dos experimentos com a operação de busca.
 
 \subsection{Comparação da árvore \textit{K-D-B} com o MySQL: Inserção}
@@ -220,7 +221,9 @@
 %\label{kdb_vs_mysql2_insert}
 
 	No experimento a seguir foi utilizada uma forma de inserção otimizada do
-	MySQL, através da operação LOAD DATA INFILE \cite{mysqlLIF}.
+	MySQL, através da operação LOAD DATA INFILE \cite{mysqlLIF}. Essa operação
+	carrega os dados diretamente do arquivo texto, não precisando inserir registro
+	por registro.
 
 \begin{figure}[H] \begin{center}
 \includegraphics[scale=0.6]{images/experiments/10keys_insertion_kdbtree_mysql2.png}
@@ -238,7 +241,7 @@
 	Para a inserção de um registro no arquivo, o tempo é determinado pelos
 	seguintes fatores, onde os números indicam proporções aproximadas: conexão
 	(peso 3), envio da consulta ao servidor (peso 2), análise de consulta (peso
-	2), inseção de registro (peso proporcional ao tamanho do registro), inseção
+	2), inserção de registro (peso proporcional ao tamanho do registro), inserção
 	de índices (peso proporcional ao número de índices), encerramento de
 	consulta (peso 1). A inserção de um índice é feita em tempo logarítmico em
 	função do tamanho do arquivo. Não é levada em consideração a sobrecarga
@@ -265,7 +268,7 @@
 	de 8 milhões de registros, o MySQL leva aproximadamente 2,8 segundos para
 	efetuar a mesma busca. Entretanto, com a utilização de índices, o tempo de
 	busca no MySQL vai melhorando na medida em que mais chaves são utilizadas no
-	índice de busca. Ao utilizar 10 chaves no índice, a busca o MySQL passa a
+	índice de busca. Ao utilizar 10 chaves no índice, a busca no MySQL passa a
 	ser mais rápida que a busca com a árvore \textit{K-D-B}. Para os índices com
 	menos chaves, o gráfico mostra um crescimento linear acentuado a partir de 4
 	milhões de registros, isso ocorre porque nesses experimentos foram

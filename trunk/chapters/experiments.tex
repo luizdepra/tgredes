@@ -96,13 +96,13 @@
 
 \begin{figure}[H] \begin{center}
 \includegraphics[scale=0.6]{images/experiments/4keys_search_kdtree_mysql.jpg}
-\caption{Árvore \textit{K-D} versus MySQL: busca.}
+\caption{MySQL: busca com 4 chaves.}
 \label{img_search_4keys_kd_mysql} \end{center} \end{figure}
 
-	A operação de busca para comparação entre árvores \textit{K-D} e MySQL tem
-	seus resultados apresentados na figura \ref{img_search_4keys_kd_mysql}. É
-	possível visualizar novamente o crescimento linear muito maior no MySQL do
-	que na árvore \textit{K-D}. Além disso, apesar de não ficar visível no
+	A figura \ref{img_search_4keys_kd_mysql} mostra os resultados obtidos na operação de busca com 4 chaves para o MySQL.
+	As linhas que representam o tempo de busca na árvore \textit{K-D} foram omitidos, pois
+	não apareceriam no gráfico. O tempo de busca medido na árvore \textit{K-D} foi entre 
+	0 milissegundos a 10 milissegundos. Além disso, apesar de não ficar visível no
 	gráfico, a árvore \textit{K-D} com arquivo de entrada texto teve desempenho
 	superior novamente.
 
@@ -164,7 +164,7 @@
 \label{img_search_Xkeys_mysql} \end{center} \end{figure}
 
 	O gráfico de busca da árvore \textit{K-D} foi omitido pois, em todos os
-	testes, o tempo de retorno foi de 0 milissegundos até 2 milissegundos. Ou
+	testes, o tempo de retorno foi de 0 milissegundos até 10 milissegundos. Ou
 	seja, não seria possível visualizar no gráfico a linha que representa a
 	busca na árvore \textit{K-D}. A figura \ref{img_search_Xkeys_mysql} mostra 
 	o tempo para a busca no MySQL, com chaves variando entre 4, 8 e 16. 
